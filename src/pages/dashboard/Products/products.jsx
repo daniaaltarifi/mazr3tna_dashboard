@@ -119,29 +119,11 @@ export function Products() {
   };
 
   const handleEdit = (product) => {
-    const { main_product_type, id } = product;
-
-    switch (main_product_type) {
-      case "Watch":
-        navigate(`/dashboard/updatewatches/${id}`);
-        break;
-      case "Fragrance":
-        navigate(`/dashboard/updateFragrances/${id}/${product.FragranceID}`);
-        break;
-      case "Bag":
-        navigate(`/dashboard/updateBags/${id}/${product.BagID}`);
-        break;
-      default:
-        Swal.fire({
-          title: 'Error!',
-          text: 'Unknown product type.',
-          icon: 'error',
-          background: '#000',
-          color: '#fff',
-        });
-    }
+    const { id } = product;
+    navigate(`/dashboard/updateproducts/${id}`);
   };
 
+  
   const handleEditVariant = (variant, product) => {
     const { main_product_type } = product;
     const { VariantID } = variant;

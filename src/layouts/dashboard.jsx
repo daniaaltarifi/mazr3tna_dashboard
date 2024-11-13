@@ -19,9 +19,6 @@ import AddSlide from "@/pages/dashboard/Slider/AddSlide";
 import UpdateSlide from "@/pages/dashboard/Slider/UpdateSlide";
 
 
-import { AddWatch } from "@/pages/dashboard/Products/AddProducts/AddWatches";
-import AddFragrance from "@/pages/dashboard/Products/AddProducts/AddFragrance";
-import  AddBags  from "@/pages/dashboard/Products/AddProducts/AddBags";
 // import UpdateProducts from "@/pages/dashboard/Products/UpdateProducts";
 import UpdateWatches from "@/pages/dashboard/Products/UpdateProducts/UpdateWatches";
 import UpdateFragrances from "@/pages/dashboard/Products/UpdateProducts/UpdateFragrances";
@@ -31,6 +28,7 @@ import UpdateFragranceVariant from "@/pages/dashboard/Products/UpdateFragranceVa
 import AddCertificate from "@/pages/dashboard/Brands/AddCertificate";
 import UpdateCertificate from "@/pages/dashboard/Brands/UpdateCertificate";
 import AddCategory from "@/pages/dashboard/Category/AddCategory";
+import AddProduct from "@/pages/dashboard/Products/AddProducts/AddProduct";
 
 export function Dashboard() {
   const [controller, dispatch] = useMaterialTailwindController();
@@ -63,11 +61,6 @@ export function Dashboard() {
               <Route key={path} path={path} element={element} />
             ))
           )}
-
-           <Route path="/addwatches" element={<AddWatch/>} />
-           <Route path="/addfragrance" element={<AddFragrance/>} />
-           <Route path="/addbags" element={<AddBags/>} />
-
             <Route path="adduser" element={<AddUser />} />
             <Route path="updateuser/:id" element={<UpdateUser />} />
             <Route path="addCertificate" element={<AddCertificate />} />
@@ -77,7 +70,8 @@ export function Dashboard() {
             <Route path="addslide" element={<AddSlide />} />
             <Route path="updateslide/:id" element={<UpdateSlide />} />
             <Route path="addcategory" element={<AddCategory />} />
-    
+            <Route path="addproduct" element={<AddProduct />} />
+
 
             
             <Route path="updatewatches/:id" element={<UpdateWatches />} />

@@ -33,49 +33,7 @@ export function Products() {
     fetchProducts();
   }, []);
 
-  const handleAddProduct = async () => {
-    await Swal.fire({
-      title: '<span style="color: black;">Choose the type of the product:</span>',
-      showCloseButton: true,
-      background: '#fff',  
-      html: `
-        <div class="flex justify-around" style="width: 100%; padding: 20px 0;">
-          <button id="addWatches" class="bg-black text-white py-2 rounded inline-flex items-center hover:shadow-lg hover:shadow-red-500 transition duration-300" style="margin: 0 15px; min-width: 150px; padding-left: 20px;">
-            Add Watches
-          </button>
-          <button id="addFragrance" class="bg-black text-white py-2 rounded inline-flex items-center hover:shadow-lg hover:shadow-red-500 transition duration-300" style="margin: 0 15px; min-width: 150px; padding-left: 20px;">
-            Add Fragrance
-          </button>
-          <button id="addBag" class="bg-black text-white py-2 rounded inline-flex items-center hover:shadow-lg hover:shadow-red-500 transition duration-300" style="margin: 0 15px; min-width: 150px; padding-left: 20px;">
-            Add Bag
-          </button>
-        </div>
-      `,
-      focusConfirm: false,
-      allowOutsideClick: true,
-      showCancelButton: false,
-      showConfirmButton: false,
-      width: '600px',
-      padding: '20px',
-      didOpen: () => {
-        document.getElementById('addWatches').addEventListener('click', () => {
-          Swal.close();
-          navigate('/dashboard/addwatches', { replace: true });
-        });
-
-        document.getElementById('addFragrance').addEventListener('click', () => {
-          Swal.close();
-          navigate('/dashboard/addfragrance');
-        });
-
-        document.getElementById('addBag').addEventListener('click', () => {
-          Swal.close();
-          navigate('/dashboard/addbags');
-        });
-      },
-    });
-  };
-
+ 
   const handleDelete = async (id) => {
     const result = await Swal.fire({
       title: 'Are you sure you want to delete this product?',
@@ -277,7 +235,7 @@ export function Products() {
           {/* <Button className="bg-blue-600 text-white" >
             <PlusIcon className="h-5 w-5 mr-2" /> Add Product
           </Button> */}
-          <Button onClick={handleAddProduct}
+          <Button onClick={()=>navigate('/dashboard/addproduct')}
   className="flex items-center bg-[#D87C55] transition duration-300 ease-in hover:shadow-lg hover:shadow-green-500"
   style={{ marginLeft: '50px' }} 
 >

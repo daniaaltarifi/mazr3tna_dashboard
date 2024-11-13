@@ -1,9 +1,7 @@
 import { Routes, Route, Navigate } from "react-router-dom";
 import { Dashboard, Auth } from "@/layouts";
 import Cookies from 'js-cookie';
-import   AddWatch  from "./pages/dashboard/Products/AddProducts/AddWatches";
-import AddFragrance from "./pages/dashboard/Products/AddProducts/AddFragrance";
-import AddBags from "./pages/dashboard/Products/AddProducts/AddBags";
+
 import { useState,useEffect } from "react";
 
 
@@ -23,6 +21,7 @@ import UpdateFragrances from "./pages/dashboard/Products/UpdateProducts/UpdateFr
 import UpdateBags from "./pages/dashboard/Products/UpdateProducts/UpdateBags";
 import Category from "./pages/dashboard/Category/Category";
 import AddCategory from "./pages/dashboard/Category/AddCategory";
+import AddProduct from "./pages/dashboard/Products/AddProducts/AddProduct";
 // export const API_URL="https://hadiyyehbackend.kassel.icu";
 export const API_URL="http://localhost:5050";
 
@@ -55,6 +54,7 @@ function App() {
         <Route path="addslide" element={<AddSlide />} />
         <Route path="updateslide/:id" element={<UpdateSlide />} />
         <Route path="addcategory" element={<AddCategory />} />
+        <Route path="addproduct" element={<AddProduct />} />
 
       
         <Route path="updatewatches/:id" element={<UpdateWatches />} /> 
@@ -65,9 +65,6 @@ function App() {
       </Route>
       <Route path="/auth/*" element={<Auth />} />
       <Route path="/auth/sign-in" element={<SignIn setIsAuthenticated={setIsAuthenticated} />} />
-      <Route path="/addwatches" element={<AddWatch/>} />
-      <Route path="/addfragrance" element={<AddFragrance/>} />
-      <Route path="/addbags" element={<AddBags/>} />
       <Route path="*" element={<Navigate to="/dashboard/home" replace />} />
 
     </Routes>

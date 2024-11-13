@@ -22,6 +22,7 @@ import UpdateBags from "./pages/dashboard/Products/UpdateProducts/UpdateBags";
 import Category from "./pages/dashboard/Category/Category";
 import AddCategory from "./pages/dashboard/Category/AddCategory";
 import AddProduct from "./pages/dashboard/Products/AddProducts/AddProduct";
+import UpdateProduct from "./pages/dashboard/Products/UpdateProducts";
 // export const API_URL="https://hadiyyehbackend.kassel.icu";
 export const API_URL="http://localhost:5050";
 
@@ -58,6 +59,7 @@ function App() {
 
       
         <Route path="updatewatches/:id" element={<UpdateWatches />} /> 
+        <Route path="updateproducts/:id" element={<UpdateProduct />} /> 
         <Route path="updatefragrances/:id/:FragranceID" element={<UpdateFragrances />} /> 
         <Route path="updatebags/:id/:BagID" element={<UpdateBags />} /> 
 

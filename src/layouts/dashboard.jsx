@@ -29,7 +29,7 @@ import AddCertificate from "@/pages/dashboard/Brands/AddCertificate";
 import UpdateCertificate from "@/pages/dashboard/Brands/UpdateCertificate";
 import AddCategory from "@/pages/dashboard/Category/AddCategory";
 import AddProduct from "@/pages/dashboard/Products/AddProducts/AddProduct";
-
+import UpdateProduct from "@/pages/dashboard/Products/UpdateProducts";
 export function Dashboard() {
   const [controller, dispatch] = useMaterialTailwindController();
   const { sidenavType } = controller;
@@ -73,6 +73,7 @@ export function Dashboard() {
             <Route path="addproduct" element={<AddProduct />} />
 
 
+        <Route path="updateproducts/:id" element={<UpdateProduct />} /> 
             
             <Route path="updatewatches/:id" element={<UpdateWatches />} />
             <Route path="updateFragrances/:id/:FragranceID" element={<UpdateFragrances />} />

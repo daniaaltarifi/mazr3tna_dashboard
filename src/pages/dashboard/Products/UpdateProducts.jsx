@@ -1,560 +1,381 @@
-import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import { Input, Button, Typography } from "@material-tailwind/react";
-import Swal from "sweetalert2";
-import axios from 'axios';
+import React, { useState, useEffect, useMemo, useCallback } from 'react';
+import { Input, Button, Typography } from '@material-tailwind/react';
+import Swal from 'sweetalert2';
+import { useNavigate, useParams } from 'react-router-dom';  
+import { API_URL } from '@/App';
 
 export function UpdateProduct() {
   const navigate = useNavigate();
-  const { id } = useParams(); 
+  const { id } = useParams();  
+
   const [productData, setProductData] = useState({
     name: '',
-    description: '',
+    ingredients: '',
     sale: '',
-    main_product_type: '',
-    product_type: '',
+    main_product_type_id: '',
+    certificateID: '',
+    sourcing: '',
     season: '',
-
-    brandID: '',
-    WatchTypeID: null,
-    available: '',
-    before_price: '',
-    after_price: '',
     instock: '',
+    variants: [{ size: '', weight: '', available: '', before_price: '', after_price: '' }],
     img: [],
-    bagTypeID: null, 
   });
 
+  const [main_product, setMainProduct] = useState([]);
+  const [certificate, setCertificate] = useState([]);
   const [existingImages, setExistingImages] = useState([]);
-  const [watchTypes, setWatchTypes] = useState([]);
+  const [newImages, setNewImages] = useState([]);
 
-  // Fetch Product Data
-  useEffect(() => {
-    const fetchProductData = async () => {
-      try {
+  const fetchMainProduct = useCallback(async () => {
+    try {
+      const response = await fetch(`${API_URL}/mainproduct/getmainproduct`);
+      if (!response.ok) throw new Error('Failed to fetch main_product');
+      const data = await response.json();
+      setMainProduct(data);
+    } catch (error) {
+      console.error('Error fetching main_product:', error);
+    }
+  }, []);
 
-        const response = await axios.get(`http://localhost:1010/product/${id}`);
-        const product = response.data.product;
 
-        setProductData({
-          name: product.name,
-          description: product.description,
-          sale: product.sale,
-          main_product_type: product.main_product_type,
-          product_type: product.product_type,
-          season: product.season,
-          brandID: product.brandID,
-          WatchTypeID: product.WatchTypeID,
-          available: product.available,
-          before_price: product.before_price,
-          after_price: product.after_price,
-          instock: product.instock === 'yes' ? 'Yes' : 'No',
-        });
-        setExistingImages(response.data.images);
-        console.log("prod",response.data)
-      } catch (error) {
-        console.error("Error fetching product data:", error);
-        Swal.fire({
-          title: 'Error!',
-          text: 'Failed to fetch product data.',
-          icon: 'error',
-          confirmButtonText: 'Ok',
-        });
-      }
-    };
+  const fetchCertificate = useCallback(async () => {
+    try {
+      const response = await fetch(`${API_URL}/certificate/get/certificates`);
+      if (!response.ok) throw new Error('Failed to fetch certificates');
+      const data = await response.json();
+      setCertificate(data);
+    } catch (error) {
+      console.error('Error fetching certificates:', error);
+    }
+  }, []);
 
-    fetchProductData();
+  const fetchProductData = useCallback(async () => {
+    try {
+      const response = await fetch(`${API_URL}/product/getbyidcms/${id}`);
+      if (!response.ok) throw new Error('Failed to fetch product');
+      const data = await response.json();
+      const { product, variants, images } = data;
+      console.log(images)
+
+      setProductData({
+        name: product.name,
+        ingredients: product.ingredients,
+        sale: product.sale,
+        main_product_type_id: product.main_product_type_id,
+        certificateID: product.certificateID,
+        sourcing: product.sourcing,
+        season: product.season,
+        instock: product.instock,
+        variants: variants || [{ size: '', weight: '', available: '', before_price: '', after_price: '' }],
+        img: [],
+      });
+
+      setExistingImages(images || []);
+    } catch (error) {
+      console.error('Error fetching product data:', error);
+    }
   }, [id]);
 
-
-  // Fetch Watch Types
   useEffect(() => {
-    const fetchWatchTypes = async () => {
-      try {
-        const response = await axios.get('http://localhost:1010/producttypeid/getwatchtypeid');
-        setWatchTypes(response.data); 
-        console.log(response.data)
-      } catch (error) {
-        console.error("Error fetching watch types:", error);
-        Swal.fire({
-          title: 'Error!',
-          text: 'Failed to fetch watch types.',
-          icon: 'error',
-          confirmButtonText: 'Ok',
-        });
-      }
-    };
+    fetchMainProduct();
+    fetchCertificate();
+    fetchProductData();
+  }, [fetchMainProduct, fetchCertificate, fetchProductData]);
 
-    fetchWatchTypes();
-  }, []);
-
-  // Fetch Brands
-  useEffect(() => {
-    const fetchBrands = async () => {
-      try {
-        const response = await axios.get('http://localhost:1010/product/get/brands');
-        setBrands(response.data);
-      } catch (error) {
-        console.error("Error fetching brands:", error);
-        Swal.fire({
-          title: 'Error!',
-          text: 'Failed to fetch brands.',
-          icon: 'error',
-          confirmButtonText: 'Ok',
-        });
-      }
-    };
-
-    fetchBrands();
-  }, []);
-
-  // Fetch Bag Types
-  useEffect(() => {
-    const fetchBagTypes = async () => {
-      try {
-        const response = await axios.get('http://localhost:1010/bagtypeid/getbagtypeid'); // Replace with your actual endpoint
-        setBagTypes(response.data);
-      } catch (error) {
-        console.error("Error fetching bag types:", error);
-        Swal.fire({
-          title: 'Error!',
-          text: 'Failed to fetch bag types.',
-          icon: 'error',
-          confirmButtonText: 'Ok',
-        });
-      }
-    };
-
-    fetchBagTypes();
-  }, []);
-
-  // Fetch Fragrance Types
-  useEffect(() => {
-    const fetchFragranceTypes = async () => {
-      try {
-        const response = await axios.get('http://localhost:1010/fragrancetypeid/getfragrancetypeid'); // Replace with your actual endpoint
-        setFragranceTypes(response.data);
-      } catch (error) {
-        console.error("Error fetching fragrance types:", error);
-        Swal.fire({
-          title: 'Error!',
-          text: 'Failed to fetch fragrance types.',
-          icon: 'error',
-          confirmButtonText: 'Ok',
-        });
-      }
-    };
-
-    fetchFragranceTypes();
-  }, []);
-
-  // Handle Change for Non-Variant Fields
-
+ 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    const finalValue = value === "" ? null : value;
-    setProductData((prevData) => ({ ...prevData, [name]: finalValue }));
+    setProductData((prevData) => ({ ...prevData, [name]: value }));
   };
 
+ 
   const handleFileChange = (e) => {
-    const files = Array.from(e.target.files);
-    setProductData((prevData) => ({ ...prevData, img: files }));
+    const files = e.target.files;
+    const MAX_IMG = 5;
+    if (files.length + productData.img.length > MAX_IMG) {
+      Swal.fire({
+        title: 'Error!',
+        text: `You can only upload a maximum of ${MAX_IMG} images.`,
+        icon: 'error',
+        confirmButtonText: 'Ok',
+      });
+      e.target.value = null;
+      return;
+    }
+    setNewImages((prevImages) => [...prevImages, ...files]);
   };
 
-  const handleUpdate = async (e) => {
+
+  const handleVariantChange = (index, e) => {
+    const { name, value } = e.target;
+    const updatedVariants = [...productData.variants];
+    updatedVariants[index] = { ...updatedVariants[index], [name]: value };
+    setProductData((prevData) => ({ ...prevData, variants: updatedVariants }));
+  };
+
+
+  const addVariant = () => {
+    setProductData((prevData) => ({
+      ...prevData,
+      variants: [...prevData.variants, { size: '', weight: '', available: '', before_price: '', after_price: '' }],
+    }));
+  };
+
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!validateData()) return;
 
-    const formDataToSend = new FormData();
-    for (const key in productData) {
-      if (key === 'instock') {
-        formDataToSend.append(key, productData[key] === 'Yes' ? 'yes' : 'no');
-      } else if (key === 'img') {
-        productData.img.forEach((file) => formDataToSend.append('img', file));
-      } else {
-        formDataToSend.append(key, productData[key]);
+    for (const [key, value] of Object.entries(productData)) {
+      if (key !== 'variants' && !value) {
+        Swal.fire({
+          title: 'Error!',
+          text: `${key.replace(/_/g, ' ')} is required.`,
+          icon: 'error',
+          confirmButtonText: 'Ok',
+        });
+        return;
       }
     }
 
+
+    for (const variant of productData.variants) {
+      if (!variant.available || !variant.before_price || !variant.after_price) {
+        Swal.fire({
+          title: 'Error!',
+          text: 'All variant fields except size and weight are required.',
+          icon: 'error',
+          confirmButtonText: 'Ok',
+        });
+        return;
+      }
+    }
+
+    const formDataToSend = new FormData();
+    Object.entries(productData).forEach(([key, value]) => {
+      if (key !== 'variants') {
+        if (Array.isArray(value)) {
+          value.forEach((item) => formDataToSend.append(key, item));
+        } else {
+          formDataToSend.append(key, value);
+        }
+      }
+    });
+
+
+    productData.variants.forEach((variant, index) => {
+      formDataToSend.append(`variants[${index}][size]`, variant.size);
+      formDataToSend.append(`variants[${index}][weight]`, variant.weight);
+      formDataToSend.append(`variants[${index}][available]`, variant.available);
+      formDataToSend.append(`variants[${index}][before_price]`, variant.before_price);
+      formDataToSend.append(`variants[${index}][after_price]`, variant.after_price);
+    });
+
+ 
+    newImages.forEach((file) => formDataToSend.append('img', file));
+
     try {
-      await axios.put(`http://localhost:1010/product/update/${id}`, formDataToSend, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
+      const response = await fetch(`${API_URL}/product/update/${id}`, {
+        method: 'PUT',
+        body: formDataToSend,
       });
+      if (!response.ok) throw new Error('Failed to update product');
       Swal.fire({
-        title: "Updated!",
-        text: "Product information updated successfully!",
-        icon: "success",
+        title: 'Updated!',
+        text: 'The product has been updated successfully.',
+        icon: 'success',
+        confirmButtonText: 'Ok',
+      }).then(() => {
+        navigate('/dashboard/products');
       });
-      navigate('/dashboard/products');
     } catch (error) {
-      console.error("Error updating product:", error);
+      console.error('Error:', error);
       Swal.fire({
-        title: "Error!",
-        text: error.response?.data?.error || "Failed to update the product. Please try again.",
-        icon: "error",
+        title: 'Error!',
+        text: 'There was an error updating the product. Please try again.',
+        icon: 'error',
+        confirmButtonText: 'Ok',
       });
     }
   };
 
+
+  const handleImageDelete = async (imageId) => {
+    try {
+      const response = await fetch(`${API_URL}/product/deleteImage/${imageId}`, {
+        method: 'DELETE',
+      });
+      if (!response.ok) {
+        throw new Error('Failed to delete image');
+      }
+
+   
+      setExistingImages((prevImages) => prevImages.filter((image) => image.id !== imageId));
+
+      Swal.fire({
+        title: 'Deleted!',
+        text: 'The image has been deleted successfully.',
+        icon: 'success',
+        confirmButtonText: 'Ok',
+      });
+    } catch (error) {
+      console.error('Error deleting image:', error);
+      Swal.fire({
+        title: 'Error!',
+        text: 'There was an error deleting the image. Please try again.',
+        icon: 'error',
+        confirmButtonText: 'Ok',
+      });
+    }
+  };
+
+  const mainProductOptions = useMemo(() => main_product.map((catg) => (
+    <option key={catg.id} value={catg.id}>{catg.name}</option>
+  )), [main_product]);
+
+  const certificateOptions = useMemo(() => certificate.map((type) => (
+    <option key={type.id} value={type.id}>{type.certificate_name}</option>
+  )), [certificate]);
+const handleDelete = async (id) => {
+    const result = await Swal.fire({
+      title: 'Are you sure you want to delete this product?',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, delete it!',
+      cancelButtonText: 'Cancel',
+      icon: 'warning',
+      background: '#000',
+      color: '#fff',
+      customClass: {
+        confirmButton: 'bg-blue-600 text-white',
+        cancelButton: 'bg-red-600 text-white'
+      }
+    });
+
+    if (result.isConfirmed) {
+      try {
+        await fetch(`${API_URL}/product/deleteimage/${id}`, { method: 'DELETE' });
+        setExistingImages(existingImages.filter(product => product.id !== id));
+        await Swal.fire({
+          title: 'Deleted!',
+          text: 'Your product has been deleted.',
+          icon: 'success',
+          background: '#000',
+          color: '#fff',
+          customClass: {
+            confirmButton: 'bg-blue-600 text-white'
+          }
+        });
+      } catch (error) {
+        console.error("Error deleting product:", error);
+        Swal.fire({
+          title: 'Error!',
+          text: 'There was an error deleting the product.',
+          icon: 'error',
+          background: '#000',
+          color: '#fff',
+        });
+      }
+    }
+  };
   return (
     <section className="m-8 flex justify-center">
       <div className="w-full lg:w-3/5 mt-16">
-        <div className="text-center mb-6">
+        <div className="text-center">
           <Typography variant="h2" className="font-bold mb-4">Update Product</Typography>
-          <Typography variant="paragraph" color="blue-gray" className="text-lg font-normal">
-            Modify the details below to update the product.
+          <Typography variant="paragraph" weight="blue-gray" className="text-lg font-normal">
+            Edit the details below to update the product.
           </Typography>
         </div>
-        <form onSubmit={handleUpdate} className="mt-8 mb-2 mx-auto w-full max-w-screen-lg">
+        <form onSubmit={handleSubmit} className="mt-8 mb-2 mx-auto w-full max-w-screen-lg">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-
-            <Input
-              name="name"
-              label="Product Name"
-              value={productData.name}
-              onChange={handleChange}
-              required
-            />
-            <Input
-              name="description"
-              label="Description"
-              value={productData.description}
-              onChange={handleChange}
-              required
-            />
-            <Input
-              name="sale"
-              label="Sale"
-              type="number"
-              value={productData.sale}
-              onChange={handleChange}
-              required
-            />
-            <Input
-              name="main_product_type"
-              label="Main Product Type"
-              value={productData.main_product_type}
-              onChange={handleChange}
-              required
-            />
-            <Input
-              name="product_type"
-              label="Product Type"
-              value={productData.product_type}
-              onChange={handleChange}
-              required
-            />
-            <Input
-              name="season"
-              label="Season"
-              value={productData.season}
-              onChange={handleChange}
-              required
-            />
-            <Input
-              name="brandID"
-              label="Brand ID"
-              type="number"
-              value={productData.brandID}
-              onChange={handleChange}
-              required
-            />
-            <Input
-              name="before_price"
-              label="Before Price"
-              type="number"
-              value={productData.before_price}
-              onChange={handleChange}
-              required
-            />
-            <Input
-              name="after_price"
-              label="After Price"
-              type="number"
-              value={productData.after_price}
-              onChange={handleChange}
-              required
-            />
-            <Input
-              name="instock"
-              label="In Stock"
-              value={productData.instock}
-              onChange={handleChange}
-              required
-            />
-            <Input
-              name="available"
-              label="Available"
-              value={productData.available}
-              onChange={handleChange}
-              required
-            />
-            <Input
-              name="WatchTypeID"
-              label="Watch Type ID"
-              type="number"
-              value={productData.WatchTypeID}
-              onChange={handleChange}
-              required
-            />
-
-
-            {/* Product Name */}
             <div>
-              <Typography variant="small" className="block mb-1">Product Name</Typography>
-              <Input 
-                name="name" 
-                value={productData.name} 
-                onChange={handleChange} 
-                required 
-              />
+              <Typography variant="small" className="block mb-1">Name</Typography>
+              <Input name="name" value={productData.name} onChange={handleChange} required />
             </div>
-
-            {/* Description */}
             <div>
-              <Typography variant="small" className="block mb-1">Description</Typography>
-              <Input 
-                name="description" 
-                value={productData.description} 
-                onChange={handleChange} 
-                required 
-              />
+              <Typography variant="small" className="block mb-1">Ingredients</Typography>
+              <Input name="ingredients" value={productData.ingredients} onChange={handleChange} required />
             </div>
-
-            {/* Sale */}
             <div>
               <Typography variant="small" className="block mb-1">Sale</Typography>
-              <Input 
-                name="sale" 
-                value={productData.sale} 
-                onChange={handleChange} 
-                required 
-              />
+              <select name="sale" value={productData.sale} onChange={handleChange} className="w-full">
+                <option value="">Select Sale Option</option>
+                <option value="no">No</option>
+                <option value="yes">Yes</option>
+              </select>
             </div>
-
-            {/* Main Product Type */}
             <div>
-              <Typography variant="small" className="block mb-1">Main Product Type</Typography>
-              <Input 
-                name="main_product_type" 
-                value={productData.main_product_type} 
-                onChange={handleChange} 
-                required 
-              />
+              <Typography variant="small" className="block mb-1">Category</Typography>
+              <select name="main_product_type_id" value={productData.main_product_type_id} onChange={handleChange} className="w-full">
+                <option value="">Select Category</option>
+                {mainProductOptions}
+              </select>
             </div>
-
-            {/* Product Type */}
             <div>
-              <Typography variant="small" className="block mb-1">Product Type</Typography>
-              <Input 
-                name="product_type" 
-                value={productData.product_type} 
-                onChange={handleChange} 
-                required 
-              />
-            </div>
-
-            {/* Season */}
-            <div>
-              <Typography variant="small" className="block mb-1">Season</Typography>
-              <Input 
-                name="season" 
-                value={productData.season} 
-                onChange={handleChange} 
-                required 
-              />
-            </div>
-
-            {/* Brand Selection */}
-            <div>
-              <Typography variant="small" className="block mb-1">Brand</Typography>
-              <select 
-                name="brandID" 
-                value={productData.brandID || ''} 
-                onChange={handleChange} 
-                className="block w-full border p-2 rounded-lg"
-                required
-              >
-                <option value="">Select a Brand</option>
-                {brands.map((brand) => (
-                  <option key={brand.id} value={brand.id}>{brand.brand_name}</option>
-                ))}
+              <Typography variant="small" className="block mb-1">Certificate</Typography>
+              <select name="certificateID" value={productData.certificateID} onChange={handleChange} className="w-full">
+                <option value="">Select Certificate</option>
+                {certificateOptions}
               </select>
             </div>
 
-            {/* Bag Type Selection */}
-            <div>
-              <Typography variant="small" className="block mb-1">Bag Type</Typography>
-              <select 
-                name="BagTypeID" 
-                value={productData.BagTypeID || ''} 
-                onChange={handleChange} 
-                className="block w-full border p-2 rounded-lg"
-                required
-              >
-                <option value="">Select a Bag Type</option>
-                {bagTypes.map((bagType) => (
-                  <option key={bagType.id} value={bagType.BagTypeID}>{bagType.TypeName}</option> // Adjust based on your data structure
-                ))}
-              </select>
-            </div>
-
-            {/* Fragrance Type Selection */}
-            {productData.main_product_type.toLowerCase() === 'fragrance' && (
-              <div>
-                <Typography variant="small" className="block mb-1">Fragrance Type</Typography>
-                <select 
-                  name="FragranceTypeID" 
-                  value={productData.FragranceTypeID || ''} 
-                  onChange={handleChange} 
-                  className="block w-full border p-2 rounded-lg"
-                  required
-                >
-                  <option value="">Select a Fragrance Type</option>
-                  {fragranceTypes.map((fragranceType) => (
-                    <option key={fragranceType.id} value={fragranceType.FragranceTypeID}>{fragranceType.TypeName}</option> // Adjust based on your data structure
-                  ))}
-                </select>
-              </div>
-            )}
-
-            {/* Top-Level Before Price */}
-            <div>
-              <Typography variant="small" className="block mb-1">Before Price</Typography>
-              <Input 
-                type="number" 
-                name="before_price" 
-                value={productData.before_price} 
-                onChange={handleChange} 
-                required 
-              />
-            </div>
-
-            {/* Top-Level After Price */}
-            <div>
-              <Typography variant="small" className="block mb-1">After Price</Typography>
-              <Input 
-                type="number" 
-                name="after_price" 
-                value={productData.after_price} 
-                onChange={handleChange} 
-                required 
-              />
-            </div>
-
-            {/* Stock Status */}
-            <div>
-              <Typography variant="small" className="block mb-1">Stock Status</Typography>
-              <select 
-                name="instock" 
-                value={productData.instock.toLowerCase() === 'yes' ? 'Yes' : 'No'} 
-                onChange={handleChange} 
-                className="block w-full border p-2 rounded-lg"
-                required
-              >
-                <option value="">Choose Status</option>
-                <option value="Yes">In Stock</option>
-                <option value="No">Out of Stock</option>
-              </select>
-            </div>
-
-            {/* Watch Type */}
-            <div>
-              <Typography variant="small" className="block mb-1">Watch Type</Typography>
-              <select 
-                name="WatchTypeID" 
-                value={productData.WatchTypeID || ''} 
-                onChange={handleChange} 
-                className="block w-full border p-2 rounded-lg"
-              >
-                <option value="">Select a Watch Type</option>
-                {watchTypes.map((type) => (
-                  <option key={type.WatchTypeID} value={type.WatchTypeID}>{type.TypeName}</option>
-                ))}
-              </select>
-            </div>
-
-            {/* Variants Section */}
+       
             <div className="md:col-span-2">
               <Typography variant="small" className="block mb-1">Variants</Typography>
               {productData.variants.map((variant, index) => (
                 <div key={index} className="flex flex-col mb-4 border p-4 rounded-lg">
-                  <div className="flex justify-between items-center">
-                    <Typography variant="small" className="mb-1">Variant {index + 1}</Typography>
-                    {productData.variants.length > 1 && (
-                      <Button type="button" color="red" onClick={() => removeVariant(index)}>Remove</Button>
-                    )}
-                  </div>
-                  <Input 
-                    name="size" 
-                    value={variant.size} 
-                    placeholder="Size" 
-                    onChange={(e) => handleVariantChange(index, e)} 
-                    required 
-                  />
-                  <Input 
-                    name="variant_before_price" // Renamed to avoid confusion
-                    value={variant.before_price} 
-                    placeholder="Variant Before Price" 
-                    type="number" 
-                    onChange={(e) => handleVariantChange(index, e)} 
-                    required 
-                  />
-                  <Input 
-                    name="variant_after_price" // Renamed to avoid confusion
-                    value={variant.after_price} 
-                    placeholder="Variant After Price" 
-                    type="number" 
-                    onChange={(e) => handleVariantChange(index, e)} 
-                    required 
-                  />
-                  <div className="flex items-center mt-2">
-                    <input 
-                      type="checkbox" 
-                      name="Available" // Changed from 'available' to 'Available'
-                      checked={variant.Available} 
-                      onChange={(e) => handleVariantChange(index, e)} 
-                      className="mr-2"
-                    />
-                    <Typography variant="small">Available</Typography>
-                  </div>
+                  <Input name="size" value={variant.size} placeholder="Size" onChange={(e) => handleVariantChange(index, e)} />
+                  <Input name="weight" value={variant.weight} placeholder="Weight" onChange={(e) => handleVariantChange(index, e)} />
+                  <select name="available" value={variant.available} onChange={(e) => handleVariantChange(index, e)} className="w-full">
+                    <option value="">Availability</option>
+                    <option value="yes">Yes</option>
+                    <option value="no">No</option>
+                  </select>
+                  <Input name="before_price" value={variant.before_price} placeholder="Before Price" type="number" onChange={(e) => handleVariantChange(index, e)} />
+                  <Input name="after_price" value={variant.after_price} placeholder="After Price" type="number" onChange={(e) => handleVariantChange(index, e)} />
                 </div>
               ))}
-              <Button type="button" onClick={addVariant} className="mt-2">
-                Add Variant
-              </Button>
+              <Button type="button" onClick={addVariant} className="mt-2">Add Variant</Button>
             </div>
 
-            {/* Images Section */}
-            <div className="md:col-span-2">
-              <Typography variant="small" className="block mb-1">Images</Typography>
-              <div className="flex flex-col">
-                {existingImages.map((image, index) => (
-                  <div key={index} className="flex items-center mb-2">
-                    <img src={`${API_URL}/${image}`} alt={`Existing product ${index + 1}`} className="mr-2 w-32 h-32 object-cover" />
-                    <Button onClick={() => handleRemoveImage(index)} color="red">Remove</Button>
+         
+            {existingImages && existingImages.length > 0 && (
+                <div className="mt-4">
+                  <Typography variant="small" className="mb-2">Existing Images:</Typography>
+                  <div className="grid grid-cols-3 gap-4">
+                    {existingImages.map((img, idx) => (
+                      <div key={img.id} className="relative">
+                        <img 
+                          src={`http://localhost:5050/${img.img}`} 
+                          alt={`Product Image ${idx + 1}`} 
+                          className="w-24 h-24 object-cover"
+                        />
+                        <Button 
+                          type="button" 
+                          color="red" 
+                          className="absolute top-0 right-0"
+                          onClick={() => handleDelete(img.id)}
+                        >
+                          Delete
+                        </Button>
+                      </div>
+                    ))}
                   </div>
-                ))}
-                <Input 
-                  type="file" 
-                  name="img" 
-                  onChange={handleFileChange} 
-                  multiple 
-                  accept="image/*" 
-                />
-              </div>
+                </div>
+              )}
+
+
+           
+            <div className="md:col-span-2">
+              <Typography variant="small" className="block mb-1">Add New Images</Typography>
+              <Input type="file" name="img" onChange={handleFileChange} accept="image/*" multiple />
             </div>
-
-
           </div>
-
-          <Button type="submit" className="mt-6">Update Product</Button>
+          <Button type="submit" className="mt-4" fullWidth>Update Product</Button>
         </form>
       </div>
     </section>
   );
 }
-export default UpdateProduct
+
+export default UpdateProduct;

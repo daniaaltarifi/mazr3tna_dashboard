@@ -31,6 +31,7 @@ import UpdateFragranceVariant from "@/pages/dashboard/Products/UpdateFragranceVa
 import AddCertificate from "@/pages/dashboard/Brands/AddCertificate";
 import UpdateCertificate from "@/pages/dashboard/Brands/UpdateCertificate";
 import AddCategory from "@/pages/dashboard/Category/AddCategory";
+import UpdateProduct from "@/pages/dashboard/Products/UpdateProducts";
 
 export function Dashboard() {
   const [controller, dispatch] = useMaterialTailwindController();
@@ -78,7 +79,7 @@ export function Dashboard() {
             <Route path="updateslide/:id" element={<UpdateSlide />} />
             <Route path="addcategory" element={<AddCategory />} />
     
-
+            <Route path="updateproducts/:id" element={<UpdateProduct />} /> 
             
             <Route path="updatewatches/:id" element={<UpdateWatches />} />
             <Route path="updateFragrances/:id/:FragranceID" element={<UpdateFragrances />} />

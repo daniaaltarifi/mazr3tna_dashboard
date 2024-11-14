@@ -17,19 +17,12 @@ import AddCode from "@/pages/dashboard/Codes/AddCodes";
 import UpdateCode from "@/pages/dashboard/Codes/UpdateCode";
 import AddSlide from "@/pages/dashboard/Slider/AddSlide";
 import UpdateSlide from "@/pages/dashboard/Slider/UpdateSlide";
-
-
-// import UpdateProducts from "@/pages/dashboard/Products/UpdateProducts";
-import UpdateWatches from "@/pages/dashboard/Products/UpdateProducts/UpdateWatches";
-import UpdateFragrances from "@/pages/dashboard/Products/UpdateProducts/UpdateFragrances";
-import UpdateBags from "@/pages/dashboard/Products/UpdateProducts/UpdateBags";
-import UpdateBagVariant from "@/pages/dashboard/Products/UpdateBagsVariant";
-import UpdateFragranceVariant from "@/pages/dashboard/Products/UpdateFragranceVariant";
 import AddCertificate from "@/pages/dashboard/Brands/AddCertificate";
 import UpdateCertificate from "@/pages/dashboard/Brands/UpdateCertificate";
 import AddCategory from "@/pages/dashboard/Category/AddCategory";
 import AddProduct from "@/pages/dashboard/Products/AddProducts/AddProduct";
 import UpdateProduct from "@/pages/dashboard/Products/UpdateProducts";
+import UpdateVariant from "@/pages/dashboard/Products/UpdateVariants";
 export function Dashboard() {
   const [controller, dispatch] = useMaterialTailwindController();
   const { sidenavType } = controller;
@@ -71,15 +64,10 @@ export function Dashboard() {
             <Route path="updateslide/:id" element={<UpdateSlide />} />
             <Route path="addcategory" element={<AddCategory />} />
             <Route path="addproduct" element={<AddProduct />} />
-
-
         <Route path="updateproducts/:id" element={<UpdateProduct />} /> 
-            
-            <Route path="updatewatches/:id" element={<UpdateWatches />} />
-            <Route path="updateFragrances/:id/:FragranceID" element={<UpdateFragrances />} />
-<Route path="updateBags/:id/:BagID" element={<UpdateBags />} />
-          <Route path="updatebagvariants/:id" element={<UpdateBagVariant/>} />
-          <Route path="updateFragrancesVariant/:id" element={<UpdateFragranceVariant />} />
+        <Route path="updatevariants/:id" element={<UpdateVariant />} /> 
+
+
 
         </Routes>   
         <div className="text-blue-gray-600">

@@ -14,17 +14,14 @@ import AddCode from "./pages/dashboard/Codes/AddCodes.jsx";
 import UpdateCode from "./pages/dashboard/Codes/UpdateCode.jsx";
 import AddSlide from "./pages/dashboard/Slider/AddSlide.jsx";
 import UpdateSlide from "./pages/dashboard/Slider/UpdateSlide.jsx";
-// import UpdateProducts from "./pages/dashboard/Products/UpdateProducts";
 import { SignIn } from "./pages/auth";
-import UpdateWatches from "./pages/dashboard/Products/UpdateProducts/UpdateWatches";
-import UpdateFragrances from "./pages/dashboard/Products/UpdateProducts/UpdateFragrances";
-import UpdateBags from "./pages/dashboard/Products/UpdateProducts/UpdateBags";
-import Category from "./pages/dashboard/Category/Category";
+
 import AddCategory from "./pages/dashboard/Category/AddCategory";
 import AddProduct from "./pages/dashboard/Products/AddProducts/AddProduct";
 import UpdateProduct from "./pages/dashboard/Products/UpdateProducts";
-// export const API_URL="https://hadiyyehbackend.kassel.icu";
-export const API_URL="http://localhost:5050";
+import UpdateVariant from "./pages/dashboard/Products/UpdateVariants.jsx";
+export const API_URL="https://mazr3tnabackend.kassel.icu";
+// export const API_URL="http://localhost:5050";
 
 function App() {
   // const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -37,14 +34,12 @@ function App() {
       setIsAuthenticated(!!token);
     }
   }, []);
-  // console.log("Cookies:", Cookies.get());
-  console.log("auth:",isAuthenticated);
   return (
     <Routes>
 
       {/* <Route path="/dashboard/*" element={<Dashboard />}> */}
       <Route path="/dashboard/*" element={
-        true ? <Dashboard /> : <Navigate to="/auth/sign-in" replace />
+        isAuthenticated ? <Dashboard /> : <Navigate to="/auth/sign-in" replace />
       }> 
         <Route path="adduser" element={<AddUser />} />
         <Route path="updateuser/:id" element={<UpdateUser />} />
@@ -57,12 +52,9 @@ function App() {
         <Route path="addcategory" element={<AddCategory />} />
         <Route path="addproduct" element={<AddProduct />} />
 
-      
-        <Route path="updatewatches/:id" element={<UpdateWatches />} /> 
-        <Route path="updateproducts/:id" element={<UpdateProduct />} /> 
-        <Route path="updatefragrances/:id/:FragranceID" element={<UpdateFragrances />} /> 
-        <Route path="updatebags/:id/:BagID" element={<UpdateBags />} /> 
 
+        <Route path="updateproducts/:id" element={<UpdateProduct />} /> 
+        <Route path="updatevariants/:id" element={<UpdateVariant />} /> 
 
       </Route>
       <Route path="/auth/*" element={<Auth />} />

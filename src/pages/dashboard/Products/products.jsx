@@ -232,7 +232,7 @@ export function Products() {
                   "ID", "Name", "ingredients", "Sale",
                   "Main Product Type",
                   "Sourcing", "Season","Instock","Certificate", "Updated At", "Variants",
-                  "Variants Action", "Actions"
+                   "Actions"
                 ].map((header) => (
                   <th key={header} className="border-b py-3 px-5 text-left">
                     <Typography variant="small" className="font-semibold text-xs text-blue-gray-500">
@@ -273,8 +273,12 @@ export function Products() {
                     <td className="border-b py-3 px-5">
                       <ul className="list-disc pl-5 space-y-2">
                         {product.variants.map((variant) => (
-                          <li key={variant.variant_id} className="text-sm text-gray-700"style={{width:"300px"}}>
+                          <li key={variant.variant_id} className="text-sm text-gray-700 "style={{width:"300px"}}>
                             Size :  {variant.size ? variant.size : "No Size"} ,Weight: {variant.weight ? `${variant.weight} kg` : "No Weight"}, Before Price: {variant.before_price} JD, After Price: {variant.after_price}JD,Available:{variant.available}
+                            <Button className="mr-2  transition duration-300 ease-in hover:shadow-lg hover:shadow-blue-500" onClick={()=>{navigate(`/dashboard/updatevariants/${variant.variant_id}`)}}
+                             color="blue-gray" variant="text" size="sm" >
+                              <PencilIcon className="h-4 w-4 mr-1" /> 
+                            </Button>
                           </li>
                         ))}
                       </ul>

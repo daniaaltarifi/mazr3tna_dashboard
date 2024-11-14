@@ -4,34 +4,34 @@ import Swal from 'sweetalert2';
 import { Button, Input, Typography } from '@material-tailwind/react';
 import { API_URL } from '@/App';
 
-const UpdateBagVariant = () => {
+const UpdateVariant = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
-    Size: '',
-    Available: 'No',
+    size: '',
+    available: 'No',
     before_price: '',
     after_price: '',
-    color: '',
+    weight: '',
   });
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchVariantData = async () => {
       try {
-        const response = await fetch(`${API_URL}/product/getbagsvariansbyid/${id}`);
+        const response = await fetch(`${API_URL}/product/getvariantsbyid/${id}`);
         const data = await response.json();
 
         console.log(data); 
 
         if (data && data[0]) {
-          console.log("Fetched color:", data[0].Color); 
+          console.log("Fetched weight:", data[0].weight); 
           setFormData({
-            Size: data[0].Size || '',
-            Available: data[0].Available || 'No',
+            size: data[0].size || '',
+            available: data[0].available || 'No',
             before_price: data[0].before_price || '',
             after_price: data[0].after_price || '',
-            color: data[0].Color || '', 
+            weight: data[0].weight || '', 
           });
         } else {
           throw new Error('Data not found');
@@ -62,7 +62,7 @@ const UpdateBagVariant = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch(`${API_URL}/product/updatebagsvariants/${id}`, {
+      const response = await fetch(`${API_URL}/product/updatevariants/${id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -73,7 +73,7 @@ const UpdateBagVariant = () => {
       if (response.ok) {
         await Swal.fire({
           title: 'Success!',
-          text: 'Bag variant updated successfully.',
+          text: 'variant updated successfully.',
           icon: 'success',
         });
         navigate('/dashboard/products');
@@ -103,21 +103,21 @@ const UpdateBagVariant = () => {
       <form onSubmit={handleSubmit}>
         <div className="mb-4">
           <Input
-            label="Size"
-            name="Size"
-            value={formData.Size}
+            label="size"
+            name="size"
+            value={formData.size}
             onChange={handleChange}
-            required
+            
           />
         </div>
         <div className="mb-4">
-          <label className="block mb-2">Available</label>
+          <label className="block mb-2">available</label>
           <select
-            name="Available"
-            value={formData.Available}
+            name="available"
+            value={formData.available}
             onChange={handleChange}
             className="border rounded px-2 py-1"
-            aria-label="Available"
+            aria-label="available"
             required
           >
             <option value="Yes">Yes</option>
@@ -146,17 +146,17 @@ const UpdateBagVariant = () => {
         </div>
         <div className="mb-4">
           <Input
-            label="Color"
-            name="color" 
-            value={formData.color} 
+            label="weight"
+            name="weight" 
+            value={formData.weight} 
             onChange={handleChange}
-            required
+            
           />
         </div>
-        <Button type="submit" color="black">Update Variant</Button>
+        <Button type="submit" weight="black">Update Variant</Button>
       </form>
     </div>
   );
 };
 
-export default UpdateBagVariant;
+export default UpdateVariant;

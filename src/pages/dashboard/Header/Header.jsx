@@ -13,34 +13,29 @@ import {
     CardHeader,
     CardBody,
     Typography,
-    Avatar,
-    Chip,
-    Tooltip,
-    Progress,
-    Button,
+    Button
   } from "@material-tailwind/react";
-  import { EllipsisVerticalIcon } from "@heroicons/react/24/outline";
-  import { authorsTableData, projectsTableData } from "@/data";
-function Category() {
+
+function Header() {
     const navigate = useNavigate();
-  const [category, setcategory] = useState([]);
+  const [header, setheader] = useState([]);
   const [showModal, setShowModal] = useState(false);
-  const [categoryIdToDelete, setcategoryIdToDelete] = useState(null); // Store the ID of the slide to delete
+  const [headerIdToDelete, setheaderIdToDelete] = useState(null); // Store the ID of the Header to delete
 
   const handleShow = (id) => {
-    setcategoryIdToDelete(id); // Set the slide ID to delete
+    setheaderIdToDelete(id); // Set the Header ID to delete
     setShowModal(true);
   };
 
   const handleClose = () => {
     setShowModal(false);
-    setcategoryIdToDelete(null); // Reset the ID when closing
+    setheaderIdToDelete(null); // Reset the ID when closing
   };
 
-  const fetchcategory = async () => {
+  const fetchheader = async () => {
     try {
-      const response = await axios.get(`${API_URL}/mainproduct/getmainproduct`);
-      setcategory(response.data);
+      const response = await axios.get(`${API_URL}/header/getallheader`);
+      setheader(response.data);
       
     } catch (error) {
       console.error(error);
@@ -49,41 +44,41 @@ function Category() {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`${API_URL}/mainproduct/delete/${id}`);
-      setcategory(category.filter((b) => b.id !== id));
+      await axios.delete(`${API_URL}/header/deleteheader/${id}`);
+      setheader(header.filter((b) => b.id !== id));
     } catch (error) {
       console.error(error);
     }
   };
 
   useEffect(() => {
-    fetchcategory();
+    fetchheader();
   }, []);
   return (
     <>
-    {/* <Button className="mt-6" >Add catg</Button> */}
+    {/* <Button className="mt-6" >Add Header</Button> */}
    
     <div className="mt-12 mb-8 flex flex-col gap-12">
         
     <Card>
       <CardHeader variant="gradient" color="green" className="mb-8 p-6">
         <Typography variant="h6" color="white">
-         Category Table
+         Header Table
         </Typography>
       </CardHeader>
       <CardBody className="overflow-x-scroll px-0 pt-0 pb-2">
-      <Link to="/dashboard/addcategory">
+      <Link to="/dashboard/addheader">
     <Button
-  className="flex items-center bg-[#D87C55] transition duration-300 ease-in hover:shadow-lg hover:shadow-green-500"
+  className="flex bg-[#D87C55] items-center transition duration-300 ease-in hover:shadow-lg hover:shadow-green-500"
   style={{ marginLeft: '80px' }} 
 >
-  <PlusIcon className="h-5 w-5 mr-1" /> Add Category
+  <PlusIcon className="h-5 w-5 mr-1" /> Add header
 </Button>
 </Link>
         <table className="w-full min-w-[640px] table-auto">
           <thead>
             <tr>
-              {["Name","Action"].map((el) => (
+              {["Tilte","Lang","Category","Action"].map((el) => (
                 <th
                   key={el}
                   className="border-b border-blue-gray-50 py-3 px-5 text-left"
@@ -99,13 +94,13 @@ function Category() {
             </tr>
           </thead>
           <tbody>
-            {category.map(
-              (catg,index) => {
-                const className = `py-3 px-5 ${index === category.length - 1 ? "" : "border-b border-blue-gray-50"}`;
+            {header.map(
+              (Head,index) => {
+                const className = `py-3 px-5 ${index === Head.length - 1 ? "" : "border-b border-blue-gray-50"}`;
 
 
                 return (
-                  <tr key={catg.id}>
+                  <tr key={Head.id}>
                     <td className={className}>
                       <div className="flex items-center gap-4">
                         {/* <Avatar src={img} alt={name} size="sm" variant="rounded" /> */}
@@ -115,16 +110,48 @@ function Category() {
                             color="blue-gray"
                             className="font-semibold"
                           >
-                            {catg.name}
+                            {Head.title}
                           </Typography>
+                          {/* <Typography className="text-xs font-normal text-blue-gray-500">
+                            {Header.last_name}
+                          </Typography> */}
+
                         </div>
-                       
                       </div>
                     </td>
+                    <td className={className}>
+                      <Typography className="text-xs font-semibold text-blue-gray-600">
+                      <Typography
+                            variant="small"
+                            color="blue-gray"
+                            className="font-semibold"
+                          >
+                            {Head.lang}
+                          </Typography>
+                      </Typography>
+                    </td>
+                    <td className={className}>
+                      <Typography className="text-xs font-semibold text-blue-gray-600">
+                      <Typography
+                            variant="small"
+                            color="blue-gray"
+                            className="font-semibold"
+                          >
+                            {Head.name}
+                          </Typography>
+                      </Typography>
+                    </td>
+                
                      <td className={className}>
                         <div className="flex items-center">
                           <Button 
-                    onClick={() => handleShow(catg.id)} // Pass the catg ID to handleShow
+                            onClick={() => navigate(`/dashboard/updateheader/${Head.id}`)}
+                            className="mr-2 bg-[#D87C55] flex items-center transition duration-300 ease-in hover:shadow-lg hover:shadow-blue-500"
+                          >
+                            <PencilIcon className="h-5 w-5 mr-1" /> Edit
+                          </Button>
+                          <Button 
+                    onClick={() => handleShow(Head.id)} // Pass the Header ID to handleShow
                     className="text-white-600 bg-[#F5C16C] flex items-center transition duration-300 ease-in hover:shadow-lg hover:shadow-red-500"
                           >
                             <TrashIcon className="h-5 w-5 mr-1" /> Delete
@@ -143,11 +170,11 @@ function Category() {
         showModal={showModal} 
         handleClose={handleClose} 
         handleDelete={handleDelete} 
-       id={categoryIdToDelete} // Pass the catg ID to DeleteModule
+       id={headerIdToDelete} // Pass the Header ID to DeleteModule
       />
   </div>  
   </>
   )
 }
 
-export default Category
+export default Header

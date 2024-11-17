@@ -9,8 +9,8 @@ import {
   WalletIcon,
   QrCodeIcon,
   GiftIcon ,
-  ChatBubbleLeftEllipsisIcon ,
-  PhotoIcon ,NewspaperIcon,ShareIcon
+  ChatBubbleLeftEllipsisIcon ,ShieldCheckIcon ,ShieldExclamationIcon ,
+  PhotoIcon ,NewspaperIcon,ShareIcon,GlobeAsiaAustraliaIcon,ArrowTopRightOnSquareIcon 
 } from "@heroicons/react/24/solid"; // Ensure you import the correct icon
 import { BiSolidCoupon } from "react-icons/bi";
 import {Products, Notifications } from "@/pages/dashboard";
@@ -37,6 +37,12 @@ import Category from "./pages/dashboard/Category/Category";
 import Blogs from "./pages/dashboard/Blogs/Blogs";
 import Abouts from "./pages/dashboard/About/Abouts";
 import FooterData from "./pages/dashboard/Footer/FooterData";
+import PrivacyPolicies from "./pages/dashboard/PrivacyPolicy/AllPrivacyPolicy";
+import AllTermsAndConditions from "./pages/dashboard/TermsConditions/AllTermsAndConditions"
+import Header from "./pages/dashboard/Header/Header";
+
+
+
 
 
 const icon = {
@@ -72,7 +78,7 @@ export const routes = [
         element: <Products />,
       },
       {
-        icon: <ShoppingBagIcon {...icon} />,
+        icon: <GlobeAsiaAustraliaIcon {...icon} />,
         name: "About Us",
         path: "/about",
         element: <Abouts />,
@@ -126,11 +132,30 @@ export const routes = [
         element: <Slider />, // Adjust this to the correct element if needed
       },
       {
+        icon: <ArrowTopRightOnSquareIcon    {...icon} />, // Icon for Brands
+        name: "Header",
+        path: "/header",
+        element: <Header />, // Adjust this to the correct element if needed
+      },
+      {
         icon: <ShareIcon  {...icon} />, // Icon for Brands
         name: "Footer",
         path: "/footer",
-        element: <FooterData />, // Adjust this to the correct element if needed
+        element: <FooterData />,
       },
+        { // Adjust this to the correct element if needed
+        icon: <ShieldCheckIcon   {...icon} />, // Icon for Brands
+        name: "privacypolicy",
+        path: "/privacypolicy",
+        element: <PrivacyPolicies />, // Adjust this to the correct element if needed
+      },
+      {
+        icon: <ShieldExclamationIcon   {...icon} />, // Icon for Brands
+        name: "terms and conditions",
+        path: "/termsandconditions",
+        element: <AllTermsAndConditions />, // Adjust this to the correct element if needed
+      },
+
     ],
   },
   // {

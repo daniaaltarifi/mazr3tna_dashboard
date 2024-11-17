@@ -30,6 +30,12 @@ import UpdateAbout from "@/pages/dashboard/About/UpdateAbout";
 import UpdateFooter from "@/pages/dashboard/Footer/UpdateFooter";
 import AddSocail from "@/pages/dashboard/Footer/AddSocial";
 import UpdateSocial from "@/pages/dashboard/Footer/UpdateSocial";
+import AddPrivacyPolicy from "@/pages/dashboard/PrivacyPolicy/AddPrivacyPolicy";
+import UpdatePrivacyPolicy from "@/pages/dashboard/PrivacyPolicy/UpdatePrivacyPolicy";
+import AddTermsAndConditions from "@/pages/dashboard/TermsConditions/AddTermsAndConditions";
+import UpdateTermsAndConditions from "@/pages/dashboard/TermsConditions/UpdateTermsAndConditions";
+import AddHeader from "@/pages/dashboard/Header/AddHeader";
+import UpdateHeader from "@/pages/dashboard/Header/UpdateHeader";
 export function Dashboard() {
   const [controller, dispatch] = useMaterialTailwindController();
   const { sidenavType } = controller;
@@ -73,6 +79,10 @@ export function Dashboard() {
             <Route path="addcategory" element={<AddCategory />} />
             <Route path="addproduct" element={<AddProduct />} />
             <Route path="addabout" element={<AddAbout />} />
+            <Route path="addtermsandconditions" element={<AddTermsAndConditions />} />
+            <Route path="updatetermsandconditions/:id" element={<UpdateTermsAndConditions />} />
+            <Route path="addprivacypolicy" element={<AddPrivacyPolicy />} />
+            <Route path="updateprivacypolicy/:id" element={<UpdatePrivacyPolicy />} />
         <Route path="updateproducts/:id" element={<UpdateProduct />} /> 
         <Route path="updatevariants/:id" element={<UpdateVariant />} /> 
         <Route path="addblog" element={<AddBlog />} />
@@ -80,6 +90,8 @@ export function Dashboard() {
         <Route path="updatefooter/:id" element={<UpdateFooter />} />
         <Route path="addsocial" element={<AddSocail />} />
         <Route path="updatesocial/:id" element={<UpdateSocial />} />
+        <Route path="addheader" element={<AddHeader />} />
+        <Route path="updateheader/:id" element={<UpdateHeader />} />
        
 
 

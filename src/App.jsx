@@ -31,6 +31,15 @@ import UpdateFooter from "./pages/dashboard/Footer/UpdateFooter.jsx";
 import AddSocail from "./pages/dashboard/Footer/AddSocial.jsx";
 import UpdateSocial from "./pages/dashboard/Footer/UpdateSocial.jsx";
 
+import AllPrivacyPolicy from "./pages/dashboard/PrivacyPolicy/AllPrivacyPolicy.jsx"
+
+import UpdatePrivacyPolicy from "./pages/dashboard/PrivacyPolicy/UpdatePrivacyPolicy.jsx"
+import PrivacyPolicies from "./pages/dashboard/PrivacyPolicy/AllPrivacyPolicy.jsx";
+import AddPrivacyPolicy from "./pages/dashboard/PrivacyPolicy/AddPrivacyPolicy.jsx";
+import UpdateTermsAndConditions from "./pages/dashboard/TermsConditions/UpdateTermsAndConditions.jsx";
+import AddHeader from "./pages/dashboard/Header/AddHeader.jsx";
+import UpdateHeader from "./pages/dashboard/Header/UpdateHeader.jsx";
+
 
 function App() {
   // const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -65,13 +74,21 @@ function App() {
         <Route path="updatefooter/:id" element={<UpdateFooter />} />
         <Route path="addsocial" element={<AddSocail />} />
         <Route path="updatesocial/:id" element={<UpdateSocial />} />
+        <Route path="addheader" element={<AddHeader />} />
+        <Route path="updateheader/:id" element={<UpdateHeader />} />
 
 
         <Route path="abouts" element={<Abouts />} />
+        <Route path="dashboard/abouts" element={<Abouts />} />
         <Route path="addabout" element={<AddAbout />} />
         <Route path="updateproducts/:id" element={<UpdateProduct />} /> 
         <Route path="updatevariants/:id" element={<UpdateVariant />} />
         <Route path="updateabouts/:id" element={<UpdateAbout />} />
+
+        <Route  path="allprivacypolicy"  element={<PrivacyPolicies/>} />
+        <Route  path="addprivacypolicy"  element={<AddPrivacyPolicy/>} />
+        <Route  path="updateprivacypolicy"  element={<UpdatePrivacyPolicy/>} />
+        <Route  path="updatetermsandconditions"  element={<UpdateTermsAndConditions/>} />
       </Route>
       <Route path="/auth/*" element={<Auth />} />
       <Route path="/auth/sign-in" element={<SignIn setIsAuthenticated={setIsAuthenticated} />} />

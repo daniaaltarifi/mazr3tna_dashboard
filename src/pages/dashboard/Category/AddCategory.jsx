@@ -13,8 +13,6 @@ import axios from 'axios'; // Ensure Axios is imported
 
 function AddCategory() {
     const [name, setname] = useState("");
-//   const [discount_percentage, setDiscount_percentage] = useState("");
-//   const [expiration_date, setexpiration_date] = useState("");
   const navigate = useNavigate();
   const handleAddcategory = async (e) => {
     e.preventDefault();
@@ -53,7 +51,7 @@ function AddCategory() {
           <div className="grid grid-cols-1 gap-6 ">
             {/* First Column */}
             <div className="flex flex-col">
-              <Typography variant="small" color="blue-gray" className="mb-2 font-medium">            name:
+              <Typography variant="small" color="blue-gray" className="mb-2 font-medium"> name:
               </Typography>
               <Input
               required
@@ -63,8 +61,6 @@ function AddCategory() {
                 onChange={(e) => {
                     setname(e.target.value);
                   }}           />
-
-
             </div>            
           </div>
 

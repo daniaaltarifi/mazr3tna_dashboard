@@ -42,7 +42,7 @@ export function UpdateProduct() {
       if (!response.ok) throw new Error('Failed to fetch certificates');
       const data = await response.json();
       setCertificate(data);
-    } catch (error) {
+    } catch (error)      {
       console.error('Error fetching certificates:', error);
     }
   }, []);
@@ -101,8 +101,9 @@ export function UpdateProduct() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    // Validation for required fields, excluding 'ingredients' and 'certificateID'
     for (const [key, value] of Object.entries(productData)) {
-      if (!value) {
+      if (key !== 'ingredients' && key !== 'certificateID' && !value) {
         Swal.fire({
           title: 'Error!',
           text: `${key.replace(/_/g, ' ')} is required.`,
@@ -129,7 +130,6 @@ export function UpdateProduct() {
         method: 'PUT',
         body: formDataToSend,
       });
-      if (!response.ok) throw new Error('Failed to update product');
       Swal.fire({
         title: 'Updated!',
         text: 'The product has been updated successfully.',
@@ -240,10 +240,24 @@ export function UpdateProduct() {
               <label htmlFor="sourcing" className="block text-sm font-medium text-gray-700">Sourcing</label>
               <input type="text" id="sourcing" name="sourcing" value={productData.sourcing} onChange={handleChange} className="w-full px-4 py-2 border rounded-md mt-1" />
             </div>
+            
+            {/* Season Dropdown */}
             <div>
               <label htmlFor="season" className="block text-sm font-medium text-gray-700">Season</label>
-              <input type="text" id="season" name="season" value={productData.season} onChange={handleChange} className="w-full px-4 py-2 border rounded-md mt-1" />
+              <select 
+                id="season" 
+                name="season" 
+                value={productData.season} 
+                onChange={handleChange} 
+                className="w-full px-4 py-2 border rounded-md mt-1"
+              >
+                <option value="">Select Season</option>
+                <option value="ALL SEASONS">ALL SEASONS</option>
+                <option value="FALL & WINTER">FALL & WINTER</option>
+                <option value="SPRING & SUMMER">SPRING & SUMMER</option>
+              </select>
             </div>
+            
             <div>
               <label htmlFor="instock" className="block text-sm font-medium text-gray-700">In Stock</label>
               <input type="text" id="instock" name="instock" value={productData.instock} onChange={handleChange} className="w-full px-4 py-2 border rounded-md mt-1" />
@@ -269,7 +283,7 @@ export function UpdateProduct() {
             )}
           </div>
 
-          <Button type="submit" color="blue" className="w-full">Update Product</Button>
+          <Button type="submit" color="green" className="w-full">Update Product</Button>
         </form>
       </div>
     </section>

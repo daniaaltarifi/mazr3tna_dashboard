@@ -22,8 +22,7 @@ import UpdateProduct from "./pages/dashboard/Products/UpdateProducts";
 import UpdateVariant from "./pages/dashboard/Products/UpdateVariants.jsx";
 import AddBlog from "./pages/dashboard/Blogs/AddBlog.jsx";
 import UpdateBlog from "./pages/dashboard/Blogs/UpdateBlog.jsx";
-// export const API_URL="https://mazr3tnabackend.kassel.icu";
-export const API_URL="http://localhost:5050";
+
 import Abouts from "./pages/dashboard/About/Abouts.jsx";
 import AddAbout from "./pages/dashboard/About/AddAbout.jsx";
 import UpdateAbout from "./pages/dashboard/About/UpdateAbout.jsx";
@@ -40,7 +39,8 @@ import UpdateTermsAndConditions from "./pages/dashboard/TermsConditions/UpdateTe
 import AddHeader from "./pages/dashboard/Header/AddHeader.jsx";
 import UpdateHeader from "./pages/dashboard/Header/UpdateHeader.jsx";
 
-
+// export const API_URL="https://mazr3tnabackend.kassel.icu";
+export const API_URL="http://localhost:5050";
 function App() {
   // const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(() => !!Cookies.get('authtoken'));

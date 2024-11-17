@@ -36,6 +36,11 @@ import Feedback from "./pages/dashboard/Feedback/Feedback";
 import Wallet from "./pages/dashboard/Wallet/Wallet";
 import Category from "./pages/dashboard/Category/Category";
 import Abouts from "./pages/dashboard/About/Abouts";
+import PrivacyPolicies from "./pages/dashboard/PrivacyPolicy/AllPrivacyPolicy";
+import AllTermsAndConditions from "./pages/dashboard/TermsConditions/AllTermsAndConditions"
+
+
+
 
 
 const icon = {
@@ -117,6 +122,18 @@ export const routes = [
         name: "Slider",
         path: "/slider",
         element: <Slider />, // Adjust this to the correct element if needed
+      },
+      {
+        icon: <PhotoIcon  {...icon} />, // Icon for Brands
+        name: "privacypolicy",
+        path: "/privacypolicy",
+        element: <PrivacyPolicies />, // Adjust this to the correct element if needed
+      },
+      {
+        icon: <PhotoIcon  {...icon} />, // Icon for Brands
+        name: "terms and conditions",
+        path: "/termsandconditions",
+        element: <AllTermsAndConditions />, // Adjust this to the correct element if needed
       },
     ],
   },

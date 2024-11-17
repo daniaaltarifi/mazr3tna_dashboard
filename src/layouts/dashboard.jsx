@@ -25,6 +25,10 @@ import UpdateProduct from "@/pages/dashboard/Products/UpdateProducts";
 import UpdateVariant from "@/pages/dashboard/Products/UpdateVariants";
 import AddAbout from "@/pages/dashboard/About/AddAbout";
 import UpdateAbout from "@/pages/dashboard/About/UpdateAbout";
+import AddPrivacyPolicy from "@/pages/dashboard/PrivacyPolicy/AddPrivacyPolicy";
+import UpdatePrivacyPolicy from "@/pages/dashboard/PrivacyPolicy/UpdatePrivacyPolicy";
+import AddTermsAndConditions from "@/pages/dashboard/TermsConditions/AddTermsAndConditions";
+import UpdateTermsAndConditions from "@/pages/dashboard/TermsConditions/UpdateTermsAndConditions";
 export function Dashboard() {
   const [controller, dispatch] = useMaterialTailwindController();
   const { sidenavType } = controller;
@@ -68,6 +72,10 @@ export function Dashboard() {
             <Route path="addcategory" element={<AddCategory />} />
             <Route path="addproduct" element={<AddProduct />} />
             <Route path="addabout" element={<AddAbout />} />
+            <Route path="addtermsandconditions" element={<AddTermsAndConditions />} />
+            <Route path="updatetermsandconditions/:id" element={<UpdateTermsAndConditions />} />
+            <Route path="addprivacypolicy" element={<AddPrivacyPolicy />} />
+            <Route path="updateprivacypolicy/:id" element={<UpdatePrivacyPolicy />} />
         <Route path="updateproducts/:id" element={<UpdateProduct />} /> 
         <Route path="updatevariants/:id" element={<UpdateVariant />} /> 
        

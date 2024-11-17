@@ -23,6 +23,15 @@ import UpdateVariant from "./pages/dashboard/Products/UpdateVariants.jsx";
 import Abouts from "./pages/dashboard/About/Abouts.jsx";
 import AddAbout from "./pages/dashboard/About/AddAbout.jsx";
 import UpdateAbout from "./pages/dashboard/About/UpdateAbout.jsx";
+import AllPrivacyPolicy from "./pages/dashboard/PrivacyPolicy/AllPrivacyPolicy.jsx"
+
+import UpdatePrivacyPolicy from "./pages/dashboard/PrivacyPolicy/UpdatePrivacyPolicy.jsx"
+import PrivacyPolicies from "./pages/dashboard/PrivacyPolicy/AllPrivacyPolicy.jsx";
+import AddPrivacyPolicy from "./pages/dashboard/PrivacyPolicy/AddPrivacyPolicy.jsx";
+import UpdateTermsAndConditions from "./pages/dashboard/TermsConditions/UpdateTermsAndConditions.jsx";
+
+
+
 // export const API_URL="https://mazr3tnabackend.kassel.icu";
  export const API_URL="http://localhost:5050";
 
@@ -54,11 +63,16 @@ function App() {
         <Route path="updateslide/:id" element={<UpdateSlide />} />
         <Route path="addcategory" element={<AddCategory />} />
         <Route path="addproduct" element={<AddProduct />} />
-        <Route path="abouts" element={<Abouts />} />
+        <Route path="dashboard/abouts" element={<Abouts />} />
         <Route path="addabout" element={<AddAbout />} />
         <Route path="updateproducts/:id" element={<UpdateProduct />} /> 
         <Route path="updatevariants/:id" element={<UpdateVariant />} />
         <Route path="updateabouts/:id" element={<UpdateAbout />} />
+
+        <Route  path="allprivacypolicy"  element={<PrivacyPolicies/>} />
+        <Route  path="addprivacypolicy"  element={<AddPrivacyPolicy/>} />
+        <Route  path="updateprivacypolicy"  element={<UpdatePrivacyPolicy/>} />
+        <Route  path="updatetermsandconditions"  element={<UpdateTermsAndConditions/>} />
       </Route>
       <Route path="/auth/*" element={<Auth />} />
       <Route path="/auth/sign-in" element={<SignIn setIsAuthenticated={setIsAuthenticated} />} />

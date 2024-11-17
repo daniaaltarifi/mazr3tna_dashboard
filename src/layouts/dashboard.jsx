@@ -23,6 +23,8 @@ import AddCategory from "@/pages/dashboard/Category/AddCategory";
 import AddProduct from "@/pages/dashboard/Products/AddProducts/AddProduct";
 import UpdateProduct from "@/pages/dashboard/Products/UpdateProducts";
 import UpdateVariant from "@/pages/dashboard/Products/UpdateVariants";
+import AddAbout from "@/pages/dashboard/About/AddAbout";
+import UpdateAbout from "@/pages/dashboard/About/UpdateAbout";
 export function Dashboard() {
   const [controller, dispatch] = useMaterialTailwindController();
   const { sidenavType } = controller;
@@ -56,6 +58,7 @@ export function Dashboard() {
           )}
             <Route path="adduser" element={<AddUser />} />
             <Route path="updateuser/:id" element={<UpdateUser />} />
+            <Route path="updateabouts/:id" element={<UpdateAbout />} /> 
             <Route path="addCertificate" element={<AddCertificate />} />
             <Route path="updatecertificate/:id" element={<UpdateCertificate />} />
             <Route path="addcode" element={<AddCode />} />
@@ -64,8 +67,10 @@ export function Dashboard() {
             <Route path="updateslide/:id" element={<UpdateSlide />} />
             <Route path="addcategory" element={<AddCategory />} />
             <Route path="addproduct" element={<AddProduct />} />
+            <Route path="addabout" element={<AddAbout />} />
         <Route path="updateproducts/:id" element={<UpdateProduct />} /> 
         <Route path="updatevariants/:id" element={<UpdateVariant />} /> 
+       
 
 
 

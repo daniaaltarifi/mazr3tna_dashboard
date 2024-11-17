@@ -9,7 +9,7 @@ import {
 import { API_URL } from "../../../App.jsx";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
-import axios from 'axios'; // Ensure Axios is imported
+import axios from 'axios'; 
 
 function AddCertificate() {
     const [certificate_name, setCertificateName] = useState("");
@@ -20,10 +20,10 @@ function AddCertificate() {
         const file = e.target.files[0];
         if (file) {
           setCertificateImg(file);
-            setImgName(file.name); // Set the image name
+            setImgName(file.name); 
         } else {
           setCertificateImg(null);
-            setImgName(""); // Reset if no file is selected
+            setImgName(""); 
         }
     };
     const navigate = useNavigate();

@@ -35,6 +35,8 @@ import Slider from "./pages/dashboard/Slider/Slider";
 import Feedback from "./pages/dashboard/Feedback/Feedback";
 import Wallet from "./pages/dashboard/Wallet/Wallet";
 import Category from "./pages/dashboard/Category/Category";
+import Abouts from "./pages/dashboard/About/Abouts";
+
 
 const icon = {
   className: "w-5 h-5 text-inherit",
@@ -67,6 +69,12 @@ export const routes = [
         name: "Products",
         path: "/products",
         element: <Products />,
+      },
+      {
+        icon: <ShoppingBagIcon {...icon} />,
+        name: "About Us",
+        path: "/about",
+        element: <Abouts />,
       },
       // {
       //   icon: <TagIcon {...icon} />, // Icon for Brands

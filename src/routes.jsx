@@ -10,7 +10,7 @@ import {
   QrCodeIcon,
   GiftIcon ,
   ChatBubbleLeftEllipsisIcon ,
-  PhotoIcon ,NewspaperIcon
+  PhotoIcon ,NewspaperIcon,ShareIcon
 } from "@heroicons/react/24/solid"; // Ensure you import the correct icon
 import { BiSolidCoupon } from "react-icons/bi";
 import {Products, Notifications } from "@/pages/dashboard";
@@ -35,6 +35,9 @@ import Feedback from "./pages/dashboard/Feedback/Feedback";
 import Wallet from "./pages/dashboard/Wallet/Wallet";
 import Category from "./pages/dashboard/Category/Category";
 import Blogs from "./pages/dashboard/Blogs/Blogs";
+import Abouts from "./pages/dashboard/About/Abouts";
+import FooterData from "./pages/dashboard/Footer/FooterData";
+
 
 const icon = {
   className: "w-5 h-5 text-inherit",
@@ -67,6 +70,12 @@ export const routes = [
         name: "Products",
         path: "/products",
         element: <Products />,
+      },
+      {
+        icon: <ShoppingBagIcon {...icon} />,
+        name: "About Us",
+        path: "/about",
+        element: <Abouts />,
       },
       // {
       //   icon: <TagIcon {...icon} />, // Icon for Brands
@@ -115,6 +124,12 @@ export const routes = [
         name: "Slider",
         path: "/slider",
         element: <Slider />, // Adjust this to the correct element if needed
+      },
+      {
+        icon: <ShareIcon  {...icon} />, // Icon for Brands
+        name: "Footer",
+        path: "/footer",
+        element: <FooterData />, // Adjust this to the correct element if needed
       },
     ],
   },

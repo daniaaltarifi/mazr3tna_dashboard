@@ -24,6 +24,13 @@ import AddBlog from "./pages/dashboard/Blogs/AddBlog.jsx";
 import UpdateBlog from "./pages/dashboard/Blogs/UpdateBlog.jsx";
 // export const API_URL="https://mazr3tnabackend.kassel.icu";
 export const API_URL="http://localhost:5050";
+import Abouts from "./pages/dashboard/About/Abouts.jsx";
+import AddAbout from "./pages/dashboard/About/AddAbout.jsx";
+import UpdateAbout from "./pages/dashboard/About/UpdateAbout.jsx";
+import UpdateFooter from "./pages/dashboard/Footer/UpdateFooter.jsx";
+import AddSocail from "./pages/dashboard/Footer/AddSocial.jsx";
+import UpdateSocial from "./pages/dashboard/Footer/UpdateSocial.jsx";
+
 
 function App() {
   // const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -55,11 +62,16 @@ function App() {
         <Route path="addproduct" element={<AddProduct />} />
         <Route path="addblog" element={<AddBlog />} />
         <Route path="updateblog/:id" element={<UpdateBlog />} />
+        <Route path="updatefooter/:id" element={<UpdateFooter />} />
+        <Route path="addsocial" element={<AddSocail />} />
+        <Route path="updatesocial/:id" element={<UpdateSocial />} />
 
 
+        <Route path="abouts" element={<Abouts />} />
+        <Route path="addabout" element={<AddAbout />} />
         <Route path="updateproducts/:id" element={<UpdateProduct />} /> 
-        <Route path="updatevariants/:id" element={<UpdateVariant />} /> 
-
+        <Route path="updatevariants/:id" element={<UpdateVariant />} />
+        <Route path="updateabouts/:id" element={<UpdateAbout />} />
       </Route>
       <Route path="/auth/*" element={<Auth />} />
       <Route path="/auth/sign-in" element={<SignIn setIsAuthenticated={setIsAuthenticated} />} />

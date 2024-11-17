@@ -25,6 +25,11 @@ import UpdateProduct from "@/pages/dashboard/Products/UpdateProducts";
 import UpdateVariant from "@/pages/dashboard/Products/UpdateVariants";
 import AddBlog from "@/pages/dashboard/Blogs/AddBlog";
 import UpdateBlog from "@/pages/dashboard/Blogs/UpdateBlog";
+import AddAbout from "@/pages/dashboard/About/AddAbout";
+import UpdateAbout from "@/pages/dashboard/About/UpdateAbout";
+import UpdateFooter from "@/pages/dashboard/Footer/UpdateFooter";
+import AddSocail from "@/pages/dashboard/Footer/AddSocial";
+import UpdateSocial from "@/pages/dashboard/Footer/UpdateSocial";
 export function Dashboard() {
   const [controller, dispatch] = useMaterialTailwindController();
   const { sidenavType } = controller;
@@ -58,6 +63,7 @@ export function Dashboard() {
           )}
             <Route path="adduser" element={<AddUser />} />
             <Route path="updateuser/:id" element={<UpdateUser />} />
+            <Route path="updateabouts/:id" element={<UpdateAbout />} /> 
             <Route path="addCertificate" element={<AddCertificate />} />
             <Route path="updatecertificate/:id" element={<UpdateCertificate />} />
             <Route path="addcode" element={<AddCode />} />
@@ -66,10 +72,15 @@ export function Dashboard() {
             <Route path="updateslide/:id" element={<UpdateSlide />} />
             <Route path="addcategory" element={<AddCategory />} />
             <Route path="addproduct" element={<AddProduct />} />
+            <Route path="addabout" element={<AddAbout />} />
         <Route path="updateproducts/:id" element={<UpdateProduct />} /> 
         <Route path="updatevariants/:id" element={<UpdateVariant />} /> 
         <Route path="addblog" element={<AddBlog />} />
         <Route path="updateblog/:id" element={<UpdateBlog />} />
+        <Route path="updatefooter/:id" element={<UpdateFooter />} />
+        <Route path="addsocial" element={<AddSocail />} />
+        <Route path="updatesocial/:id" element={<UpdateSocial />} />
+       
 
 
 

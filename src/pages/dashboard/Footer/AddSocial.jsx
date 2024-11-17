@@ -9,33 +9,33 @@ import {
 import { API_URL } from "../../../App.jsx";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
-import axios from 'axios'; 
+import axios from 'axios'; // Ensure Axios is imported
 
-function AddCertificate() {
-    const [certificate_name, setCertificateName] = useState("");
-    const [certificate_img, setCertificateImg] = useState(null);
-    const [imgName, setImgName] = useState("");
+function AddSocail() {
+    const [link_to, setlink_to] = useState("");
+    const [icon, seticon] = useState(null);
+    const [iconName, seticonName] = useState("");
 
     const handleFileChange = (e) => {
         const file = e.target.files[0];
         if (file) {
-          setCertificateImg(file);
-            setImgName(file.name); 
+          seticon(file);
+            seticonName(file.name); // Set the image name
         } else {
-          setCertificateImg(null);
-            setImgName(""); 
+          seticon(null);
+            seticonName(""); // Reset if no file is selected
         }
     };
     const navigate = useNavigate();
-    const handleAddCertificate = async (e) => {
+    const handleAddSocail = async (e) => {
       e.preventDefault();
       const formData = new FormData();
-      formData.append("certificate_name", certificate_name);
-      formData.append("certificate_img", certificate_img);
+      formData.append("link_to", link_to);
+      formData.append("icon", icon);
   
       try {
         const response = await axios.post(
-          `${API_URL}/certificate/addcertificate`,
+          `${API_URL}/social/addsocial`,
           formData,
           {
             headers: {
@@ -44,16 +44,16 @@ function AddCertificate() {
           }
         );
         Swal.fire({
-          title: "Success!",
-          text: "Brand added successful.",
+          link_to: "Success!",
+          text: "Social media added successful.",
           icon: "success",
           confirmButtonText: "OK",
         });
-        navigate("/dashboard/brands");
+        navigate("/dashboard/footer");
       } catch (error) {
         console.error(error);
         Swal.fire({
-          title: "Error!",
+          link_to: "Error!",
           text: "Failed to add. Please try again.",
           icon: "error",
           confirmButtonText: "OK",
@@ -65,22 +65,22 @@ function AddCertificate() {
     <section className="m-8 flex gap-4">
       <div className="w-full mt-24">
         <div className="text-center">
-          <Typography variant="h2" className="font-bold mb-4">Add Certificate</Typography>
+          <Typography variant="h2" className="font-bold mb-4">Add Social Media</Typography>
         </div>
-        <form className="mt-8 mb-2 mx-auto w-80 max-w-screen-lg lg:w-1/2" onSubmit={handleAddCertificate}>
+        <form className="mt-8 mb-2 mx-auto w-80 max-w-screen-lg lg:w-1/2" onSubmit={handleAddSocail}>
           <div className="grid grid-cols-1 gap-6 ">
             {/* First Column */}
             <div className="flex flex-col">
-              <Typography variant="small" color="blue-gray" className="mb-2 font-medium">Certificate Name:</Typography>
+              <Typography variant="small" color="blue-gray" className="mb-2 font-medium">link_to:</Typography>
               <Input
               required
                 size="lg"
-                placeholder="Espirt"
                 className="!border-t-blue-gray-200 focus:!border-t-gray-900"
                 onChange={(e) => {
-                    setCertificateName(e.target.value);
-                  }}              />
-                <Typography variant="small" color="blue-gray" className="mb-2 font-medium">Certificate Image:</Typography>
+                    setlink_to(e.target.value);
+                  }} 
+                 />
+                <Typography variant="small" color="blue-gray" className="mb-2 font-medium">Icon:</Typography>
                 <Typography variant="small" color="blue-gray" className="mb-2 ">It is recommended to use the WebP format for images.</Typography>
                             <div className="relative">
                                 <input
@@ -94,9 +94,9 @@ function AddCertificate() {
                                 Choose an image
                                 </Button>
                                  {/* Display the image name if it exists */}
-                {imgName && (
+                {iconName && (
                     <Typography variant="small" color="blue-gray" className="mt-2">
-                        Selected File: {imgName}
+                        Selected File: {iconName}
                     </Typography>
                 )}
                             </div>
@@ -105,7 +105,7 @@ function AddCertificate() {
           </div>
 
           <Button type="submit" className="mt-6" fullWidth>
-            Add Certificate
+            Add Social media
           </Button>
         </form>
       </div>
@@ -113,4 +113,4 @@ function AddCertificate() {
   );
 }
 
-export default AddCertificate;
+export default AddSocail;

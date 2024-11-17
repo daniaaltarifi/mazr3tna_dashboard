@@ -131,7 +131,7 @@ export const routes = [
       },
       {
         icon: <PhotoIcon  {...icon} />, // Icon for Brands
-        name: "terms and conditions",
+        name: "terms andconditions",
         path: "/termsandconditions",
         element: <AllTermsAndConditions />, // Adjust this to the correct element if needed
       },

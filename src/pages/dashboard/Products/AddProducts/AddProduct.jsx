@@ -240,7 +240,7 @@ export function AddProduct() {
         className="block w-full border p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
       >
         <option value="">Choose Season</option>
-        <option value="FALL & WINTER">ALL SEASONS</option>
+        <option value="ALL SEASONS">ALL SEASONS</option>
         <option value="FALL & WINTER">FALL & WINTER</option>
         <option value="SPRING & SUMMER">SPRING & SUMMER</option>
       </select>

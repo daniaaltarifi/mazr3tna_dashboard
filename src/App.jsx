@@ -20,8 +20,10 @@ import AddCategory from "./pages/dashboard/Category/AddCategory";
 import AddProduct from "./pages/dashboard/Products/AddProducts/AddProduct";
 import UpdateProduct from "./pages/dashboard/Products/UpdateProducts";
 import UpdateVariant from "./pages/dashboard/Products/UpdateVariants.jsx";
-export const API_URL="https://mazr3tnabackend.kassel.icu";
-// export const API_URL="http://localhost:5050";
+import AddBlog from "./pages/dashboard/Blogs/AddBlog.jsx";
+import UpdateBlog from "./pages/dashboard/Blogs/UpdateBlog.jsx";
+// export const API_URL="https://mazr3tnabackend.kassel.icu";
+export const API_URL="http://localhost:5050";
 
 function App() {
   // const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -51,6 +53,8 @@ function App() {
         <Route path="updateslide/:id" element={<UpdateSlide />} />
         <Route path="addcategory" element={<AddCategory />} />
         <Route path="addproduct" element={<AddProduct />} />
+        <Route path="addblog" element={<AddBlog />} />
+        <Route path="updateblog/:id" element={<UpdateBlog />} />
 
 
         <Route path="updateproducts/:id" element={<UpdateProduct />} /> 

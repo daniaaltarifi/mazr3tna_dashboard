@@ -10,7 +10,7 @@ import {
   QrCodeIcon,
   GiftIcon ,
   ChatBubbleLeftEllipsisIcon ,
-  PhotoIcon 
+  PhotoIcon ,NewspaperIcon
 } from "@heroicons/react/24/solid"; // Ensure you import the correct icon
 import { BiSolidCoupon } from "react-icons/bi";
 import {Products, Notifications } from "@/pages/dashboard";
@@ -18,7 +18,6 @@ import {Products, Notifications } from "@/pages/dashboard";
 
 import { Home } from "@/pages/dashboard";
 
-import { Profile} from "@/pages/dashboard";
 
 
 
@@ -35,6 +34,7 @@ import Slider from "./pages/dashboard/Slider/Slider";
 import Feedback from "./pages/dashboard/Feedback/Feedback";
 import Wallet from "./pages/dashboard/Wallet/Wallet";
 import Category from "./pages/dashboard/Category/Category";
+import Blogs from "./pages/dashboard/Blogs/Blogs";
 
 const icon = {
   className: "w-5 h-5 text-inherit",
@@ -97,6 +97,12 @@ export const routes = [
         name: "Wallet",
         path: "/wallet",
         element: <Wallet />, // Adjust this to the correct element if needed
+      },
+      {
+        icon: <NewspaperIcon {...icon} />, // Icon for Brands
+        name: "Blogs",
+        path: "/blogs",
+        element: <Blogs />, // Adjust this to the correct element if needed
       },
       {
         icon: <ChatBubbleLeftEllipsisIcon  {...icon} />, // Icon for Brands

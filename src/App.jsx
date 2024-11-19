@@ -1,11 +1,8 @@
 import { Routes, Route, Navigate } from "react-router-dom";
 import { Dashboard, Auth } from "@/layouts";
 import Cookies from 'js-cookie';
-
+import './Styles/Brands.css';
 import { useState,useEffect } from "react";
-
-
-
 import AddUser from "./pages/dashboard/Users/AddUser.jsx";
 import UpdateUser from "./pages/dashboard/Users/UpdateUser.jsx";
 import AddBrand from "./pages/dashboard/Brands/AddCertificate.jsx";
@@ -38,24 +35,22 @@ import AddPrivacyPolicy from "./pages/dashboard/PrivacyPolicy/AddPrivacyPolicy.j
 import UpdateTermsAndConditions from "./pages/dashboard/TermsConditions/UpdateTermsAndConditions.jsx";
 import AddHeader from "./pages/dashboard/Header/AddHeader.jsx";
 import UpdateHeader from "./pages/dashboard/Header/UpdateHeader.jsx";
-
-// export const API_URL="https://mazr3tnabackend.kassel.icu";
-export const API_URL="http://localhost:5050";
+import LanguageSwitcher from "./LanguageSwitcher";
+import DirectionHandler from "./DirectionHandler";
+export const API_URL="https://mazr3tnabackend.kassel.icu";
+// export const API_URL="http://localhost:5050";
 function App() {
-  // const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(() => !!Cookies.get('authtoken'));
-
   useEffect(() => {
     const token = Cookies.get('authtoken');
     if (token) {
-      // setIsAuthenticated(true);
       setIsAuthenticated(!!token);
     }
   }, []);
   return (
+    <>
+      <DirectionHandler />
     <Routes>
-
-      {/* <Route path="/dashboard/*" element={<Dashboard />}> */}
       <Route path="/dashboard/*" element={
         isAuthenticated ? <Dashboard /> : <Navigate to="/auth/sign-in" replace />
       }> 
@@ -95,6 +90,8 @@ function App() {
       <Route path="*" element={<Navigate to="/dashboard/home" replace />} />
 
     </Routes>
+    </>
+
   );
 }
 

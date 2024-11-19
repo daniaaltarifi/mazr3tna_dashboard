@@ -8,13 +8,14 @@ import {
 import { API_URL } from "../../../App.jsx";
 import Swal from "sweetalert2";
 import axios from 'axios';
-
+import Cookies from 'js-cookie';
 function UpdateCertificate() {
     const [certificate_name, setCertificateName] = useState("");
     const [certificate_img, setCertificateImg] = useState(null);
     const [existing_img, setExistingImg] = useState(null);
     const navigate = useNavigate();
     const { id } = useParams();
+    const lang = Cookies.get('lang') || 'en';
 
     useEffect(() => {
       const fetchBrand = async () => {
@@ -69,13 +70,14 @@ function UpdateCertificate() {
     <section className="m-8 flex gap-4">
       <div className="w-full mt-24">
         <div className="text-center">
-          <Typography variant="h2" className="font-bold mb-4">Update Certificate</Typography>
+          <Typography variant="h2" className="font-bold mb-4">               {lang ==='ar'? "تعديل الشهادة " :" Update Certificate "}
+          </Typography>
         </div>
         <form className="mt-8 mb-2 mx-auto w-80 max-w-screen-lg lg:w-1/2" onSubmit={handleUpdateCertificate}>
           <div className="grid grid-cols-1 gap-6 ">
             {/* Brand Name Input */}
             <div className="flex flex-col">
-              <Typography variant="small" color="blue-gray" className="mb-2 font-medium">Certificate Name:</Typography>
+              <Typography variant="small" color="blue-gray" className="mb-2 font-medium">{lang ==='ar'? "اسم الشهادة" :"certificate Name"}</Typography>
               <Input
                 size="lg"
                 placeholder="Espirt"
@@ -88,12 +90,12 @@ function UpdateCertificate() {
             </div>
 
             {/* Brand Image Input */}
-            <Typography variant="small" color="blue-gray" className=" font-medium">Certificate Image:</Typography>
+            <Typography variant="small" color="blue-gray" className=" font-medium">{lang ==='ar'? "الصورة" :"Image"}</Typography>
             <div className="flex flex-col">
               {existing_img && (
                 <img src={`${API_URL}/${existing_img}`} alt="Existing brand" className="mb-2 w-32 h-32 object-cover" />
               )}
-                <Typography variant="small" color="blue-gray" className="mb-2 ">It is recommended to use the WebP format for images.</Typography>
+                <Typography variant="small" color="blue-gray" className="mb-2 ">{lang ==='ar'? "من المستحسن استخدام تنسيق WebP للصور." :"It is recommended to use the WebP format for images."}</Typography>
 
               <div className="relative">
                 <input
@@ -103,21 +105,21 @@ function UpdateCertificate() {
                   className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
                 />
                 <Button className="bg-gray-200 text-gray-800 hover:bg-gray-300 w-full text-left">
-                  Choose an image
+                            {lang ==='ar'? "اختر الصورة  " :" Choose an image"}
+
                 </Button>
                 <Typography>
                   {certificate_img ? (
                     <p>{certificate_img.name}</p> // Show selected image name
                   ) : (
-                    <Typography variant="small" color="blue-gray" className="text-gray-500">No image selected</Typography>
+                    <Typography variant="small" color="blue-gray" className="text-gray-500">   {lang ==='ar'? " لا يوجد صور مختارة  " :" No image selected"}</Typography>
                   )}
                 </Typography>
               </div>
             </div>
           </div>
           <Button type="submit" className="mt-6" fullWidth>
-            Update Certificate
-          </Button>
+          {lang ==='ar'? "تعديل الشهادة " :" Update Certificate "}          </Button>
         </form>
       </div>
     </section>

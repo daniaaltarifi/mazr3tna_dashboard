@@ -19,14 +19,14 @@ import {
     Progress,
     Button
   } from "@material-tailwind/react";
-  import { EllipsisVerticalIcon } from "@heroicons/react/24/outline";
-  import { authorsTableData, projectsTableData } from "@/data";
+ import Cookies from "js-cookie";
 function certificate() {
     const navigate = useNavigate();
     const [certificate, setcertificate] = useState([]);
     const [showModal, setShowModal] = useState(false);
     const [certificateIdToDelete, setcertificateIdToDelete] = useState(null); // Store the ID of the certificate to delete
-  
+    const lang = Cookies.get('lang') || 'en';
+
     const handleShow = (id) => {
       setcertificateIdToDelete(id); // Set the certificate ID to delete
       setShowModal(true);
@@ -67,7 +67,7 @@ function certificate() {
     <Card>
       <CardHeader variant="gradient" color="green" className="mb-8 p-6">
         <Typography variant="h6" color="white">
-          Certificate Table
+       {lang ==='ar'? "جدول الشهادات" :" Certificate Table"}
         </Typography>
       </CardHeader>
       <CardBody className="overflow-x-scroll px-0 pt-0 pb-2">
@@ -75,15 +75,15 @@ function certificate() {
   className="flex  bg-[#D87C55] items-center transition duration-300 ease-in hover:shadow-lg hover:shadow-green-500"
   style={{ marginLeft: '80px' }} 
 >
-  <PlusIcon className="h-5 w-5 mr-1" /> Add Certificate
+  <PlusIcon className="h-5 w-5 mr-1" /> {lang ==='ar'? "اضافة شهادة" :"Add Certificate"}
 </Button></Link>
         <table className="w-full min-w-[640px] table-auto">
           <thead>
             <tr>
-              {["certificate Name","Image","Action"].map((el) => (
+              {[`${lang ==='ar'? "اسم الشهادة" :"certificate Name"}`,`${lang ==='ar'? "الصورة" :"Image"}`,`${lang ==='ar'? "تنفيذ" :"Action"}`].map((el) => (
                 <th
                   key={el}
-                  className="border-b border-blue-gray-50 py-3 px-5 text-left"
+                  className="border-b border-blue-gray-50 py-3 px-5 "
                 >
                   <Typography
                     variant="small"
@@ -126,33 +126,19 @@ function certificate() {
                       <Avatar src={`${API_URL}/${certificate.certificate_img}`}alt={"certificate"} size="md" variant="rounded" />
                       </Typography>
                     </td>
-                    {/* <td className={className}>
-
-                    <MdDelete
-                    size="1.5rem"
-                    className="delete_icon"
-                    onClick={() => handleShow(certificate.id)} // Pass the certificate ID to handleShow
-                  />
-                  <FaEdit
-                    size="1.5rem"
-                    className="edit_icon"
-                    onClick={() => navigate(`/dashboard/updatecertificate/${certificate.id}`)}
-                  />
-
-                    </td> */}
                       <td className={className}>
                         <div className="flex items-center ">
                           <Button 
                     onClick={() => navigate(`/dashboard/updatecertificate/${certificate.id}`)}
                     className="mr-2 flex items-center bg-[#D87C55] transition duration-300 ease-in hover:shadow-lg hover:shadow-blue-500"
                           >
-                            <PencilIcon className="h-5 w-5 mr-1" /> Edit
+                            <PencilIcon className="h-5 w-5 mr-1" /> {lang ==='ar'? "تعديل" : "Edit "}
                           </Button>
                           <Button 
                     onClick={() => handleShow(certificate.id)} // Pass the certificate ID to handleShow
                     className="text-white-600 bg-[#F5C16C] flex items-center transition duration-300 ease-in hover:shadow-lg hover:shadow-red-500"
                           >
-                            <TrashIcon className="h-5 w-5 mr-1" /> Delete
+                            <TrashIcon className="h-5 w-5 mr-1" />  {lang ==='ar'? "حذف" : "Delete "}
                           </Button>
                         </div>
                       </td>

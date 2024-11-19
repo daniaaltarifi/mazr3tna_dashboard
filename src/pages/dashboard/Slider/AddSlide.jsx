@@ -10,7 +10,7 @@ import { API_URL } from "../../../App.jsx";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import axios from 'axios'; // Ensure Axios is imported
-
+import Cookies from 'js-cookie';
 function AddSlide() {
     const [title, settitle] = useState("");
     const [subtitle, setsubtitle] = useState("");
@@ -18,6 +18,7 @@ function AddSlide() {
     const [img, setImg] = useState(null);
     const [imgName, setImgName] = useState("");
     const [main_product, setmain_product] = useState([]);
+    const lang = Cookies.get('lang') || 'en';
 
     const handleFileChange = (e) => {
         const file = e.target.files[0];
@@ -82,13 +83,13 @@ function AddSlide() {
     <section className="m-8 flex gap-4">
       <div className="w-full mt-24">
         <div className="text-center">
-          <Typography variant="h2" className="font-bold mb-4">Add Slide</Typography>
+          <Typography variant="h2" className="font-bold mb-4">{lang ==='ar'? "اضافة صورة" : "Add Slide "}</Typography>
         </div>
         <form className="mt-8 mb-2 mx-auto w-80 max-w-screen-lg lg:w-1/2" onSubmit={handleAddSlider}>
           <div className="grid grid-cols-1 gap-6 ">
             {/* First Column */}
             <div className="flex flex-col">
-              <Typography variant="small" color="blue-gray" className="mb-2 font-medium"> Title: </Typography>
+              <Typography variant="small" color="blue-gray" className="mb-2 font-medium"> {lang ==='ar'? "العنوان" :"Title"} </Typography>
               <Input
               required
                 size="lg"
@@ -97,7 +98,7 @@ function AddSlide() {
                 onChange={(e) => {
                   settitle(e.target.value);
                 }}           />
-                 <Typography variant="small" color="blue-gray" className="mb-2 font-medium">           Subtitle:                 </Typography>
+                 <Typography variant="small" color="blue-gray" className="mb-2 font-medium">  {lang ==='ar'? "العنوان الفرعي" :"Subtitle"}              </Typography>
               <Input
               required
                 size="lg"
@@ -105,27 +106,21 @@ function AddSlide() {
                 className="!border-t-blue-gray-200 focus:!border-t-gray-900"
                 onChange={(e) => setsubtitle(e.target.value)}
                 />
-                   <Typography variant="small" color="blue-gray" className="mb-2 font-medium">    Link To: </Typography>
-              {/* <Input
-              required
-                size="lg"
-                placeholder="Fragrance type"
-                className="!border-t-blue-gray-200 focus:!border-t-gray-900"
-                onChange={(e) => setlink_to(e.target.value)}
-                /> */}
+                   <Typography variant="small" color="blue-gray" className="mb-2 font-medium"> {lang ==='ar'? "الى صفحة" :"Link To"}</Typography>
+             
                <select 
                     onChange={(e)=>{setlink_to(e.target.value)} }
                     className="block w-full border p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                   >
-                    <option value="">Select Category</option>
+                    <option value="">{lang ==='ar'? "اختر صنف" :"Select Category"}</option>
                     {
                     main_product.map((item) => (
                     <option key={item.id} value={item.id}>{item.name}</option>))
                   }
                    
                   </select>
-                <Typography variant="small" color="blue-gray" className="mb-2 font-medium"> Image:</Typography>
-                <Typography variant="small" color="blue-gray" className="mb-2 ">It is recommended to use the WebP format for images.</Typography>
+                <Typography variant="small" color="blue-gray" className="mb-2 font-medium"> {lang ==='ar'? "الصورة" :"Image"}</Typography>
+                <Typography variant="small" color="blue-gray" className="mb-2 ">{lang ==='ar'? "من المستحسن استخدام تنسيق WebP للصور." :"It is recommended to use the WebP format for images."}</Typography>
                             <div className="relative">
                                 <input
                                 required
@@ -135,7 +130,7 @@ function AddSlide() {
                                     className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
                                 />
                                 <Button className="bg-gray-200 text-gray-800 hover:bg-gray-300 w-full text-left">
-                                Choose an image
+                                {lang ==='ar'? "اختر الصورة  " :" Choose an image"}
                                 </Button>
                                  {/* Display the image name if it exists */}
                 {imgName && (
@@ -153,8 +148,7 @@ function AddSlide() {
   className="mt-6 bg-[#D87C55] text-white hover:bg-[#D87C55]/80 focus:outline-none focus:ring-2 focus:ring-[#D87C55] focus:ring-opacity-50"
   fullWidth
 >
-  Add Slide
-</Button>
+{lang ==='ar'? "اضافة صورة" : "Add Slide "}</Button>
 
         </form>
       </div>

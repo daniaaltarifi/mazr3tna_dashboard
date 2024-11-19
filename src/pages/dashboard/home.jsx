@@ -13,23 +13,15 @@ import {
   Tooltip,
   Progress,
 } from "@material-tailwind/react";
-import {
-  EllipsisVerticalIcon,
-  ArrowUpIcon,
-} from "@heroicons/react/24/outline";
 import { StatisticsCard } from "@/widgets/cards";
 import { StatisticsChart } from "@/widgets/charts";
-import {
-  statisticsCardsData,
-  statisticsChartsData,
-  projectsTableData,
-  ordersOverviewData,
-} from "@/data";
 import { CheckCircleIcon, ClockIcon } from "@heroicons/react/24/solid";
 import { API_URL } from "@/App";
 import axios from "axios";
+import Cookies from "js-cookie";
 export function Home() {
   const [statisticsChartsData, setStatisticsChartsData] = useState([]);
+  const lang = Cookies.get('lang') || 'en';
 
   useEffect(() => {
     const fetchData = async () => {
@@ -120,16 +112,16 @@ export function Home() {
         setStatisticsChartsData([
           {
             color: "white",
-            title: "User Registrations",
-            description: "User Registrations Over Time",
-            footer: "Last Updated",
+            title: lang ==='ar'? "المستخدمين المسجلين" :"User Registrations",
+            description: lang ==='ar'? "المسنخدمين المسجلين حتى هذا الوقت" : "User Registrations Over Time",
+            footer: lang ==='ar'? "اخر تحديث" : "Last Updated",
             chart: userChart,
           },
           {
             color: "white",
-            title: "Feedback Ratings Distribution",
-            description: "Percentage of Ratings from 1 to 5",
-            footer: "Last Updated",
+            title: lang ==='ar'? "توزيع تقييمات التعليقات" :"Feedback Ratings Distribution",
+            description: lang ==='ar'? "نسبة التقييم من 1 الى 5" : "Percentage of Ratings from 1 to 5",
+            footer: lang ==='ar'? "اخر تحديث" : "Last Updated",
             chart: feedbackChart,
           },
         ]);

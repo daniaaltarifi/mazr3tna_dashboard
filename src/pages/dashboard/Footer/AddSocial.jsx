@@ -10,11 +10,12 @@ import { API_URL } from "../../../App.jsx";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import axios from 'axios'; // Ensure Axios is imported
-
+import Cookies from 'js-cookie';
 function AddSocail() {
     const [link_to, setlink_to] = useState("");
     const [icon, seticon] = useState(null);
     const [iconName, seticonName] = useState("");
+    const lang = Cookies.get('lang') || 'en';
 
     const handleFileChange = (e) => {
         const file = e.target.files[0];
@@ -65,13 +66,13 @@ function AddSocail() {
     <section className="m-8 flex gap-4">
       <div className="w-full mt-24">
         <div className="text-center">
-          <Typography variant="h2" className="font-bold mb-4">Add Social Media</Typography>
+          <Typography variant="h2" className="font-bold mb-4">{lang ==='ar'? "اضافة تواصل اجنماعي " :"Add Social media"}</Typography>
         </div>
         <form className="mt-8 mb-2 mx-auto w-80 max-w-screen-lg lg:w-1/2" onSubmit={handleAddSocail}>
           <div className="grid grid-cols-1 gap-6 ">
             {/* First Column */}
             <div className="flex flex-col">
-              <Typography variant="small" color="blue-gray" className="mb-2 font-medium">link_to:</Typography>
+              <Typography variant="small" color="blue-gray" className="mb-2 font-medium">{lang ==='ar'? "الرابط" :"Link to"}</Typography>
               <Input
               required
                 size="lg"
@@ -80,8 +81,8 @@ function AddSocail() {
                     setlink_to(e.target.value);
                   }} 
                  />
-                <Typography variant="small" color="blue-gray" className="mb-2 font-medium">Icon:</Typography>
-                <Typography variant="small" color="blue-gray" className="mb-2 ">It is recommended to use the WebP format for images.</Typography>
+                <Typography variant="small" color="blue-gray" className="mb-2 font-medium">{lang ==='ar'? "الصورة" :"Icon"}</Typography>
+                <Typography variant="small" color="blue-gray" className="mb-2 ">{lang ==='ar'? "من المستحسن استخدام تنسيق WebP للصور." :"It is recommended to use the WebP format for images."}</Typography>
                             <div className="relative">
                                 <input
                                 required
@@ -91,7 +92,7 @@ function AddSocail() {
                                     className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
                                 />
                                 <Button className="bg-gray-200 text-gray-800 hover:bg-gray-300 w-full text-left">
-                                Choose an image
+                                {lang ==='ar'? "اختر الصورة  " :" Choose an image"}
                                 </Button>
                                  {/* Display the image name if it exists */}
                 {iconName && (
@@ -105,8 +106,7 @@ function AddSocail() {
           </div>
 
           <Button type="submit" className="mt-6" fullWidth>
-            Add Social media
-          </Button>
+          {lang ==='ar'? "اضافة تواصل اجنماعي " :"Add Social media"}          </Button>
         </form>
       </div>
     </section>

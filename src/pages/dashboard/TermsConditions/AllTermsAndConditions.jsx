@@ -15,12 +15,13 @@ import {
     Typography,
     Button
 } from "@material-tailwind/react";
-
+import Cookies from "js-cookie";
 function AllTermsAndConditions() {
     const navigate = useNavigate();
     const [termsAndConditions, setTermsAndConditions] = useState([]);
     const [showModal, setShowModal] = useState(false);
     const [termsAndConditionsIdToDelete, setTermsAndConditionsIdToDelete] = useState(null); 
+    const lang = Cookies.get('lang') || 'en';
 
     const handleShow = (id) => {
         setTermsAndConditionsIdToDelete(id);
@@ -61,7 +62,7 @@ function AllTermsAndConditions() {
             <Card>
                 <CardHeader variant="gradient" color="green" className="mb-8 p-6">
                     <Typography variant="h6" color="white">
-                        Terms and Conditions Table
+                        {lang ==='ar'? "جدول الشروط والأحكام" :"Terms and Conditions Table"}
                     </Typography>
                 </CardHeader>
                 <CardBody className="overflow-x-scroll px-0 pt-0 pb-2">
@@ -70,14 +71,14 @@ function AllTermsAndConditions() {
                             className="flex bg-[#D87C55] items-center transition duration-300 ease-in hover:shadow-lg hover:shadow-green-500"
                             style={{ marginLeft: '80px' }}
                         >
-                            <PlusIcon className="h-5 w-5 mr-1" /> Add Terms and Conditions
+                            <PlusIcon className="h-5 w-5 mr-1" />   {lang ==='ar'? "اضافة الشروط والأحكام" :"Add Terms and Conditions "}
                         </Button>
                     </Link>
                     <table className="w-full min-w-[640px] table-auto">
                         <thead>
                             <tr>
-                                {["Title", "Description", "Action"].map((el) => (
-                                    <th key={el} className="border-b border-blue-gray-50 py-3 px-5 text-left">
+                                {[`${lang ==='ar'? "العنوان" :"Title"}`, `${lang ==='ar'? "الوصف" :"Description"}`, `${lang ==='ar'? "تنفيذ" :"Action"}`].map((el) => (
+                                    <th key={el} className="border-b border-blue-gray-50 py-3 px-5 ">
                                         <Typography variant="small" className="text-[11px] font-bold uppercase text-blue-gray-400">
                                             {el}
                                         </Typography>
@@ -110,13 +111,13 @@ function AllTermsAndConditions() {
                                                     onClick={() => navigate(`/dashboard/updatetermsandconditions/${term.id}`)}
                                                     className="mr-2 flex items-center bg-[#D87C55] transition duration-300 ease-in hover:shadow-lg hover:shadow-blue-500"
                                                 >
-                                                    <PencilIcon className="h-5 w-5 mr-1" /> Edit
+                                                    <PencilIcon className="h-5 w-5 mr-1" /> {lang ==='ar'? "تعديل" : "Edit "}
                                                 </Button>
                                                 <Button
                                                     onClick={() => handleShow(term.id)} 
                                                     className="text-white-600 bg-[#F5C16C] flex items-center transition duration-300 ease-in hover:shadow-lg hover:shadow-red-500"
                                                 >
-                                                    <TrashIcon className="h-5 w-5 mr-1" /> Delete
+                                                    <TrashIcon className="h-5 w-5 mr-1" />  {lang ==='ar'? "حذف" : "Delete "}
                                                 </Button>
                                             </div>
                                         </td>

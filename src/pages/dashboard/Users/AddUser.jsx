@@ -10,6 +10,7 @@ import { API_URL } from "../../../App.jsx";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import axios from 'axios'; // Ensure Axios is imported
+import Cookies from "js-cookie";
 
 function AddUser() {
   const [first_name, setFirst_name] = useState("");
@@ -17,8 +18,8 @@ function AddUser() {
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
   const [role, setRole] = useState("");
-  const [balance, setBalance] = useState("");
   const navigate = useNavigate();
+  const lang = Cookies.get('lang') || 'en';
 
   const handleAddUser = async (e) => {
     e.preventDefault();
@@ -53,13 +54,13 @@ function AddUser() {
     <section className="m-8 flex gap-4">
       <div className="w-full mt-24">
         <div className="text-center">
-          <Typography variant="h2" className="font-bold mb-4">Add User</Typography>
+          <Typography variant="h2" className="font-bold mb-4"> {lang ==='ar'? "اضافة مستخدم" : "Add User  "}</Typography>
         </div>
         <form className="mt-8 mb-2 mx-auto w-80 max-w-screen-lg lg:w-1/2" onSubmit={handleAddUser}>
           <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
             {/* First Column */}
             <div className="flex flex-col">
-              <Typography variant="small" color="blue-gray" className="mb-2 font-medium">First Name</Typography>
+              <Typography variant="small" color="blue-gray" className="mb-2 font-medium"> {lang ==='ar'? "الاسم الاول" : "First Name "}</Typography>
               <Input
               required
                 size="lg"
@@ -67,7 +68,7 @@ function AddUser() {
                 className="!border-t-blue-gray-200 focus:!border-t-gray-900"
                 onChange={(e) => setFirst_name(e.target.value)}
               />
-              <Typography variant="small" color="blue-gray" className="mb-2 font-medium">Your email</Typography>
+              <Typography variant="small" color="blue-gray" className="mb-2 font-medium"> {lang ==='ar'? "البريد الالكتروني" : "Your email "}</Typography>
               <Input
               required
               type='email'
@@ -76,7 +77,7 @@ function AddUser() {
                 className="!border-t-blue-gray-200 focus:!border-t-gray-900"
                 onChange={(e) => setEmail(e.target.value)}
               />
-              <Typography variant="small" color="blue-gray" className="mb-2 font-medium">Password</Typography>
+              <Typography variant="small" color="blue-gray" className="mb-2 font-medium"> {lang ==='ar'? "كلمة السر" : "Password "}</Typography>
               <Input
                 type="password"
                 size="lg"
@@ -89,7 +90,7 @@ function AddUser() {
 
             {/* Second Column */}
             <div className="flex flex-col">
-              <Typography variant="small" color="blue-gray" className="mb-2 font-medium">Last Name</Typography>
+              <Typography variant="small" color="blue-gray" className="mb-2 font-medium"> {lang ==='ar'? "الاسم الاخير" : "Last Name "}</Typography>
               <Input
                 size="lg"
                 placeholder="Doe"
@@ -98,13 +99,13 @@ function AddUser() {
               required
 
               />
-             <Typography variant="small" color="blue-gray" className="mb-2 font-medium">Role</Typography>
+             <Typography variant="small" color="blue-gray" className="mb-2 font-medium"> {lang ==='ar'? "الصلاحية" : "Role "}</Typography>
 <select
   className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
   onChange={(e) => setRole(e.target.value)}
   required
 >
-  <option value="">Choose a Role</option> {/* Set value to empty string */}
+  <option value="">  {lang ==='ar'? "اختر صلاحيتكك" : "Choose a Role "}</option> {/* Set value to empty string */}
   <option value="user">User</option>
   <option value="admin">Admin</option>
 </select>
@@ -120,7 +121,7 @@ function AddUser() {
           </div>
 
           <Button type="submit" className="mt-6" fullWidth>
-            Add User
+          {lang ==='ar'? "اضافة مستخدم" : "  Add User   "}
           </Button>
         </form>
       </div>

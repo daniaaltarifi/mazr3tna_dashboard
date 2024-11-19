@@ -14,14 +14,15 @@ import {
     Avatar,
     Button
   } from "@material-tailwind/react";
- 
+ import Cookies from "js-cookie";
 function FooterData() {
     const navigate = useNavigate();
     const [Footer, setFooter] = useState([]);
     const [socail, setSocial] = useState([]);
     const [showModal, setShowModal] = useState(false);
     const [FooterIdToDelete, setFooterIdToDelete] = useState(null); // Store the ID of the Footer to delete
-  
+    const lang = Cookies.get('lang') || 'en';
+
     const handleShow = (id) => {
       setFooterIdToDelete(id); // Set the Footer ID to delete
       setShowModal(true);
@@ -68,17 +69,17 @@ function FooterData() {
     <Card>
       <CardHeader variant="gradient" color="green" className="mb-8 p-6">
         <Typography variant="h6" color="white">
-          Footer Table
+        {lang ==='ar'? "جدول اسفل الصفحة " :"Footer Table"}
         </Typography>
       </CardHeader>
       <CardBody className="overflow-x-scroll px-0 pt-0 pb-2">
         <table className="w-full min-w-[640px] table-auto">
           <thead>
             <tr>
-              {["Email","Phone","Logo","Action"].map((el) => (
+              {[`${lang ==='ar'? "البريد الالكتروني" : "Email "}`,`${lang ==='ar'? "الرقم" : "Phone"}`,`${lang ==='ar'? "الصورة" : "Logo"}`,`${lang ==='ar'? "تنفيذ" :"Action"}`].map((el) => (
                 <th
                   key={el}
-                  className="border-b border-blue-gray-50 py-3 px-5 text-left"
+                  className="border-b border-blue-gray-50 py-3 px-5 "
                 >
                   <Typography
                     variant="small"
@@ -137,7 +138,7 @@ function FooterData() {
                     onClick={() => navigate(`/dashboard/updatefooter/${foot.id}`)}
                     className="mr-2 flex items-center bg-[#D87C55] transition duration-300 ease-in hover:shadow-lg hover:shadow-blue-500"
                           >
-                            <PencilIcon className="h-5 w-5 mr-1" /> Edit
+                            <PencilIcon className="h-5 w-5 mr-1" /> {lang ==='ar'? "تعديل" : "Edit "}
                           </Button>
                         </div>
                       </td>
@@ -153,7 +154,7 @@ function FooterData() {
     <Card>
       <CardHeader variant="gradient" color="green" className="mb-8 p-6">
         <Typography variant="h6" color="white">
-          Social Media Table
+          {lang ==='ar'? "جدول التواصل الاجتماعي" :"Social Media Table"}
         </Typography>
       </CardHeader>
       <CardBody className="overflow-x-scroll px-0 pt-0 pb-2">
@@ -161,15 +162,15 @@ function FooterData() {
   className="flex  bg-[#D87C55] items-center transition duration-300 ease-in hover:shadow-lg hover:shadow-green-500"
   style={{ marginLeft: '80px' }} 
 >
-  <PlusIcon className="h-5 w-5 mr-1" /> Add Social media
+  <PlusIcon className="h-5 w-5 mr-1" /> {lang ==='ar'? "اضافة تواصل اجنماعي " :"Add Social media"}
 </Button></Link>
         <table className="w-full min-w-[640px] table-auto">
           <thead>
             <tr>
-              {["Link to","Icon","Action"].map((el) => (
+              {[`${lang ==='ar'? "الرابط" :"Link to"}`,`${lang ==='ar'? "الصورة" :"Icon"}`,`${lang ==='ar'? "تنفيذ" :"Action"}`].map((el) => (
                 <th
                   key={el}
-                  className="border-b border-blue-gray-50 py-3 px-5 text-left"
+                  className="border-b border-blue-gray-50 py-3 px-5 "
                 >
                   <Typography
                     variant="small"
@@ -212,13 +213,13 @@ function FooterData() {
                     onClick={() => navigate(`/dashboard/updatesocial/${soc.id}`)}
                     className="mr-2 flex items-center bg-[#D87C55] transition duration-300 ease-in hover:shadow-lg hover:shadow-blue-500"
                           >
-                            <PencilIcon className="h-5 w-5 mr-1" /> Edit
+                            <PencilIcon className="h-5 w-5 mr-1" /> {lang ==='ar'? "تعديل" : "Edit "}
                           </Button>
                           <Button 
                     onClick={() => handleShow(soc.id)} // Pass the Blogs ID to handleShow
                     className="text-white-600 bg-[#F5C16C] flex items-center transition duration-300 ease-in hover:shadow-lg hover:shadow-red-500"
                           >
-                            <TrashIcon className="h-5 w-5 mr-1" /> Delete
+                            <TrashIcon className="h-5 w-5 mr-1" /> {lang ==='ar'? "حذف" : "Delete "}
                           </Button>
                         </div>
                       </td>

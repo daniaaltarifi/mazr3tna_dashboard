@@ -2,30 +2,15 @@ import {
   HomeIcon,
   UserCircleIcon,
   TagIcon, // Icon for Brands
-  ServerStackIcon,
-  RectangleStackIcon,
   ShoppingBagIcon,
   CreditCardIcon,
   WalletIcon,
-  QrCodeIcon,
-  GiftIcon ,
   ChatBubbleLeftEllipsisIcon ,ShieldCheckIcon ,ShieldExclamationIcon ,
   PhotoIcon ,NewspaperIcon,ShareIcon,GlobeAsiaAustraliaIcon,ArrowTopRightOnSquareIcon 
 } from "@heroicons/react/24/solid"; // Ensure you import the correct icon
 import { BiSolidCoupon } from "react-icons/bi";
-import {Products, Notifications } from "@/pages/dashboard";
-
-
+import {Products } from "@/pages/dashboard";
 import { Home } from "@/pages/dashboard";
-
-
-
-
-
-// import { Home,  Notifications, Products } from "@/pages/dashboard";
-
-
-
 import Users from "./pages/dashboard/Users/Users";
 import Brands from "./pages/dashboard/Brands/Brands";
 import Codes from "./pages/dashboard/Codes/Codes";
@@ -40,8 +25,9 @@ import FooterData from "./pages/dashboard/Footer/FooterData";
 import PrivacyPolicies from "./pages/dashboard/PrivacyPolicy/AllPrivacyPolicy";
 import AllTermsAndConditions from "./pages/dashboard/TermsConditions/AllTermsAndConditions"
 import Header from "./pages/dashboard/Header/Header";
+import Cookies from "js-cookie";
 
-
+const lang = Cookies.get('lang') || 'en';
 
 
 
@@ -55,31 +41,31 @@ export const routes = [
     pages: [
       {
         icon: <HomeIcon {...icon} />,
-        name: "Home",
+        name: lang ==='ar'? "الرئيسية" :"Home",
         path: "/home",
         element: <Home />,
       },
       {
         icon: <UserCircleIcon {...icon} />,
-        name: "Users",
+        name: lang ==='ar'? "المستخدمين" :"Users",
         path: "/users",
         element: <Users />,
       },
       {
         icon: <ShoppingBagIcon {...icon} />,
-        name: "Category",
+        name:lang ==='ar'? "الاصناف" : "Category",
         path: "/category",
         element: <Category />,
       },
       {
         icon: <ShoppingBagIcon {...icon} />,
-        name: "Products",
+        name:lang ==='ar'? "المنتجات" : "Products",
         path: "/products",
         element: <Products />,
       },
       {
         icon: <GlobeAsiaAustraliaIcon {...icon} />,
-        name: "About Us",
+        name: lang ==='ar'? "عن مزرعتنا" :"About Us",
         path: "/about",
         element: <Abouts />,
       },
@@ -91,67 +77,67 @@ export const routes = [
       // },
       {
         icon: <TagIcon {...icon} />, // Icon for Brands
-        name: "Certificate",
+        name: lang ==='ar'? "الشهادات" :"Certificate",
         path: "/certificate",
         element: <Brands />, // Adjust this to the correct element if needed
       },
       {
         icon: <BiSolidCoupon {...icon} />, // Icon for Brands
-        name: "Discount Codes",
+        name: lang ==='ar'? "اكواد الخصم" :"Discount Codes",
         path: "/codes",
         element: <Codes />, // Adjust this to the correct element if needed
       },
       {
         icon: <CreditCardIcon {...icon} />, // Icon for Brands
-        name: "Orders",
+        name: lang ==='ar'? "الطلبات" :"Orders",
         path: "/orders",
         element: <Orders />, // Adjust this to the correct element if needed
       },
       {
         icon: <WalletIcon {...icon} />, // Icon for Brands
-        name: "Wallet",
+        name: lang ==='ar'? "المحفظة" :"Wallet",
         path: "/wallet",
         element: <Wallet />, // Adjust this to the correct element if needed
       },
       {
         icon: <NewspaperIcon {...icon} />, // Icon for Brands
-        name: "Blogs",
+        name: lang ==='ar'? "المدونات" :"Blogs",
         path: "/blogs",
         element: <Blogs />, // Adjust this to the correct element if needed
       },
       {
         icon: <ChatBubbleLeftEllipsisIcon  {...icon} />, // Icon for Brands
-        name: "FeedBack",
+        name: lang ==='ar'? "الاراء" :"FeedBack",
         path: "/feedback",
         element: <Feedback />, // Adjust this to the correct element if needed
       }, 
        {
         icon: <PhotoIcon  {...icon} />, // Icon for Brands
-        name: "Slider",
+        name: lang ==='ar'? "الصور" :"Slider",
         path: "/slider",
         element: <Slider />, // Adjust this to the correct element if needed
       },
       {
         icon: <ArrowTopRightOnSquareIcon    {...icon} />, // Icon for Brands
-        name: "Header",
+        name: lang ==='ar'? "اعلى الصفحة" :"Header",
         path: "/header",
         element: <Header />, // Adjust this to the correct element if needed
       },
       {
         icon: <ShareIcon  {...icon} />, // Icon for Brands
-        name: "Footer",
+        name: lang ==='ar'? "اسفل الصفحة" :"Footer",
         path: "/footer",
         element: <FooterData />,
       },
         { // Adjust this to the correct element if needed
         icon: <ShieldCheckIcon   {...icon} />, // Icon for Brands
-        name: "privacypolicy",
+        name: lang ==='ar'? "سياسة الخصوصية" :"privacypolicy",
         path: "/privacypolicy",
         element: <PrivacyPolicies />, // Adjust this to the correct element if needed
       },
       {
         icon: <ShieldExclamationIcon   {...icon} />, // Icon for Brands
-        name: "terms and conditions",
+        name: lang ==='ar'? "الشروط والاحكام" :"terms and conditions",
         path: "/termsandconditions",
         element: <AllTermsAndConditions />, // Adjust this to the correct element if needed
       },

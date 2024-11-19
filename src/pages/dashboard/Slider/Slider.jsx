@@ -7,7 +7,7 @@ import { FaEdit } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import DeleteModule from "../../../Components/DeleteModule.jsx"
 import { PencilIcon, TrashIcon, PlusIcon } from "@heroicons/react/24/outline";
-
+import Cookies from "js-cookie";
 import {
     Card,
     CardHeader,
@@ -27,6 +27,7 @@ function Slider() {
   const [Slider, setSlider] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [sliderIdToDelete, setsliderIdToDelete] = useState(null); // Store the ID of the slide to delete
+  const lang = Cookies.get('lang') || 'en';
 
   const handleShow = (id) => {
     setsliderIdToDelete(id); // Set the slide ID to delete
@@ -69,7 +70,7 @@ function Slider() {
     <Card>
       <CardHeader variant="gradient" color="green" className="mb-8 p-6">
         <Typography variant="h6" color="white">
-         Slider Table
+       {lang ==='ar'? "جدول الصور" :"  Slider Table "}
         </Typography>
       </CardHeader>
       <CardBody className="overflow-x-scroll px-0 pt-0 pb-2">
@@ -78,16 +79,16 @@ function Slider() {
   className="flex items-center transition duration-300 ease-in hover:shadow-lg hover:shadow-green-500 bg-[#D87C55]"
   style={{ marginLeft: '80px' }} 
 >
-  <PlusIcon className="h-5 w-5 mr-1" /> Add Slide
+  <PlusIcon className="h-5 w-5 mr-1" /> {lang ==='ar'? "اضافة صورة" : "Add Slide "}
 </Button>
 </Link>
         <table className="w-full min-w-[640px] table-auto">
           <thead>
             <tr>
-              {["Title","Subtitle","Link To","Image","Action"].map((el) => (
+              {[`${lang ==='ar'? "العنوان" :"Title"}`,`${lang ==='ar'? "العنوان الفرعي" :"Subtitle"}`,`${lang ==='ar'? "الى صفحة" :"Link To"}`,`${lang ==='ar'? "الصورة" :"Image"}`,`${lang ==='ar'? "تنفيذ" :"Action"}`].map((el) => (
                 <th
                   key={el}
-                  className="border-b border-blue-gray-50 py-3 px-5 text-left"
+                  className="border-b border-blue-gray-50 py-3 px-5 "
                 >
                   <Typography
                     variant="small"
@@ -158,13 +159,13 @@ function Slider() {
                             onClick={() => navigate(`/dashboard/updateslide/${slides.id}`)}
                             className="mr-2 bg-[#D87C55] flex items-center transition duration-300 ease-in hover:shadow-lg hover:shadow-blue-500"
                           >
-                            <PencilIcon className="h-5 w-5 mr-1 " /> Edit
+                            <PencilIcon className="h-5 w-5 mr-1 " /> {lang ==='ar'? "تعديل" : "Edit "}
                           </Button>
                           <Button 
                     onClick={() => handleShow(slides.id)} // Pass the slides ID to handleShow
                     className="text-white-600 bg-[#F5C16C] flex items-center transition duration-300 ease-in hover:shadow-lg hover:shadow-red-500"
                           >
-                            <TrashIcon className="h-5 w-5 mr-1" /> Delete
+                            <TrashIcon className="h-5 w-5 mr-1" /> {lang ==='ar'? "حذف" : "Delete "}
                           </Button>
                         </div>
                       </td>

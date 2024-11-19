@@ -9,13 +9,15 @@ import {
 import { API_URL } from "../../../App.jsx";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
-import axios from 'axios'; // Ensure Axios is imported
+import axios from 'axios'; 
+import Cookies from 'js-cookie';
 function AddHeader() {
     const [title, settitle] = useState("");
   const [lang, setlang] = useState("");
   const [category_id, setcategory_id] = useState("");
   const navigate = useNavigate();
   const [main_product, setmain_product] = useState([]);
+  const language = Cookies.get('lang') || 'en';
 
   const handleAddDiscounttitle = async (e) => {
     e.preventDefault();
@@ -63,13 +65,13 @@ function AddHeader() {
     <section className="m-8 flex gap-4">
       <div className="w-full mt-24">
         <div className="text-center">
-          <Typography variant="h2" className="font-bold mb-4">Add Header</Typography>
+          <Typography variant="h2" className="font-bold mb-4">{language ==='ar'? "اضافة " :"Add header"}</Typography>
         </div>
         <form className="mt-8 mb-2 mx-auto w-80 max-w-screen-lg lg:w-1/2" onSubmit={handleAddDiscounttitle}>
           <div className="grid grid-cols-1 gap-6 ">
             {/* First Column */}
             <div className="flex flex-col">
-              <Typography variant="small" color="blue-gray" className="mb-2 font-medium"> title:
+              <Typography variant="small" color="blue-gray" className="mb-2 font-medium"> {language ==='ar'? "العنوان" :"Title"}
               </Typography>
               <Input
               required
@@ -79,27 +81,27 @@ function AddHeader() {
                 onChange={(e) => {
                     settitle(e.target.value);
                   }}           />
-              <Typography variant="small" color="blue-gray" className="mb-2 font-medium"> lang:
+              <Typography variant="small" color="blue-gray" className="mb-2 font-medium">{language ==='ar'? "اللغة" :"Lang"}
 
               </Typography>
               <select 
                     onChange={(e)=>{setlang(e.target.value)}} 
                     className="block w-full border p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                   >
-                    <option value="">Select lang</option>
+                    <option value=""> {language ==='ar'? " اختر اللغة" :"Select lang"}</option>
                     <option value="en">en</option>
                     <option value="ar">ar</option>
                   </select>
              
 
-             <Typography variant="small" color="blue-gray" className="mb-2 font-medium">  Category:
+             <Typography variant="small" color="blue-gray" className="mb-2 font-medium"> {language ==='ar'? "الصنف" :" Category:"}
             </Typography>
                    <select 
                     name="category_id" 
                     onChange={(e)=>{setcategory_id(e.target.value)}} 
                     className="block w-full border p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                   >
-                    <option value="">Select a category</option>
+                    <option value="">{language ==='ar'? "اختر الصنف" :"Select a category"}</option>
                     {main_productOptions}
                   </select>
 
@@ -109,8 +111,7 @@ function AddHeader() {
           </div>
 
           <Button type="submit" className="mt-6" fullWidth>
-            Add Header
-          </Button>
+          {lang ==='ar'? "اضافة " :"Add header"}          </Button>
         </form>
       </div>
     </section>

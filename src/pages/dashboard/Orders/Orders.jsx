@@ -7,7 +7,7 @@ import { FaEdit } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import { TrashIcon,CheckIcon  } from "@heroicons/react/24/outline";
 import Swal from "sweetalert2";
-
+import Cookies from "js-cookie";
 import {
     Card,
     CardHeader,
@@ -21,8 +21,8 @@ import {
 function Orders() {
     const navigate = useNavigate();
     const [Orders, setOrders] = useState([]);
-    // const [showModal, setShowModal] = useState(false);
-    // const [orderIdToDelete, setOrderIdToDelete] = useState(null); // Store the ID of the order to delete
+    const lang = Cookies.get('lang') || 'en';
+
   const [selectedDate, setSelectedDate] = useState("");
   const [filteredOrders, setFilteredOrders] = useState([]);
   const fetchOrders = async () => {
@@ -96,7 +96,7 @@ function Orders() {
     <Card>
       <CardHeader variant="gradient" color="green" className="mb-8 p-6">
         <Typography variant="h6" color="white">
-          Orders Table
+          {lang ==='ar'? "جدول الطلبات" : " Orders Table "}
         </Typography>
       </CardHeader>
       <CardBody className="overflow-x-scroll px-0 pt-0 pb-2">
@@ -115,10 +115,10 @@ id="datepicker-actions" datepicker datepicker-buttons datepicker-autoselect-toda
         <table className="w-full min-w-[640px] table-auto">
           <thead>
             <tr>
-              {[" Name","Email","address","address optional","city","country","phone","Order Items","shipping method","payment method","total price","Date","order status","status"].map((el) => (
+              {[`${lang ==='ar'? "الاسم" :" Name"}`,`${lang ==='ar'? "الايميل" :"Email"}`,`${lang ==='ar'? "العنوان" :"address"}`,`${lang ==='ar'? "عنوان اخر" :"address optional"}`,`${lang ==='ar'? "المدينة" :"city"}`,`${lang ==='ar'? "الدولة" :"country"}`,`${lang ==='ar'? "الرقم" :"phone"}`,`${lang ==='ar'? "المنتجات " :"Order Items"}`,`${lang ==='ar'? "طريقة الشحن" :"shipping method"}`,`${lang ==='ar'? "طريقة الدفع" :"payment method"}`,`${lang ==='ar'? "السعر الكلي" :"total price"}`,`${lang ==='ar'? "التاريخ" :"Date"}`,`${lang ==='ar'? "حالة الطلب" :"order status"}`,`${lang ==='ar'? "الحالة" :"status"}`].map((el) => (
                 <th
                   key={el}
-                  className="border-b border-blue-gray-50 py-3 px-5 text-left"
+                  className="border-b border-blue-gray-50 py-3 px-5 "
                 >
                   <Typography
                     variant="small"
@@ -241,12 +241,12 @@ id="datepicker-actions" datepicker datepicker-buttons datepicker-autoselect-toda
                   className="mr-2 flex items-center transition duration-300 ease-in hover:shadow-lg hover:shadow-blue-500"
                    onClick={()=>{handleStatusOrder(order.order_id,'Confirmed')}}>
                          <CheckIcon className="h-5 w-5 mr-1" />
-                         Confirm
+                         {lang ==='ar'? "تأكيد" :"Confirm"}
                   </Button>
                   <Button 
                   className="text-white-600 bg-[#F5C16C] flex items-center transition duration-300 ease-in hover:shadow-lg hover:shadow-red-500"
                   onClick={()=>handleStatusOrder(order.order_id,'Canceled')}    >
-                    <TrashIcon className="h-5 w-5 mr-1" /> Cancel
+                    <TrashIcon className="h-5 w-5 mr-1" /> {lang ==='ar'? "الغاء" :"Cancel"}
                   </Button>
                 </div>
               </td>
@@ -256,7 +256,8 @@ id="datepicker-actions" datepicker datepicker-buttons datepicker-autoselect-toda
               }
             ):  <tr>
             <td colSpan={12} className="text-center py-3">
-              No orders found for the selected date.
+             
+              {lang ==='ar'? "لا يوجد طلبات في هذا الناريخ" :" No orders found for the selected date."}
             </td>
           </tr>}
           </tbody>

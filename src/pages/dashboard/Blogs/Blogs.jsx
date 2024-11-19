@@ -17,14 +17,14 @@ import {
     Progress,
     Button
   } from "@material-tailwind/react";
-  import { EllipsisVerticalIcon } from "@heroicons/react/24/outline";
-  import { authorsTableData, projectsTableData } from "@/data";
+import Cookies from "js-cookie";
 function Blogs() {
     const navigate = useNavigate();
     const [Blogs, setBlogs] = useState([]);
     const [showModal, setShowModal] = useState(false);
     const [BlogsIdToDelete, setBlogsIdToDelete] = useState(null); // Store the ID of the Blogs to delete
-  
+    const lang = Cookies.get('lang') || 'en';
+
     const handleShow = (id) => {
       setBlogsIdToDelete(id); // Set the Blogs ID to delete
       setShowModal(true);
@@ -65,7 +65,7 @@ function Blogs() {
     <Card>
       <CardHeader variant="gradient" color="green" className="mb-8 p-6">
         <Typography variant="h6" color="white">
-          Blogs Table
+          {lang ==='ar'? "جدول المدونات" : "Blogs Table "}
         </Typography>
       </CardHeader>
       <CardBody className="overflow-x-scroll px-0 pt-0 pb-2">
@@ -73,15 +73,15 @@ function Blogs() {
   className="flex  bg-[#D87C55] items-center transition duration-300 ease-in hover:shadow-lg hover:shadow-green-500"
   style={{ marginLeft: '80px' }} 
 >
-  <PlusIcon className="h-5 w-5 mr-1" /> Add Blogs
+  <PlusIcon className="h-5 w-5 mr-1" /> {lang ==='ar'? "اضافة مدونة" : "Add Blogs "}
 </Button></Link>
         <table className="w-full min-w-[640px] table-auto">
           <thead>
             <tr>
-              {["Title","Desrciption","Image","Action"].map((el) => (
+              {[`${lang ==='ar'? "العنوان" : "Title"}`,`${lang ==='ar'? "الوصف" :"Desrciption"}`,`${lang ==='ar'? "الصورة" : "Image"}`,`${lang ==='ar'? "تنفيذ" : "Action"}`].map((el) => (
                 <th
                   key={el}
-                  className="border-b border-blue-gray-50 py-3 px-5 text-left"
+                  className="border-b border-blue-gray-50 py-3 px-5 "
                 >
                   <Typography
                     variant="small"
@@ -140,13 +140,13 @@ function Blogs() {
                     onClick={() => navigate(`/dashboard/updateblog/${Blog.id}`)}
                     className="mr-2 flex items-center bg-[#D87C55] transition duration-300 ease-in hover:shadow-lg hover:shadow-blue-500"
                           >
-                            <PencilIcon className="h-5 w-5 mr-1" /> Edit
+                            <PencilIcon className="h-5 w-5 mr-1" /> {lang ==='ar'? "تعديل" : "Edit "}
                           </Button>
                           <Button 
                     onClick={() => handleShow(Blog.id)} // Pass the Blogs ID to handleShow
                     className="text-white-600 bg-[#F5C16C] flex items-center transition duration-300 ease-in hover:shadow-lg hover:shadow-red-500"
                           >
-                            <TrashIcon className="h-5 w-5 mr-1" /> Delete
+                            <TrashIcon className="h-5 w-5 mr-1" /> {lang ==='ar'? "حذف" : "Delete "}
                           </Button>
                         </div>
                       </td>

@@ -15,12 +15,13 @@ import {
     Typography,
     Button
   } from "@material-tailwind/react";
-
+import Cookies from "js-cookie";
 function Header() {
     const navigate = useNavigate();
   const [header, setheader] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [headerIdToDelete, setheaderIdToDelete] = useState(null); // Store the ID of the Header to delete
+  const lang = Cookies.get('lang') || 'en';
 
   const handleShow = (id) => {
     setheaderIdToDelete(id); // Set the Header ID to delete
@@ -63,7 +64,7 @@ function Header() {
     <Card>
       <CardHeader variant="gradient" color="green" className="mb-8 p-6">
         <Typography variant="h6" color="white">
-         Header Table
+         {lang ==='ar'? "جدول اعلى الصفحة " :"Header Table"}
         </Typography>
       </CardHeader>
       <CardBody className="overflow-x-scroll px-0 pt-0 pb-2">
@@ -72,16 +73,16 @@ function Header() {
   className="flex bg-[#D87C55] items-center transition duration-300 ease-in hover:shadow-lg hover:shadow-green-500"
   style={{ marginLeft: '80px' }} 
 >
-  <PlusIcon className="h-5 w-5 mr-1" /> Add header
+  <PlusIcon className="h-5 w-5 mr-1" /> {lang ==='ar'? "اضافة " :"Add header"}
 </Button>
 </Link>
         <table className="w-full min-w-[640px] table-auto">
           <thead>
             <tr>
-              {["Tilte","Lang","Category","Action"].map((el) => (
+              {[`${lang ==='ar'? "العنوان" :"Title"}`,`${lang ==='ar'? "اللغة" :"Lang"}`,`${lang ==='ar'? "الصنف" :"Category"}`,`${lang ==='ar'? "تنفيذ" :"Action"}`].map((el) => (
                 <th
                   key={el}
-                  className="border-b border-blue-gray-50 py-3 px-5 text-left"
+                  className="border-b border-blue-gray-50 py-3 px-5 "
                 >
                   <Typography
                     variant="small"
@@ -112,9 +113,7 @@ function Header() {
                           >
                             {Head.title}
                           </Typography>
-                          {/* <Typography className="text-xs font-normal text-blue-gray-500">
-                            {Header.last_name}
-                          </Typography> */}
+                        
 
                         </div>
                       </div>
@@ -148,13 +147,13 @@ function Header() {
                             onClick={() => navigate(`/dashboard/updateheader/${Head.id}`)}
                             className="mr-2 bg-[#D87C55] flex items-center transition duration-300 ease-in hover:shadow-lg hover:shadow-blue-500"
                           >
-                            <PencilIcon className="h-5 w-5 mr-1" /> Edit
+                            <PencilIcon className="h-5 w-5 mr-1" /> {lang ==='ar'? "تعديل" : "Edit "}
                           </Button>
                           <Button 
                     onClick={() => handleShow(Head.id)} // Pass the Header ID to handleShow
                     className="text-white-600 bg-[#F5C16C] flex items-center transition duration-300 ease-in hover:shadow-lg hover:shadow-red-500"
                           >
-                            <TrashIcon className="h-5 w-5 mr-1" /> Delete
+                            <TrashIcon className="h-5 w-5 mr-1" /> {lang ==='ar'? "حذف" : "Delete "}
                           </Button>
                         </div>
                       </td>

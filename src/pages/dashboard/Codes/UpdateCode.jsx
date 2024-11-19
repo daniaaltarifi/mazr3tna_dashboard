@@ -8,8 +8,10 @@ import {
 import { API_URL } from "../../../App.jsx";
 import Swal from "sweetalert2";
 import axios from 'axios';
-
+import Cookies from 'js-cookie';
 function UpdateCode() {
+    const lang = Cookies.get('lang') || 'en';
+
     const [discountCode, setDiscountCode] = useState({
         code: "",
         discount_percentage: "",
@@ -65,12 +67,12 @@ function UpdateCode() {
         <section className="m-8 flex gap-4">
             <div className="w-full mt-24">
                 <div className="text-center">
-                    <Typography variant="h2" className="font-bold mb-4">Update Discount Code</Typography>
+                    <Typography variant="h2" className="font-bold mb-4">{lang ==='ar'? "تعديل كود الخصم" :"Update Discount Code"}</Typography>
                 </div>
                 <form className="mt-8 mb-2 mx-auto w-80 max-w-screen-lg lg:w-1/2" onSubmit={handleUpdateDiscountCode}>
                     <div className="grid grid-cols-1 gap-6">
                         <div className="flex flex-col">
-                            <Typography variant="small" color="blue-gray" className="mb-2 font-medium">Code:</Typography>
+                            <Typography variant="small" color="blue-gray" className="mb-2 font-medium"> {lang ==='ar'? "الكود" :" Code:"}    </Typography>
                             <Input
                                 name="code" // Ensure name is set for correct state mapping
                                 size="lg"
@@ -80,7 +82,7 @@ function UpdateCode() {
                                 onChange={handleChange}
                                 required
                             />
-                            <Typography variant="small" color="blue-gray" className="mb-2 font-medium">Discount Percentage:</Typography>
+                            <Typography variant="small" color="blue-gray" className="mb-2 font-medium"> {lang ==='ar'? "نسبة الخصم" :" Discount Percentage:"} </Typography>
                             <Input
                                 name="discount_percentage" // Ensure name is set for correct state mapping
                                 size="lg"
@@ -90,7 +92,7 @@ function UpdateCode() {
                                 onChange={handleChange}
                                 required
                             />
-                            <Typography variant="small" color="blue-gray" className="mb-2 font-medium">Expiration Date:</Typography>
+                            <Typography variant="small" color="blue-gray" className="mb-2 font-medium">{lang ==='ar'? "تاريخ الانتهاء" :"Expiration Date"}</Typography>
                             <Input
                             type='date'
                                 name="expiration_date" // Ensure name is set for correct state mapping
@@ -104,8 +106,7 @@ function UpdateCode() {
                         </div>
                     </div>
                     <Button type="submit" className="mt-6" fullWidth>
-                        Update Code
-                    </Button>
+                    {lang ==='ar'? "تعديل كود الخصم" :"Update Discount Code"}                    </Button>
                 </form>
             </div>
         </section>

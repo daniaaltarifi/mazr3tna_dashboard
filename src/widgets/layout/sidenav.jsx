@@ -10,10 +10,11 @@ import {
   Typography,
 } from "@material-tailwind/react";
 import { useMaterialTailwindController, setOpenSidenav } from "@/context";
-
+import Cookies from "js-cookie";
 export function Sidenav({ brandImg, brandName, routes }) {
   const [controller, dispatch] = useMaterialTailwindController();
   const { sidenavColor, sidenavType, openSidenav } = controller;
+
   const sidenavTypes = {
     dark: "bg-gradient-to-br from-gray-800 to-gray-900",
     white: "bg-white shadow-sm",
@@ -97,10 +98,10 @@ export function Sidenav({ brandImg, brandName, routes }) {
     </aside>
   );
 }
-
+const lang = Cookies.get('lang') || 'en';
 Sidenav.defaultProps = {
   brandImg: "",
-  brandName: "Mazr3tna Dashboard",
+  brandName:  lang ==='ar'? "لوحة تحكم مزرعتنا" :"Mazr3tna Dashboard",
 };
 
 Sidenav.propTypes = {

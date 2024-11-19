@@ -10,10 +10,13 @@ import { API_URL } from "../../../App.jsx";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import axios from 'axios'; // Ensure Axios is imported
+import Cookies from "js-cookie";
 
 function AddCategory() {
     const [name, setname] = useState("");
   const navigate = useNavigate();
+  const lang = Cookies.get('lang') || 'en';
+
   const handleAddcategory = async (e) => {
     e.preventDefault();
    
@@ -45,13 +48,13 @@ function AddCategory() {
     <section className="m-8 flex gap-4">
       <div className="w-full mt-24">
         <div className="text-center">
-          <Typography variant="h2" className="font-bold mb-4">Add Category</Typography>
+          <Typography variant="h2" className="font-bold mb-4">{lang ==='ar'? "اضافة صنف" : "Add Category "}</Typography>
         </div>
         <form className="mt-8 mb-2 mx-auto w-80 max-w-screen-lg lg:w-1/2" onSubmit={handleAddcategory}>
           <div className="grid grid-cols-1 gap-6 ">
             {/* First Column */}
             <div className="flex flex-col">
-              <Typography variant="small" color="blue-gray" className="mb-2 font-medium"> name:
+              <Typography variant="small" color="blue-gray" className="mb-2 font-medium"> {lang ==='ar'? "الاسم" : "name: "}
               </Typography>
               <Input
               required
@@ -65,8 +68,7 @@ function AddCategory() {
           </div>
 
           <Button type="submit" className="mt-6" fullWidth>
-            Add Category
-          </Button>
+          {lang ==='ar'? "اضافة صنف" : "Add Category "}          </Button>
         </form>
       </div>
     </section>

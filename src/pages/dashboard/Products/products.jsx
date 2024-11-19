@@ -11,11 +11,13 @@ import {
 import { PencilIcon, TrashIcon, PlusIcon } from "@heroicons/react/24/outline";
 import Swal from 'sweetalert2';
 import { API_URL } from '@/App';
+import Cookies from "js-cookie";
 
 export function Products() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
+  const lang = Cookies.get('lang') || 'en';
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -36,10 +38,10 @@ export function Products() {
  
   const handleDelete = async (id) => {
     const result = await Swal.fire({
-      title: 'Are you sure you want to delete this product?',
+      title: lang ==='ar'? "هل انت متاكد من حذف هذا المنتج" : 'Are you sure you want to delete this product?',
       showCancelButton: true,
-      confirmButtonText: 'Yes, delete it!',
-      cancelButtonText: 'Cancel',
+      confirmButtonText: lang ==='ar'? "حذف" : " Yes, delete it! " ,
+      cancelButtonText:  lang ==='ar'? "الغاء" : " Cancel  ",
       icon: 'warning',
       background: '#000',
       color: '#fff',
@@ -82,134 +84,13 @@ export function Products() {
   };
 
   
-  const handleEditVariant = (variant, product) => {
-    const { main_product_type } = product;
-    const { VariantID } = variant;
  
-    switch (main_product_type) {
-      case "Fragrance":
-        navigate(`/dashboard/updateFragrancesVariant/${VariantID}`);
-        break;
-      case "Bag":
-        navigate(`/dashboard/updatebagvariants/${VariantID}`);
-        break;
-      default:
-        Swal.fire({
-          title: 'Error!',
-          text: 'Unknown variant type.',
-          icon: 'error',
-          background: '#000',
-          color: '#fff',
-        });
-    }
-  };
-
-  const handleDeleteVariant = async (variant) => {
-    const result = await Swal.fire({
-      title: 'Are you sure you want to delete this variant?',
-      showCancelButton: true,
-      confirmButtonText: 'Yes, delete it!',
-      cancelButtonText: 'Cancel',
-      icon: 'warning',
-      background: '#000',
-      color: '#fff',
-      customClass: {
-        confirmButton: 'bg-blue-600 text-white',
-        cancelButton: 'bg-red-600 text-white'
-      }
-    });
- 
-    if (result.isConfirmed) {
-      try {
-        await fetch(`${API_URL}/product/deletefragrancevariant/${variant.VariantID}`, {
-          method: 'DELETE'
-        });
- 
-        setProducts(prevProducts =>
-          prevProducts.map(product => ({
-            ...product,
-            variantDetails: product.variantDetails.filter(v => v.VariantID !== variant.VariantID)
-          }))
-        );
- 
-        await Swal.fire({
-          title: 'Deleted!',
-          text: 'Your variant has been deleted.',
-          icon: 'success',
-          background: '#000',
-          color: '#fff',
-          customClass: {
-            confirmButton: 'bg-blue-600 text-white'
-          }
-        });
-      } catch (error) {
-        console.error("Error deleting variant:", error);
-        Swal.fire({
-          title: 'Error!',
-          text: 'There was an error deleting the variant.',
-          icon: 'error',
-          background: '#000',
-          color: '#fff',
-        });
-      }
-    }
-  };
-  const handleDeleteBagVariant = async (variant) => {
-    const result = await Swal.fire({
-      title: 'Are you sure you want to delete this bag variant?',
-      showCancelButton: true,
-      confirmButtonText: 'Yes, delete it!',
-      cancelButtonText: 'Cancel',
-      icon: 'warning',
-      background: '#000',
-      color: '#fff',
-      customClass: {
-        confirmButton: 'bg-blue-600 text-white',
-        cancelButton: 'bg-red-600 text-white'
-      }
-    });
-  
-    if (result.isConfirmed) {
-      try {
-        await fetch(`${API_URL}/product/deletebagvariant/${variant.VariantID}`, {
-          method: 'DELETE'
-        });
-  
-        setProducts(prevProducts =>
-          prevProducts.map(product => ({
-            ...product,
-            variantDetails: product.variantDetails.filter(v => v.VariantID !== variant.VariantID)
-          }))
-        );
-  
-        await Swal.fire({
-          title: 'Deleted!',
-          text: 'Your bag variant has been deleted.',
-          icon: 'success',
-          background: '#000',
-          color: '#fff',
-          customClass: {
-            confirmButton: 'bg-blue-600 text-white'
-          }
-        });
-      } catch (error) {
-        console.error("Error deleting bag variant:", error);
-        Swal.fire({
-          title: 'Error!',
-          text: 'There was an error deleting the bag variant.',
-          icon: 'error',
-          background: '#000',
-          color: '#fff',
-        });
-      }
-    }
-  };
   return (
     <div className="mt-12 mb-8 flex flex-col gap-12"> 
     <Card >
       <CardHeader variant="gradient" color="green" className="mb-3 p-6">
         <Typography variant="h6" color="white">
-          Manage Products
+           {lang ==='ar'? "ادارة المنتجات" : "Manage Products"}
         </Typography>
       </CardHeader>
       <CardBody>
@@ -221,7 +102,7 @@ export function Products() {
   className="flex items-center bg-[#D87C55] transition duration-300 ease-in hover:shadow-lg hover:shadow-green-500"
   style={{ marginLeft: '50px' }} 
 >
-  <PlusIcon className="h-5 w-5 mr-1" /> Add Product
+  <PlusIcon className="h-5 w-5 mr-1" />{lang ==='ar'? "اضافة صنف" : " Add Product"}
 </Button>
         </div>
         <div className="overflow-x-auto">
@@ -229,12 +110,12 @@ export function Products() {
             <thead>
               <tr>
                 {[
-                  "ID", "Name", "ingredients", "Sale",
-                  "Main Product Type",
-                  "Sourcing", "Season","Instock","Certificate", "Updated At", "Variants",
-                   "Actions"
+                 `${lang ==='ar'? "رقم المنتج" :  "ID"}`,  `${lang ==='ar'? "الاسم" :  "Name"}`,  `${lang ==='ar'? "المكونات" :  "ingredients"}`,  `${lang ==='ar'? "تخفيض" :  "Sale"}`,
+                 `${lang ==='ar'? "نوع الممنج" :   "Main Product Type"}` ,
+                   `${lang ==='ar'? "المصدر" : "Sourcing"}`,  `${lang ==='ar'? "الموسم" :  "Season"}`, `${lang ==='ar'? "في المخزن" : "Instock"}`,`${lang ==='ar'? "الشهادة" :"Certificate"}`,`${lang ==='ar'? "تاريخ التحديث" :"Updated At"}` ,`${lang ==='ar'? "المواصفات" :"Variants"}` ,
+                   `${lang ==='ar'? "تنفيذ" :"Actions"}`
                 ].map((header) => (
-                  <th key={header} className="border-b py-3 px-5 text-left">
+                  <th key={header} className="border-b py-3 px-5 ">
                     <Typography variant="small" className="font-semibold text-xs text-blue-gray-500">
                       {header}
                     </Typography>
@@ -312,13 +193,13 @@ export function Products() {
       onClick={() => handleEdit(product)}
       className="mr-2 flex bg-[#D87C55] items-center transition duration-300 ease-in hover:shadow-lg hover:shadow-blue-500"
       >
-      <PencilIcon className="h-4 w-4 mr-1" /> Edit
+      <PencilIcon className="h-4 w-4 mr-1" /> {lang ==='ar'? "تعديل" : "Edit "}
     </Button>
     <Button
       onClick={() => handleDelete(product.id)}
       className="text-white-600 bg-[#F5C16C] flex items-center transition duration-300 ease-in hover:shadow-lg hover:shadow-red-500"
       >
-      <TrashIcon className="h-5 w-5 mr-1" /> Delete
+      <TrashIcon className="h-5 w-5 mr-1" />  {lang ==='ar'? "حذف" : "Delete "}
     </Button>
   </div>
 </td>

@@ -3,9 +3,10 @@ import { Input, Button, Typography } from "@material-tailwind/react";
 import Swal from 'sweetalert2';
 import { useNavigate } from 'react-router-dom';  
 import { API_URL } from '@/App';
-
+import Cookies from 'js-cookie';
 export function AddProduct() {
   const navigate = useNavigate(); 
+  const lang = Cookies.get('lang') || 'en';
 
   const [productData, setProductData] = useState({
     name: '',
@@ -168,112 +169,136 @@ export function AddProduct() {
     <section className="m-8 flex justify-center">
       <div className="w-full lg:w-3/5 mt-16">
         <div className="text-center">
-          <Typography variant="h2" className="font-bold mb-4">Add Product</Typography>
+          <Typography variant="h2" className="font-bold mb-4">{lang ==='ar'? "اضافة منتج" : "Add Product "}</Typography>
           <Typography variant="paragraph" weight="blue-gray" className="text-lg font-normal">
-            Fill in the details below to add a new product.
+           {lang ==='ar'? "قم بتعبئة تفاصيل المنتج الجديد" : " Fill in the details below to add a new product.  "}
           </Typography>
         </div>
         <form onSubmit={handleSubmit} className="mt-8 mb-2 mx-auto w-full max-w-screen-lg">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-          {Object.entries(productData).map(([key, value]) => (
+          {Object.entries(productData).map(([key, value]) => key === 'name' ? (
+    <div key={key}>
+      <Typography variant="small" className="block mb-1">
+        {lang === 'ar' ? "اسم المنتج" : "Product Name"}
+      </Typography>
+      <Input
+        name={key}
+        value={value}
+        onChange={handleChange}
+        placeholder={lang === 'ar' ? "أدخل اسم المنتج" : "Enter product name"}
+      />
+    </div>
+  ) : key === 'ingredients' ? (
+    <div key={key}>
+      <Typography variant="small" className="block mb-1">
+        {lang === 'ar' ? "المكونات" : "Ingredients"}
+      </Typography>
+      <Input
+        name={key}
+        value={value}
+        onChange={handleChange}
+        placeholder={lang === 'ar' ? "أدخل المكونات" : "Enter ingredients"}
+      />
+    </div>
+  ) :(
   key === 'sale' ? (
     <div key={key}>
-      <Typography variant="small" className="block mb-1">Sale</Typography>
+      <Typography variant="small" className="block mb-1"> {lang ==='ar'? "تخفيض" : "Sale "}</Typography>
       <select 
         name={key} 
         value={value} 
         onChange={handleChange} 
         className="block w-full border p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
       >
-        <option value="">Select option</option>
-        <option value="no">No</option>
-        <option value="yes">Yes</option>
+        <option value=""> {lang ==='ar'? "اختر " : "Select option  "}</option>
+        <option value="no"> {lang ==='ar'? "لا" : "No "}</option>
+        <option value="yes"> {lang ==='ar'? "نعم" : "Yes "}</option>
       </select>
     </div>
   ) : key === 'main_product_type_id' ? (
     <div key={key}>
-      <Typography variant="small" className="block mb-1">Category</Typography>
+      <Typography variant="small" className="block mb-1"> {lang ==='ar'? "الصنف" : "Category "}</Typography>
       <select 
         name={key} 
         value={value} 
         onChange={handleChange} 
         className="block w-full border p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
       >
-        <option value="">Select a category</option>
+        <option value=""> {lang ==='ar'? "اختر صنف" : "Select a category "}</option>
         {main_productOptions}
       </select>
     </div>
   ) : key === 'certificateID' ? (
     <div key={key}>
-      <Typography variant="small" className="block mb-1">Certificate</Typography>
+      <Typography variant="small" className="block mb-1"> {lang ==='ar'? "الشهادة" : "Certificate "}</Typography>
       <select 
         name={key} 
         value={value} 
         onChange={handleChange} 
         className="block w-full border p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
       >
-        <option value="">Select a Certificate</option>
+        <option value=""> {lang ==='ar'? "اختر شهادة" : "Select a Certificate "}</option>
         {certificateOptions}
       </select>
     </div>
   ) : key === 'sourcing' ? (
     <div key={key}>
-      <Typography variant="small" className="block mb-1">Sourcing</Typography>
+      <Typography variant="small" className="block mb-1"> {lang ==='ar'? "المصدر" : "Sourcing "}</Typography>
       <select 
         name={key} 
         value={value} 
         onChange={handleChange} 
         className="block w-full border p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
       >
-        <option value="">Choose Sourcing</option>
-        <option value="local">Local</option>
-        <option value="imported">Imported</option>
+        <option value=""> {lang ==='ar'? "اختر المصدر" : "Choose Sourcing  "}</option>
+        <option value="local"> {lang ==='ar'? "محلي" : "Local "}</option>
+        <option value="imported"> {lang ==='ar'? "مستورد" : "Imported "}</option>
       </select>
     </div>
   ) : key === 'season' ? (
     <div key={key}>
-      <Typography variant="small" className="block mb-1">Season</Typography>
+      <Typography variant="small" className="block mb-1"> {lang ==='ar'? "الموسم" : "Season "}</Typography>
       <select 
         name={key} 
         value={value} 
         onChange={handleChange} 
         className="block w-full border p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
       >
-        <option value="">Choose Season</option>
-        <option value="ALL SEASONS">ALL SEASONS</option>
-        <option value="FALL & WINTER">FALL & WINTER</option>
-        <option value="SPRING & SUMMER">SPRING & SUMMER</option>
+        <option value=""> {lang ==='ar'? "اخنر الموسم" : "Choose Season "}</option>
+        <option value="ALL SEASONS"> {lang ==='ar'? "كل المواسم" : "ALL SEASONS "}</option>
+        <option value="FALL & WINTER">{lang ==='ar'? "خريف و شتاء" : "FALL & WINTER  "}</option>
+        <option value="SPRING & SUMMER">{lang ==='ar'? "ربيع و صيف" : "SPRING & SUMMER  "}</option>
       </select>
     </div>
   )  : key === 'instock' ? (
     <div key={key}>
-      <Typography variant="small" className="block mb-1">Choose Status</Typography>
+      <Typography variant="small" className="block mb-1">  {lang ==='ar'? "اختر الحالة" : "Choose Status "}</Typography>
       <select 
         name={key} 
         value={value} 
         onChange={handleChange} 
         className="block w-full border p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
       >
-        <option value="">Choose Status</option>
-        <option value="yes">In Stock</option>
-        <option value="no">Out of Stock</option>
+        <option value=""> {lang ==='ar'? "اختر الحالة" : "Choose Status "}</option>
+        <option value="yes">{lang ==='ar'? "في المخزن" : "In Stock  "}</option>
+        <option value="no">{lang ==='ar'? "غير متاح في المخزن" : "Out of Stock "}</option>
       </select>
     </div>
   ): key === 'variants' ? (
     <div key={key} className="md:col-span-2">
-      <Typography variant="small" className="block mb-1">Sizes</Typography>
+      <Typography variant="small" className="block mb-1"> {lang ==='ar'? "المواصفات" : "variants"}</Typography>
       {productData.variants.map((variant, index) => (
         <div key={index} className="flex flex-col mb-4 border p-4 rounded-lg">
           <Input 
             name="size" 
             value={variant.size} 
-            placeholder="Size" 
+            placeholder= {lang ==='ar'? "الحجم" : "Size"}
             onChange={(e) => handleVariantChange(index, e)} 
           />
            <Input 
             name="weight" 
             value={variant.weight} 
-            placeholder="weight" 
+            placeholder= {lang ==='ar'? "الوزن" :"weight"} 
             onChange={(e) => handleVariantChange(index, e)} 
           />
            <select 
@@ -282,28 +307,28 @@ export function AddProduct() {
             onChange={(e) => handleVariantChange(index, e)}                    
             className="block w-full border p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
           >
-            <option value="">Choose Availability</option>
-            <option value="yes">yes</option>
-            <option value="no">no</option>
+            <option value=""> {lang ==='ar'? "هل متاح" : "Choose Availability"}</option>
+            <option value="yes">{lang ==='ar'? "نعم" : "yes "}</option>
+            <option value="no">{lang ==='ar'? "لا" : "no "}</option>
           </select>
           <Input 
             name="before_price" 
             value={variant.before_price} 
-            placeholder="Before Price" 
+            placeholder= {lang ==='ar'? "السعر قبل" : "Before Price"}
             type="number" 
             onChange={(e) => handleVariantChange(index, e)} 
           />
           <Input 
             name="after_price" 
             value={variant.after_price} 
-            placeholder="After Price" 
+            placeholder= {lang ==='ar'? "السعر بعد" :"After Price"}
             type="number" 
             onChange={(e) => handleVariantChange(index, e)} 
           />
         </div>
       ))}
       <Button type="button" onClick={addVariant} className="mt-2">
-        Add Variants
+       {lang ==='ar'? "اضافة مواصفات" : " Add Variants "}
       </Button>
     </div>
   ) : key !== 'img' ? (
@@ -315,10 +340,10 @@ export function AddProduct() {
     </div>
   ) : (
     <div key={key} className="md:col-span-2">
-      <Typography variant="small" className="block mb-1">Images</Typography>
+      <Typography variant="small" className="block mb-1">{lang ==='ar'? "الصور" : "Images "}</Typography>
       <Input type="file" name={key} onChange={handleFileChange} accept="image/*" multiple />
       <div className="mt-4">
-        <Typography variant="small" className="mb-2">Image Previews</Typography>
+        <Typography variant="small" className="mb-2">{lang ==='ar'? "معاينة الصور" : "Image Previews "}</Typography>
         <div className="flex flex-wrap gap-4">
           {productData.img.length > 0 && Array.from(productData.img).map((file, idx) => (
             <img 
@@ -336,7 +361,7 @@ export function AddProduct() {
 
           </div>
           <Button type="submit" className="mt-4" fullWidth>
-            Add Product
+             {lang ==='ar'? "اضافة المنتج" : "Add Product "}
           </Button>
         </form>
       </div>

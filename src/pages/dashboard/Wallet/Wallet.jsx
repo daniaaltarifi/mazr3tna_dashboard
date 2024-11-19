@@ -17,12 +17,13 @@ import {
     Progress,
     Button
   } from "@material-tailwind/react";
- 
+ import Cookies from "js-cookie";
 function Wallet() {
     const navigate = useNavigate();
   const [payments, setpayments] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [paymentIdToDelete, setpaymentIdToDelete] = useState(null); // Store the ID of the pay to delete
+  const lang = Cookies.get('lang') || 'en';
 
   const handleShow = (id) => {
     setpaymentIdToDelete(id); // Set the pay ID to delete
@@ -93,17 +94,17 @@ const handleConfirmPayment = async (userId, id) => {
     <Card>
       <CardHeader variant="gradient" color="green" className="mb-8 p-6">
         <Typography variant="h6" color="white">
-          Wallet Payment Table
+         {lang ==='ar'? "جدول دفع المحفظة" :" Wallet Payment Table "}
         </Typography>
       </CardHeader>
       <CardBody className="overflow-x-scroll px-0 pt-0 pb-2">
         <table className="w-full min-w-[640px] table-auto">
           <thead>
             <tr>
-              {["Full Name","email","amount","Payment Method","status","Created At","Action"].map((el) => (
+              {[`${lang ==='ar'? "الاسم الكامل" : "Full Name "}`,`${lang ==='ar'? "البريد الالكتروني" : "Email "}`,`${lang ==='ar'? "الرصيد" : "amount"}`,`${lang ==='ar'? "طريقة الدفع" : "Payment Method"}`,`${lang ==='ar'? "الحالة" : "status"}`,`${lang ==='ar'? "التاريخ" :"Created At"}`,`${lang ==='ar'? "التنفيذ" : "Action"}`].map((el) => (
                 <th
                   key={el}
-                  className="border-b border-blue-gray-50 py-3 px-5 text-left"
+                  className="border-b border-blue-gray-50 py-3 px-5 "
                 >
                   <Typography
                     variant="small"
@@ -134,10 +135,7 @@ const handleConfirmPayment = async (userId, id) => {
                           >
                             {pay.first_name} {pay.last_name}
                           </Typography>
-                          {/* <Typography className="text-xs font-normal text-blue-gray-500">
-                            {pay.last_name}
-                          </Typography> */}
-
+                        
                         </div>
                       </div>
                     </td>
@@ -175,15 +173,7 @@ const handleConfirmPayment = async (userId, id) => {
                       </Typography>
                     </td>
                     <td className={className}>
-                      {/* <Typography className="text-xs font-semibold text-blue-gray-600">
-                      <Typography
-                            variant="small"
-                            color="blue-gray"
-                            className="font-semibold"
-                          >
-                            {pay.status}
-                          </Typography>
-                      </Typography> */}
+                 
                        <Chip
   variant="gradient"
   color={pay.status === "completed" ? "green" :"blue"}
@@ -212,7 +202,8 @@ const handleConfirmPayment = async (userId, id) => {
                       className="mr-2 flex items-center transition duration-300 ease-in hover:shadow-lg hover:shadow-blue-500"
                       onClick={()=>handleConfirmPayment(pay.userId,pay.id)}>
                          <CheckIcon className="h-5 w-5 mr-1" />
-                         Confirm
+                         {lang ==='ar'? "تأكيد" :"Confirm"}
+
                   </Button> ):
                   (
 null                  )}
@@ -220,7 +211,7 @@ null                  )}
                     onClick={() => handleShow(pay.id)} // Pass the pay ID to handleShow
                     className="text-white-600 bg-[#F5C16C] flex items-center transition duration-300 ease-in hover:shadow-lg hover:shadow-red-500"
                           >
-                            <TrashIcon className="h-5 w-5 mr-1" /> Delete
+                            <TrashIcon className="h-5 w-5 mr-1" /> {lang ==='ar'? "حذف" : "Delete "}
                           </Button>
                         </div>
                       </td>

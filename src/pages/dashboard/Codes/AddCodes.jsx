@@ -10,12 +10,14 @@ import { API_URL } from "../../../App.jsx";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import axios from 'axios'; // Ensure Axios is imported
-
+import Cookies from 'js-cookie';
 function AddCode() {
     const [code, setCode] = useState("");
   const [discount_percentage, setDiscount_percentage] = useState("");
   const [expiration_date, setexpiration_date] = useState("");
   const navigate = useNavigate();
+  const lang = Cookies.get('lang') || 'en';
+
   const handleAddDiscountCode = async (e) => {
     e.preventDefault();
    
@@ -47,13 +49,13 @@ function AddCode() {
     <section className="m-8 flex gap-4">
       <div className="w-full mt-24">
         <div className="text-center">
-          <Typography variant="h2" className="font-bold mb-4">Add Discount Code</Typography>
+          <Typography variant="h2" className="font-bold mb-4">{lang ==='ar'? "اضافة كود خصم" :"Add Discount Code"}</Typography>
         </div>
         <form className="mt-8 mb-2 mx-auto w-80 max-w-screen-lg lg:w-1/2" onSubmit={handleAddDiscountCode}>
           <div className="grid grid-cols-1 gap-6 ">
             {/* First Column */}
             <div className="flex flex-col">
-              <Typography variant="small" color="blue-gray" className="mb-2 font-medium">            Code:
+              <Typography variant="small" color="blue-gray" className="mb-2 font-medium">   {lang ==='ar'? "الكود" :" Code:"}    
               </Typography>
               <Input
               required
@@ -63,7 +65,7 @@ function AddCode() {
                 onChange={(e) => {
                     setCode(e.target.value);
                   }}           />
-              <Typography variant="small" color="blue-gray" className="mb-2 font-medium">                   Discount Percentage:
+              <Typography variant="small" color="blue-gray" className="mb-2 font-medium">  {lang ==='ar'? "نسبة الخصم" :" Discount Percentage:"}    
 
               </Typography>
               <Input
@@ -75,8 +77,7 @@ function AddCode() {
                 />
              
 
-             <Typography variant="small" color="blue-gray" className="mb-2 font-medium">          Expiration Date:
-
+             <Typography variant="small" color="blue-gray" className="mb-2 font-medium">{lang ==='ar'? "تاريخ الانتهاء" :"Expiration Date"}
 </Typography>
 <Input
 type='date'
@@ -93,8 +94,7 @@ required
           </div>
 
           <Button type="submit" className="mt-6" fullWidth>
-            Add Code
-          </Button>
+          {lang ==='ar'? "اضافة كود خصم" :"Add Discount Code"}          </Button>
         </form>
       </div>
     </section>

@@ -26,36 +26,14 @@ import {
   CreditCardIcon,
   WalletIcon, // Using CreditCardIcon for Coupon Codes
 } from "@heroicons/react/24/solid";
+import Cookies from "js-cookie";
 export function StatisticsCard() {
   const [users, setusers] = useState([]);
   const [products, setProducts] = useState([]);
   const [orders, setOrders] = useState([]);
   const [feedback, setFeedback] = useState([]);
-  const fetchusers = async () => {
-   try {
-     const response = await axios.get(`${API_URL}/auth/getalluser`);
-     setusers(response.data);
-     console.log("first user",response.data)
-   } catch (error) {
-     console.error(error);
-   }
- };
- const fetchProducts= async () => {
-  try {
-    const response = await axios.get(`${API_URL}/product/get/allproducts`);
-    setProducts(response.data);
-  } catch (error) {
-    console.error(error);
-  }
-};
-const fetchOrders= async () => {
-  try {
-    const response = await axios.get(`${API_URL}/orders/getallorders`);
-    setOrders(response.data);
-  } catch (error) {
-    console.error(error);
-  }
-};
+  const lang = Cookies.get('lang') || 'en';
+ 
 const fetchData = async () => {
   try {
     const [usersResponse, productsResponse, ordersResponse,feedbackResponse] = await Promise.all([
@@ -81,7 +59,7 @@ const fetchData = async () => {
     {
       color: "gray",
       icon: UsersIcon,
-      title: "Users",
+      title: lang ==='ar'? "المسنخدمين" : "Users",
       value: users.length,
       footer: {
         color: "text-green-500",
@@ -92,7 +70,7 @@ const fetchData = async () => {
     {
       color: "gray",
       icon: ShoppingBagIcon,
-      title: "Products",
+      title: lang ==='ar'? "المنتجات" :"Products",
       value: products.length,
       footer: {
         color: "text-green-500",
@@ -103,7 +81,7 @@ const fetchData = async () => {
     {
       color: "gray",
       icon: ChartBarIcon,
-      title: "Orders",
+      title: lang ==='ar'? "الطلبات" : "Orders",
       value: orders.length,
       footer: {
         color: "text-red-500",
@@ -114,7 +92,7 @@ const fetchData = async () => {
     {
       color: "gray",
       icon: UserPlusIcon,
-      title: "FeedBack",
+      title: lang ==='ar'? "الاراء" :"FeedBack",
       value: feedback.length,
       footer: {
         color: "text-green-500",
@@ -134,10 +112,10 @@ const fetchData = async () => {
         floated={false}
         shadow={false}
         className="absolute grid h-12 w-12 place-items-center"
-      >
+      > 
   {React.createElement(icon)}  
   </CardHeader>
-      <CardBody className="p-4 text-right">
+      <CardBody className={lang ==='ar'? "p-4 text-left" : "p-4 text-right"}>
         <Typography variant="small" className="font-normal text-blue-gray-600">
           {title}
         </Typography>

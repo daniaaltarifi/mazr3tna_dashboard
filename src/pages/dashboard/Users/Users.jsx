@@ -13,20 +13,15 @@ import {
     CardHeader,
     CardBody,
     Typography,
-    Avatar,
-    Chip,
-    Tooltip,
-    Progress,
     Button
   } from "@material-tailwind/react";
-  import { EllipsisVerticalIcon } from "@heroicons/react/24/outline";
-  import { authorsTableData, projectsTableData } from "@/data";
+import Cookies from "js-cookie";
 function Users() {
     const navigate = useNavigate();
     const [users, setusers] = useState([]);
     const [showModal, setShowModal] = useState(false);
     const [userIdToDelete, setuserIdToDelete] = useState(null); // Store the ID of the user to delete
-  
+    const lang = Cookies.get('lang') || 'en';
     const handleShow = (id) => {
       setuserIdToDelete(id); // Set the user ID to delete
       setShowModal(true);
@@ -55,18 +50,17 @@ function Users() {
         console.error(error);
       }
     };
-  
     useEffect(() => {
       fetchusers();
+     
     }, []);
   return (
     <>
-    <div className="mt-12 mb-8 flex flex-col gap-12">
-        
-    <Card>
+    <div className="mt-12 mb-8 flex flex-col gap-12" >
+    <Card >
       <CardHeader variant="gradient" color="green" className="mb-8 p-6">
         <Typography variant="h6" color="white">
-          Users Table
+         {lang ==='ar'? "جدول المستخدمين" : "Users Table"}
         </Typography>
       </CardHeader>
       <CardBody className="overflow-x-scroll px-0 pt-0 pb-2">
@@ -74,15 +68,15 @@ function Users() {
   className="flex items-center bg-[#D87C55] transition duration-300 ease-in hover:shadow-lg hover:shadow-green-500"
   style={{ marginLeft: '80px' }} 
 >
-  <PlusIcon className="h-5 w-5 mr-1" /> Add User
+  <PlusIcon className="h-5 w-5 mr-1" /> {lang ==='ar'? " اضافة مستخدم" : "Add User"}
 </Button></Link> 
         <table className="w-full min-w-[640px] table-auto">
           <thead>
             <tr>
-              {["Full Name","Email","role","Balance", "Action"].map((el) => (
+              {[`${lang ==='ar'? "الاسم الكامل" : "Full Name "}`,`${lang ==='ar'? "البريد الالكتروني" : "Email "}`,`${lang ==='ar'? "الصلاحية" : "role"}`,`${lang ==='ar'? " الرصيد" : "Balance"}`, `${lang ==='ar'? "تنفيذ" : "Action"}`].map((el) => (
                 <th
                   key={el}
-                  className="border-b border-blue-gray-50 py-3 px-5 text-left"
+                  className="border-b border-blue-gray-50 py-3 px-5 "
                 >
                   <Typography
                     variant="small"
@@ -123,8 +117,7 @@ function Users() {
                       <Typography className="text-xs font-semibold text-blue-gray-600">
                         {user.email}
                       </Typography>
-                      {/* <Typography className="text-xs font-normal text-blue-gray-500">
-                      </Typography> */}
+                     
                     </td>
                     <td className={className}>
                        <Typography className="text-xs font-normal text-blue-gray-500">
@@ -137,32 +130,19 @@ function Users() {
                         {user.balance}
                       </Typography>
                     </td>
-                    {/* <td className={className}>
-
-                    <MdDelete
-                    size="1.5rem"
-                    className="delete_icon"
-                    onClick={() => handleShow(user.id)} // Pass the user ID to handleShow
-                  />
-                  <FaEdit
-                    size="1.5rem"
-                    className="edit_icon"
-                    onClick={() => navigate(`/dashboard/updateuser/${user.id}`)}
-                  />
-
-                    </td> */}
+                   
                      <td className={className}>
                         <div className="flex items-center">
                           <Button 
                     onClick={() => navigate(`/dashboard/updateuser/${user.id}`)}
                     className="mr-2 flex bg-[#D87C55] items-center transition duration-300 ease-in hover:shadow-lg hover:shadow-blue-500"
                           >
-                            <PencilIcon className="h-5 w-5 mr-1" /> Edit
+                            <PencilIcon className="h-5 w-5 mr-1" />  {lang ==='ar'? "تعديل" : "Edit "}
                           </Button>
                           <Button 
   onClick={() => handleShow(user.id)}                    className="text-white-600 bg-[#F5C16C] flex items-center transition duration-300 ease-in hover:shadow-lg hover:shadow-red-500"
                           >
-                            <TrashIcon className="h-5 w-5 mr-1" /> Delete
+                            <TrashIcon className="h-5 w-5 mr-1" />  {lang ==='ar'? "حذف" : "Delete "}
                           </Button>
                         </div>
                       </td>

@@ -8,7 +8,7 @@ import {
 import { API_URL } from "../../../App.jsx";
 import Swal from "sweetalert2";
 import axios from 'axios';
-
+import Cookies from 'js-cookie';
 function UpdateAbout() {
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
@@ -16,6 +16,7 @@ function UpdateAbout() {
     const [existingImg, setExistingImg] = useState(null);
     const navigate = useNavigate();
     const { id } = useParams(); 
+    const lang = Cookies.get('lang') || 'en';
 
     useEffect(() => {
       const fetchAboutPost = async () => {
@@ -73,13 +74,13 @@ function UpdateAbout() {
     <section className="m-8 flex gap-4">
       <div className="w-full mt-24">
         <div className="text-center">
-          <Typography variant="h2" className="font-bold mb-4">Update About</Typography>
+          <Typography variant="h2" className="font-bold mb-4">{lang ==='ar'? " تعديل عن مزرعتنا" : "Update About "}</Typography>
         </div>
         <form className="mt-8 mb-2 mx-auto w-80 max-w-screen-lg lg:w-1/2" onSubmit={handleUpdateAbout}>
           <div className="grid grid-cols-1 gap-6">
             
             <div className="flex flex-col">
-              <Typography variant="small" color="blue-gray" className="mb-2 font-medium">Title:</Typography>
+              <Typography variant="small" color="blue-gray" className="mb-2 font-medium">{lang ==='ar'? "العنوان" : "Title: "}</Typography>
               <Input
                 size="lg"
                 placeholder="Enter title"
@@ -93,7 +94,7 @@ function UpdateAbout() {
 
             
             <div className="flex flex-col">
-              <Typography variant="small" color="blue-gray" className="mb-2 font-medium">Description:</Typography>
+              <Typography variant="small" color="blue-gray" className="mb-2 font-medium">{lang ==='ar'? "الوصف" :"Description"}</Typography>
               <Input
                 size="lg"
                 placeholder="Enter description"
@@ -110,8 +111,8 @@ function UpdateAbout() {
               {existingImg && (
                 <img src={`${API_URL}/${existingImg}`} alt="Existing about" className="mb-2 w-32 h-32 object-cover" />
               )}
-              <Typography variant="small" color="blue-gray" className="font-medium">About Image:</Typography>
-              <Typography variant="small" color="blue-gray" className="mb-2">It is recommended to use the WebP format for images.</Typography>
+              <Typography variant="small" color="blue-gray" className="font-medium">{lang ==='ar'? "الصورة" :"Image"}</Typography>
+              <Typography variant="small" color="blue-gray" className="mb-2">{lang ==='ar'? "من المستحسن استخدام تنسيق WebP للصور." :"It is recommended to use the WebP format for images."}</Typography>
               <div className="relative">
                 <input
                   type="file"
@@ -120,20 +121,22 @@ function UpdateAbout() {
                   className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
                 />
                 <Button className="bg-gray-200 text-gray-800 hover:bg-gray-300 w-full text-left">
-                  Choose an image
+                {lang ==='ar'? "اختر الصورة  " :" Choose an image"}
                 </Button>
                 <Typography>
                   {img ? (
                     <p>{img.name}</p> 
                   ) : (
-                    <Typography variant="small" color="blue-gray" className="text-gray-500">No image selected</Typography>
+                    <Typography variant="small" color="blue-gray" className="text-gray-500">                  {lang ==='ar'? " لا يوجد صور مختارة  " :" No image selected"}
+</Typography>
                   )}
                 </Typography>
               </div>
             </div>
           </div>
           <Button type="submit" className="mt-6" fullWidth>
-            Update About Post
+                          {lang ==='ar'? "تعديل  " :" Update About Post    "}
+
           </Button>
         </form>
       </div>

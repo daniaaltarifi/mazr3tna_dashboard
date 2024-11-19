@@ -8,7 +8,7 @@ import {
 import { API_URL } from "../../../App.jsx";
 import Swal from "sweetalert2";
 import axios from 'axios';
-
+import Cookies from 'js-cookie';
 function UpdateFooter() {
     const [email, setemail] = useState("");
     const [phone, setphone] = useState("");
@@ -16,6 +16,7 @@ function UpdateFooter() {
     const [existing_logo, setExistinglogo] = useState(null);
     const navigate = useNavigate();
     const { id } = useParams();
+    const lang = Cookies.get('lang') || 'en';
 
     useEffect(() => {
       const fetchFooter = async () => {
@@ -72,13 +73,13 @@ function UpdateFooter() {
     <section className="m-8 flex gap-4">
       <div className="w-full mt-24">
         <div className="text-center">
-          <Typography variant="h2" className="font-bold mb-4">Update Footer</Typography>
+          <Typography variant="h2" className="font-bold mb-4">{lang ==='ar'? "تعديل " :"Update Footer"}</Typography>
         </div>
         <form className="mt-8 mb-2 mx-auto w-80 max-w-screen-lg lg:w-1/2" onSubmit={handleUpdateFooter}>
           <div className="grid grid-cols-1 gap-6 ">
             {/* Brand Name Input */}
             <div className="flex flex-col">
-              <Typography variant="small" color="blue-gray" className="mb-2 font-medium">email:</Typography>
+              <Typography variant="small" color="blue-gray" className="mb-2 font-medium">{lang ==='ar'? "البريد الالكتروني" : "Email "}email:</Typography>
               <Input
                 size="lg"
                 className="!border-t-blue-gray-200 focus:!border-t-gray-900"
@@ -90,7 +91,7 @@ function UpdateFooter() {
             </div>
             <div className="flex flex-col">
 
-            <Typography variant="small" color="blue-gray" className="mb-2 font-medium">phone:</Typography>
+            <Typography variant="small" color="blue-gray" className="mb-2 font-medium">{lang ==='ar'? "الرقم" : "Phone"}</Typography>
               <Input
                 size="lg"
                 className="!border-t-blue-gray-200 focus:!border-t-gray-900"
@@ -101,7 +102,7 @@ function UpdateFooter() {
               />
               </div>
             {/* Brand Image Input */}
-            <Typography variant="small" color="blue-gray" className=" font-medium">Logo:</Typography>
+            <Typography variant="small" color="blue-gray" className=" font-medium">{lang ==='ar'? "الصورة" : "Logo"}</Typography>
             <div className="flex flex-col">
             {existing_logo && (
   <img 
@@ -111,7 +112,7 @@ function UpdateFooter() {
   />
 )}
 
-                <Typography variant="small" color="blue-gray" className="mb-2 ">It is recommended to use the WebP format for images.</Typography>
+                <Typography variant="small" color="blue-gray" className="mb-2 ">{lang ==='ar'? "من المستحسن استخدام تنسيق WebP للصور." :"It is recommended to use the WebP format for images."}</Typography>
 
               <div className="relative">
                 <input
@@ -121,21 +122,20 @@ function UpdateFooter() {
                   className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
                 />
                 <Button className="bg-gray-200 text-gray-800 hover:bg-gray-300 w-full text-left">
-                  Choose an image
+                {lang ==='ar'? "اختر الصورة  " :" Choose an image"}
                 </Button>
                 <Typography>
                   {logo ? (
                     <p>{logo.name}</p> // Show selected image name
                   ) : (
-                    <Typography variant="small" color="blue-gray" className="text-gray-500">No image selected</Typography>
+                    <Typography variant="small" color="blue-gray" className="text-gray-500">  {lang ==='ar'? " لا يوجد صور مختارة  " :" No image selected"}</Typography>
                   )}
                 </Typography>
               </div>
             </div>
           </div>
           <Button type="submit" className="mt-6" fullWidth>
-            Update Footer
-          </Button>
+          {lang ==='ar'? "تعديل " :"Update Footer"}          </Button>
         </form>
       </div>
     </section>

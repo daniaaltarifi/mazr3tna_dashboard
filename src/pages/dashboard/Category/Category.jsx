@@ -13,19 +13,16 @@ import {
     CardHeader,
     CardBody,
     Typography,
-    Avatar,
-    Chip,
-    Tooltip,
-    Progress,
     Button,
   } from "@material-tailwind/react";
-  import { EllipsisVerticalIcon } from "@heroicons/react/24/outline";
-  import { authorsTableData, projectsTableData } from "@/data";
+  import Cookies from "js-cookie";
+
 function Category() {
     const navigate = useNavigate();
   const [category, setcategory] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [categoryIdToDelete, setcategoryIdToDelete] = useState(null); // Store the ID of the slide to delete
+  const lang = Cookies.get('lang') || 'en';
 
   const handleShow = (id) => {
     setcategoryIdToDelete(id); // Set the slide ID to delete
@@ -68,7 +65,7 @@ function Category() {
     <Card>
       <CardHeader variant="gradient" color="green" className="mb-8 p-6">
         <Typography variant="h6" color="white">
-         Category Table
+ {lang ==='ar'? "جدول الاصناف" : "  Category Table "}
         </Typography>
       </CardHeader>
       <CardBody className="overflow-x-scroll px-0 pt-0 pb-2">
@@ -77,16 +74,16 @@ function Category() {
   className="flex items-center bg-[#D87C55] transition duration-300 ease-in hover:shadow-lg hover:shadow-green-500"
   style={{ marginLeft: '80px' }} 
 >
-  <PlusIcon className="h-5 w-5 mr-1" /> Add Category
+  <PlusIcon className="h-5 w-5 mr-1" /> {lang ==='ar'? "اضافة صنف" : "Add Category "}
 </Button>
 </Link>
         <table className="w-full min-w-[640px] table-auto">
           <thead>
             <tr>
-              {["Name","Action"].map((el) => (
+              {[`${lang ==='ar'? "الاسم" : "Name"}`, `${lang ==='ar'? "تنفيذ" : "Action"}`].map((el) => (
                 <th
                   key={el}
-                  className="border-b border-blue-gray-50 py-3 px-5 text-left"
+                  className="border-b border-blue-gray-50 py-3 px-5 "
                 >
                   <Typography
                     variant="small"
@@ -127,7 +124,7 @@ function Category() {
                     onClick={() => handleShow(catg.id)} // Pass the catg ID to handleShow
                     className="text-white-600 bg-[#F5C16C] flex items-center transition duration-300 ease-in hover:shadow-lg hover:shadow-red-500"
                           >
-                            <TrashIcon className="h-5 w-5 mr-1" /> Delete
+                            <TrashIcon className="h-5 w-5 mr-1" /> {lang ==='ar'? "حذف" : "Delete "}
                           </Button>
                         </div>
                       </td>

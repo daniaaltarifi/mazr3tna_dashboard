@@ -10,12 +10,13 @@ import { API_URL } from "../../../App.jsx";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import axios from 'axios'; // Ensure Axios is imported
-
+import Cookies from 'js-cookie';
 function AddBlog() {
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
     const [img, setimg] = useState(null);
     const [imgName, setImgName] = useState("");
+    const lang = Cookies.get('lang') || 'en';
 
     const handleFileChange = (e) => {
         const file = e.target.files[0];
@@ -67,13 +68,13 @@ function AddBlog() {
     <section className="m-8 flex gap-4">
       <div className="w-full mt-24">
         <div className="text-center">
-          <Typography variant="h2" className="font-bold mb-4">Add Blog</Typography>
+          <Typography variant="h2" className="font-bold mb-4">{lang ==='ar'? "اضافة مدونة" : "Add Blogs "}</Typography>
         </div>
         <form className="mt-8 mb-2 mx-auto w-80 max-w-screen-lg lg:w-1/2" onSubmit={handleAddBlog}>
           <div className="grid grid-cols-1 gap-6 ">
             {/* First Column */}
             <div className="flex flex-col">
-              <Typography variant="small" color="blue-gray" className="mb-2 font-medium">Title:</Typography>
+              <Typography variant="small" color="blue-gray" className="mb-2 font-medium">{lang ==='ar'? "العنوان" : "Title"}</Typography>
               <Input
               required
                 size="lg"
@@ -82,7 +83,7 @@ function AddBlog() {
                     setTitle(e.target.value);
                   }} 
                  />
-              <Typography variant="small" color="blue-gray" className="mb-2 font-medium">Description:</Typography>
+              <Typography variant="small" color="blue-gray" className="mb-2 font-medium">{lang ==='ar'? "الوصف" :"Desrciption"}</Typography>
               <Input
               required
                 size="lg"
@@ -90,8 +91,8 @@ function AddBlog() {
                 onChange={(e) => {
                     setDescription(e.target.value);
                   }} />
-                <Typography variant="small" color="blue-gray" className="mb-2 font-medium">Blog Image:</Typography>
-                <Typography variant="small" color="blue-gray" className="mb-2 ">It is recommended to use the WebP format for images.</Typography>
+                <Typography variant="small" color="blue-gray" className="mb-2 font-medium">{lang ==='ar'? "الصورة" : "Blog Image:"}</Typography>
+                <Typography variant="small" color="blue-gray" className="mb-2 ">{lang ==='ar'? "من المستحسن استخدام تنسيق WebP للصور." :"It is recommended to use the WebP format for images."}</Typography>
                             <div className="relative">
                                 <input
                                 required
@@ -101,7 +102,7 @@ function AddBlog() {
                                     className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
                                 />
                                 <Button className="bg-gray-200 text-gray-800 hover:bg-gray-300 w-full text-left">
-                                Choose an image
+                                {lang ==='ar'? "اختر الصورة  " :" Choose an image"}
                                 </Button>
                                  {/* Display the image name if it exists */}
                 {imgName && (
@@ -115,7 +116,7 @@ function AddBlog() {
           </div>
 
           <Button type="submit" className="mt-6" fullWidth>
-            Add Blog
+           {lang ==='ar'? "اضافة مدونة" : "Add Blog"}
           </Button>
         </form>
       </div>

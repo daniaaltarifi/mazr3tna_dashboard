@@ -3,10 +3,11 @@ import { Input, Button, Typography } from '@material-tailwind/react';
 import Swal from 'sweetalert2';
 import { useNavigate, useParams } from 'react-router-dom';
 import { API_URL } from '@/App';
-
+import Cookies from 'js-cookie';
 export function UpdateProduct() {
   const navigate = useNavigate();
   const { id } = useParams();
+  const lang = Cookies.get('lang') || 'en';
 
   const [productData, setProductData] = useState({
     name: '',
@@ -203,47 +204,49 @@ export function UpdateProduct() {
     <section className="m-8 flex justify-center">
       <div className="w-full lg:w-3/5 mt-16">
         <div className="text-center">
-          <Typography variant="h2" className="font-bold mb-4">Update Product</Typography>
+          <Typography variant="h2" className="font-bold mb-4">{lang ==='ar'? "تعديل المنتج" : "Update Product "}</Typography>
           <Typography variant="paragraph" weight="blue-gray" className="text-lg font-normal">
-            Edit the details below to update the product.
+          {lang ==='ar'? " قم بتعديل التفاصيل  لتحديث المنتج" : "  Edit the details below to update the product. "}
           </Typography>
         </div>
         <form onSubmit={handleSubmit} className="mt-8 mb-2 mx-auto w-full max-w-screen-lg">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
             <div>
-              <label htmlFor="name" className="block text-sm font-medium text-gray-700">Product Name</label>
+              <label htmlFor="name" className="block text-sm font-medium text-gray-700">        {lang === 'ar' ? "اسم المنتج" : "Product Name"}
+              </label>
               <input type="text" id="name" name="name" value={productData.name} onChange={handleChange} className="w-full px-4 py-2 border rounded-md mt-1" />
             </div>
             <div>
-              <label htmlFor="ingredients" className="block text-sm font-medium text-gray-700">Ingredients</label>
+              <label htmlFor="ingredients" className="block text-sm font-medium text-gray-700">        {lang === 'ar' ? "المكونات" : "Ingredients"}
+              </label>
               <input type="text" id="ingredients" name="ingredients" value={productData.ingredients} onChange={handleChange} className="w-full px-4 py-2 border rounded-md mt-1" />
             </div>
             <div>
-              <label htmlFor="sale" className="block text-sm font-medium text-gray-700">Sale</label>
+              <label htmlFor="sale" className="block text-sm font-medium text-gray-700"> {lang ==='ar'? "تخفيض" : "Sale "}</label>
               <input type="text" id="sale" name="sale" value={productData.sale} onChange={handleChange} className="w-full px-4 py-2 border rounded-md mt-1" />
             </div>
             <div>
-              <label htmlFor="main_product_type_id" className="block text-sm font-medium text-gray-700">Main Product Type</label>
+              <label htmlFor="main_product_type_id" className="block text-sm font-medium text-gray-700">{lang ==='ar'? "الصنف" : "Category "}</label>
               <select id="main_product_type_id" name="main_product_type_id" value={productData.main_product_type_id} onChange={handleChange} className="w-full px-4 py-2 border rounded-md mt-1">
                 <option value="">Select Type</option>
                 {mainProductOptions}
               </select>
             </div>
             <div>
-              <label htmlFor="certificateID" className="block text-sm font-medium text-gray-700">Certificate</label>
+              <label htmlFor="certificateID" className="block text-sm font-medium text-gray-700">{lang ==='ar'? "الشهادة" : "Certificate "}</label>
               <select id="certificateID" name="certificateID" value={productData.certificateID} onChange={handleChange} className="w-full px-4 py-2 border rounded-md mt-1">
                 <option value="">Select Certificate</option>
                 {certificateOptions}
               </select>
             </div>
             <div>
-              <label htmlFor="sourcing" className="block text-sm font-medium text-gray-700">Sourcing</label>
+              <label htmlFor="sourcing" className="block text-sm font-medium text-gray-700">{lang ==='ar'? "المصدر" : "Sourcing "}</label>
               <input type="text" id="sourcing" name="sourcing" value={productData.sourcing} onChange={handleChange} className="w-full px-4 py-2 border rounded-md mt-1" />
             </div>
             
             {/* Season Dropdown */}
             <div>
-              <label htmlFor="season" className="block text-sm font-medium text-gray-700">Season</label>
+              <label htmlFor="season" className="block text-sm font-medium text-gray-700">{lang ==='ar'? "الموسم" : "Season "}</label>
               <select 
                 id="season" 
                 name="season" 
@@ -251,26 +254,26 @@ export function UpdateProduct() {
                 onChange={handleChange} 
                 className="w-full px-4 py-2 border rounded-md mt-1"
               >
-                <option value="">Select Season</option>
-                <option value="ALL SEASONS">ALL SEASONS</option>
-                <option value="FALL & WINTER">FALL & WINTER</option>
-                <option value="SPRING & SUMMER">SPRING & SUMMER</option>
+                <option value="">{lang ==='ar'? "اخنر الموسم" : "Choose Season "}</option>
+                <option value="ALL SEASONS">{lang ==='ar'? "كل المواسم" : "ALL SEASONS "}</option>
+                <option value="FALL & WINTER">{lang ==='ar'? "خريف و شتاء" : "FALL & WINTER  "}</option>
+                <option value="SPRING & SUMMER">{lang ==='ar'? "ربيع و صيف" : "SPRING & SUMMER  "}</option>
               </select>
             </div>
             
             <div>
-              <label htmlFor="instock" className="block text-sm font-medium text-gray-700">In Stock</label>
+              <label htmlFor="instock" className="block text-sm font-medium text-gray-700">{lang ==='ar'? "اختر الحالة" : "Choose Status "}</label>
               <input type="text" id="instock" name="instock" value={productData.instock} onChange={handleChange} className="w-full px-4 py-2 border rounded-md mt-1" />
             </div>
           </div>
 
           {/* Product Images */}
           <div className="mb-6">
-            <label htmlFor="img" className="block text-sm font-medium text-gray-700">Product Images</label>
+            <label htmlFor="img" className="block text-sm font-medium text-gray-700">{lang ==='ar'? "الصور" : "Images "}</label>
             <input type="file" id="img" name="img" multiple onChange={handleFileChange} className="w-full px-4 py-2 border rounded-md mt-1" />
             {existingImages.length > 0 && (
               <div className="mt-4">
-                <Typography variant="h6">Existing Images</Typography>
+                <Typography variant="h6">{lang ==='ar'? "الصور المتاحة" : "Existing Images "}</Typography>
                 <div className="flex flex-wrap mt-2">
                   {existingImages.map((image) => (
                     <div key={image.id} className="relative mr-4 mb-4">
@@ -283,7 +286,7 @@ export function UpdateProduct() {
             )}
           </div>
 
-          <Button type="submit" color="green" className="w-full">Update Product</Button>
+          <Button type="submit" color="green" className="w-full">{lang ==='ar'? "تعديل المنتج" : "Update Product "}</Button>
         </form>
       </div>
     </section>

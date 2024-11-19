@@ -5,19 +5,11 @@ import {
   Button,
   IconButton,
   Breadcrumbs,
-  Input,
-  Menu,
-  MenuHandler,
-  MenuList,
-  MenuItem,
-  Avatar,
 } from "@material-tailwind/react";
 import {
   UserCircleIcon,
   Cog6ToothIcon,
-  BellIcon,
-  ClockIcon,
-  CreditCardIcon,
+
   Bars3Icon,
 } from "@heroicons/react/24/solid";
 import {
@@ -28,11 +20,14 @@ import {
 import { API_URL } from "@/App";
 import Cookies from "js-cookie";
 import axios from "axios";
+import LanguageSwitcher from "@/LanguageSwitcher";
 export function DashboardNavbar() {
   const [controller, dispatch] = useMaterialTailwindController();
   const { fixedNavbar, openSidenav } = controller;
   const { pathname } = useLocation();
   const [layout, page] = pathname.split("/").filter((el) => el !== "");
+  const lang = Cookies.get('lang') || 'en';
+
   const navigate=useNavigate()
   const handleLogout = async () => {
     try {
@@ -106,7 +101,7 @@ export function DashboardNavbar() {
               className="hidden items-center gap-1 px-4 xl:flex normal-case"
             >
               <UserCircleIcon className="h-5 w-5 text-blue-gray-500" />
-             Logout           
+                {lang ==='ar'? "تسجيل الخروج" :"Logout"  }      
             </Button>
             <IconButton
              onClick={handleLogout}
@@ -116,6 +111,8 @@ export function DashboardNavbar() {
             >
               <UserCircleIcon className="h-5 w-5 text-blue-gray-500" />
             </IconButton>
+            <LanguageSwitcher/> 
+
           <IconButton
             variant="text"
             color="blue-gray"

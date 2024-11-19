@@ -9,56 +9,56 @@ import { API_URL } from "../../../App.jsx";
 import Swal from "sweetalert2";
 import axios from 'axios';
 import Cookies from 'js-cookie';
-function UpdateCertificate() {
-    const [certificate_name, setCertificateName] = useState("");
-    const [certificate_img, setCertificateImg] = useState(null);
-    const [existing_img, setExistingImg] = useState(null);
+function UpdateSocial() {
+    const [link_to, setlink_to] = useState("");
+    const [icon, seticon] = useState(null);
+    const [existing_icon, setExistingicon] = useState(null);
     const navigate = useNavigate();
     const { id } = useParams();
     const lang = Cookies.get('lang') || 'en';
 
     useEffect(() => {
-      const fetchBrand = async () => {
+      const fetchsocial = async () => {
         try {
           const response = await axios.get(
-            `${API_URL}/certificate/getcertificatebyid/${id}`
+            `${API_URL}/social/getsocialbyid/${id}`
           );
-          setCertificateName(response.data.certificate_name);
-          setExistingImg(response.data.certificate_img); // Assuming the response includes the image URL
+          setlink_to(response.data.link_to);
+          setExistingicon(response.data.icon); 
         } catch (error) {
           console.error(error);
         }
       };
   
-      fetchBrand();
+      fetchsocial();
     }, [id]);
 
-    const handleUpdateCertificate = async (e) => {
+    const handleUpdateSocial = async (e) => {
       e.preventDefault();
       const formData = new FormData();
-      formData.append("certificate_name", certificate_name);
+      formData.append("link_to", link_to);
       // Only append the new image if it's selected, otherwise leave it out
-      if (certificate_img) {
-        formData.append("certificate_img", certificate_img);
+      if (icon) {
+        formData.append("icon", icon);
       }
 
       try {
-        await axios.put(`${API_URL}/certificate/updatecert/${id}`, formData, {
+        await axios.put(`${API_URL}/social/updatesocial/${id}`, formData, {
           headers: {
             "Content-Type": "multipart/form-data",
           },
         });
         Swal.fire({
-          title: "Success!",
-          text: "Brand Updated successfully.",
+          link_to: "Success!",
+          text: "Social Media Updated successfully.",
           icon: "success",
           confirmButtonText: "OK",
         });
-        navigate("/dashboard/brands");
+        navigate("/dashboard/footer");
       } catch (error) {
         console.error(error);
         Swal.fire({
-          title: "Error!",
+          link_to: "Error!",
           text: "Failed to update. Please try again.",
           icon: "error",
           confirmButtonText: "OK",
@@ -70,30 +70,26 @@ function UpdateCertificate() {
     <section className="m-8 flex gap-4">
       <div className="w-full mt-24">
         <div className="text-center">
-          <Typography variant="h2" className="font-bold mb-4">               {lang ==='ar'? "تعديل الشهادة " :" Update Certificate "}
-          </Typography>
+          <Typography variant="h2" className="font-bold mb-4">{lang ==='ar'? "تعديل تواصل اجنماعي " :"Update Social Media"}</Typography>
         </div>
-        <form className="mt-8 mb-2 mx-auto w-80 max-w-screen-lg lg:w-1/2" onSubmit={handleUpdateCertificate}>
+        <form className="mt-8 mb-2 mx-auto w-80 max-w-screen-lg lg:w-1/2" onSubmit={handleUpdateSocial}>
           <div className="grid grid-cols-1 gap-6 ">
             {/* Brand Name Input */}
             <div className="flex flex-col">
-              <Typography variant="small" color="blue-gray" className="mb-2 font-medium">{lang ==='ar'? "اسم الشهادة" :"certificate Name"}</Typography>
+              <Typography variant="small" color="blue-gray" className="mb-2 font-medium">{lang ==='ar'? "الرابط" :"Link to"}</Typography>
               <Input
                 size="lg"
-                placeholder="Espirt"
                 className="!border-t-blue-gray-200 focus:!border-t-gray-900"
-                value={certificate_name}
+                value={link_to}
                 onChange={(e) => {
-                  setCertificateName(e.target.value);
+                  setlink_to(e.target.value);
                 }}
               />
             </div>
-
-            {/* Brand Image Input */}
-            <Typography variant="small" color="blue-gray" className=" font-medium">{lang ==='ar'? "الصورة" :"Image"}</Typography>
+            <Typography variant="small" color="blue-gray" className=" font-medium">{lang ==='ar'? "الصورة" :"Icon"}</Typography>
             <div className="flex flex-col">
-              {existing_img && (
-                <img src={`${API_URL}/${existing_img}`} alt="Existing brand" className="mb-2 w-32 h-32 object-cover" />
+              {existing_icon && (
+                <img src={`${API_URL}/${existing_icon}`} alt="Existing brand" className="mb-2 w-32 h-32 object-cover" />
               )}
                 <Typography variant="small" color="blue-gray" className="mb-2 ">{lang ==='ar'? "من المستحسن استخدام تنسيق WebP للصور." :"It is recommended to use the WebP format for images."}</Typography>
 
@@ -101,29 +97,28 @@ function UpdateCertificate() {
                 <input
                   type="file"
                   id="file_input"
-                  onChange={(e) => setCertificateImg(e.target.files[0])}
+                  onChange={(e) => seticon(e.target.files[0])}
                   className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
                 />
                 <Button className="bg-gray-200 text-gray-800 hover:bg-gray-300 w-full text-left">
-                            {lang ==='ar'? "اختر الصورة  " :" Choose an image"}
-
+                {lang ==='ar'? "اختر الصورة  " :" Choose an image"}
                 </Button>
                 <Typography>
-                  {certificate_img ? (
-                    <p>{certificate_img.name}</p> // Show selected image name
+                  {icon ? (
+                    <p>{icon.name}</p> // Show selected image name
                   ) : (
-                    <Typography variant="small" color="blue-gray" className="text-gray-500">   {lang ==='ar'? " لا يوجد صور مختارة  " :" No image selected"}</Typography>
+                    <Typography variant="small" color="blue-gray" className="text-gray-500">  {lang ==='ar'? " لا يوجد صور مختارة  " :" No image selected"}</Typography>
                   )}
                 </Typography>
               </div>
             </div>
           </div>
           <Button type="submit" className="mt-6" fullWidth>
-          {lang ==='ar'? "تعديل الشهادة " :" Update Certificate "}          </Button>
+          {lang ==='ar'? "تعديل تواصل اجنماعي " :"Update Social Media"}          </Button>
         </form>
       </div>
     </section>
   );
 }
 
-export default UpdateCertificate;
+export default UpdateSocial;

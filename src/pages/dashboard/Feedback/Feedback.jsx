@@ -21,11 +21,13 @@ import {
   } from "@material-tailwind/react";
   import { EllipsisVerticalIcon } from "@heroicons/react/24/outline";
   import { authorsTableData, projectsTableData } from "@/data";
+  import Cookies from "js-cookie";
 function Feedback() {
     const navigate = useNavigate();
   const [feedback, setfeedback] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [feedbackIdToDelete, setfeedbackIdToDelete] = useState(null); // Store the ID of the comment to delete
+  const lang = Cookies.get('lang') || 'en';
 
   const handleShow = (id) => {
     setfeedbackIdToDelete(id); // Set the comment ID to delete
@@ -68,17 +70,17 @@ function Feedback() {
     <Card>
       <CardHeader variant="gradient" color="green" className="mb-8 p-6">
         <Typography variant="h6" color="white">
-         Feedback Table
+         {lang ==='ar'? "جدول الاراء  " :"Feedback Table "}
         </Typography>
       </CardHeader>
       <CardBody className="overflow-x-scroll px-0 pt-0 pb-2">
         <table className="w-full min-w-[640px] table-auto">
           <thead>
             <tr>
-              {["Full Name","Product","Image","Message","rating","Action"].map((el) => (
+              {[`${lang ==='ar'? "الاسم الكامل" : "Full Name "}`,`${lang ==='ar'? "المنتج" : "Product"}`,`${lang ==='ar'? "الصورة" :"Image"}`,`${lang ==='ar'? "الرسالة" :"Message"}`,`${lang ==='ar'? "التقييم" :"rating"}`,`${lang ==='ar'? "تنفيذ" :"Action"}`].map((el) => (
                 <th
                   key={el}
-                  className="border-b border-blue-gray-50 py-3 px-5 text-left"
+                  className="border-b border-blue-gray-50 py-3 px-5 "
                 >
                   <Typography
                     variant="small"
@@ -155,7 +157,7 @@ function Feedback() {
                           <Button 
                     onClick={() => handleShow(comment.id)} // Pass the comment ID to handleShow
                     className="text-white-600 bg-[#F5C16C] flex items-center transition duration-300 ease-in hover:shadow-lg hover:shadow-red-500">
-                            <TrashIcon className="h-5 w-5 mr-1" /> Delete
+                            <TrashIcon className="h-5 w-5 mr-1" /> {lang ==='ar'? "حذف" : "Delete "}
                           </Button>
                         </div>
                       </td>

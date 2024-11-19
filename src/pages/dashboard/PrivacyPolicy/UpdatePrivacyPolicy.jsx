@@ -9,12 +9,13 @@ import { API_URL } from "../../../App.jsx";
 import { useNavigate, useParams } from "react-router-dom";
 import Swal from "sweetalert2";
 import axios from 'axios'; 
-
+import Cookies from 'js-cookie';
 function UpdatePrivacyPolicy() {
     const [title, setTitle] = useState(""); 
     const [description, setDescription] = useState(""); 
     const { id } = useParams();
     const navigate = useNavigate();
+    const lang = Cookies.get('lang') || 'en';
 
   
     const fetchPrivacyPolicy = async () => {
@@ -73,13 +74,13 @@ function UpdatePrivacyPolicy() {
     <section className="m-8 flex gap-4">
       <div className="w-full mt-24">
         <div className="text-center">
-          <Typography variant="h2" className="font-bold mb-4">Update Privacy Policy</Typography>
+          <Typography variant="h2" className="font-bold mb-4">{lang ==='ar'? "تعدبل سياسة الخصوصية" :"Update Privacy Policy"}</Typography>
         </div>
         <form className="mt-8 mb-2 mx-auto w-80 max-w-screen-lg lg:w-1/2" onSubmit={handleUpdatePrivacyPolicy}>
           <div className="grid grid-cols-1 gap-6">
             
             <div className="flex flex-col">
-              <Typography variant="small" color="blue-gray" className="mb-2 font-medium">Title:</Typography>
+              <Typography variant="small" color="blue-gray" className="mb-2 font-medium">{lang ==='ar'? "العنوان" :"Title"}</Typography>
               <Input
                 required
                 size="lg"
@@ -92,7 +93,7 @@ function UpdatePrivacyPolicy() {
 
             
             <div className="flex flex-col">
-              <Typography variant="small" color="blue-gray" className="mb-2 font-medium">Description:</Typography>
+              <Typography variant="small" color="blue-gray" className="mb-2 font-medium">{lang ==='ar'? "الوصف" :"Description"}`</Typography>
               <Input
                 required
                 size="lg"
@@ -106,8 +107,7 @@ function UpdatePrivacyPolicy() {
           </div>
 
           <Button type="submit" className="mt-6" fullWidth>
-            Update Privacy Policy
-          </Button>
+          {lang ==='ar'? "تعدبل سياسة الخصوصية" :"Update Privacy Policy"}          </Button>
         </form>
       </div>
     </section>

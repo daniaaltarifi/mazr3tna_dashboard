@@ -9,10 +9,11 @@ import { API_URL } from "../../../App.jsx";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import axios from 'axios'; 
-
+import Cookies from 'js-cookie';
 function AddTermsAndConditions() {
     const [title, setTitle] = useState(""); 
     const [description, setDescription] = useState(""); 
+    const lang = Cookies.get('lang') || 'en';
 
     const navigate = useNavigate();
 
@@ -52,13 +53,13 @@ function AddTermsAndConditions() {
     <section className="m-8 flex gap-4">
       <div className="w-full mt-24">
         <div className="text-center">
-          <Typography variant="h2" className="font-bold mb-4">Add Terms and Conditions</Typography>
+          <Typography variant="h2" className="font-bold mb-4">{lang ==='ar'? "اضافة الشروط والأحكام" :"Add Terms and Conditions "}</Typography>
         </div>
         <form className="mt-8 mb-2 mx-auto w-80 max-w-screen-lg lg:w-1/2" onSubmit={handleAddTermsAndConditions}>
           <div className="grid grid-cols-1 gap-6">
             
             <div className="flex flex-col">
-              <Typography variant="small" color="blue-gray" className="mb-2 font-medium">Title:</Typography>
+              <Typography variant="small" color="blue-gray" className="mb-2 font-medium">{lang ==='ar'? "العنوان" :"Title"}</Typography>
               <Input
                 required
                 size="lg"
@@ -69,7 +70,7 @@ function AddTermsAndConditions() {
             </div>
 
             <div className="flex flex-col">
-              <Typography variant="small" color="blue-gray" className="mb-2 font-medium">Description:</Typography>
+              <Typography variant="small" color="blue-gray" className="mb-2 font-medium">{lang ==='ar'? "الوصف" :"Description"}`</Typography>
               <Input
                 required
                 size="lg"
@@ -82,8 +83,7 @@ function AddTermsAndConditions() {
           </div>
 
           <Button type="submit" className="mt-6" fullWidth>
-            Add Terms and Conditions
-          </Button>
+          {lang ==='ar'? "اضافة الشروط والأحكام" :"Add Terms and Conditions "}          </Button>
         </form>
       </div>
     </section>

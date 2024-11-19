@@ -21,11 +21,13 @@ import {
   } from "@material-tailwind/react";
   import { EllipsisVerticalIcon } from "@heroicons/react/24/outline";
   import { authorsTableData, projectsTableData } from "@/data";
+  import Cookies from "js-cookie";
 function Codes() {
     const navigate = useNavigate();
   const [DiscountCode, setDiscountCode] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [codeIdToDelete, setcodeIdToDelete] = useState(null); // Store the ID of the codes to delete
+  const lang = Cookies.get('lang') || 'en';
 
   const handleShow = (id) => {
     setcodeIdToDelete(id); // Set the codes ID to delete
@@ -68,7 +70,7 @@ function Codes() {
     <Card>
       <CardHeader variant="gradient" color="green" className="mb-8 p-6">
         <Typography variant="h6" color="white">
-         Discount Codes Table
+                   {lang ==='ar'? "جدول كودات الخصم " :"  Discount Codes Table  "}
         </Typography>
       </CardHeader>
       <CardBody className="overflow-x-scroll px-0 pt-0 pb-2">
@@ -77,16 +79,16 @@ function Codes() {
   className="flex bg-[#D87C55] items-center transition duration-300 ease-in hover:shadow-lg hover:shadow-green-500"
   style={{ marginLeft: '80px' }} 
 >
-  <PlusIcon className="h-5 w-5 mr-1" /> Add Code
+  <PlusIcon className="h-5 w-5 mr-1" />{lang ==='ar'? "اضافة كود" :" Add Code"}
 </Button>
 </Link>
         <table className="w-full min-w-[640px] table-auto">
           <thead>
             <tr>
-              {["Code","Discount Percentage","Expiration Date","Action"].map((el) => (
+              {[`${lang ==='ar'? "الكود" :"Code"}`,`${lang ==='ar'? "نسبة الخصم" :"Discount Percentage"}`,`${lang ==='ar'? "تاريخ الانتهاء" :"Expiration Date"}`,`${lang ==='ar'? "تنفيذ" :"Action"}`].map((el) => (
                 <th
                   key={el}
-                  className="border-b border-blue-gray-50 py-3 px-5 text-left"
+                  className="border-b border-blue-gray-50 py-3 px-5"
                 >
                   <Typography
                     variant="small"
@@ -166,13 +168,13 @@ function Codes() {
                             onClick={() => navigate(`/dashboard/updatecode/${codes.id}`)}
                             className="mr-2 bg-[#D87C55] flex items-center transition duration-300 ease-in hover:shadow-lg hover:shadow-blue-500"
                           >
-                            <PencilIcon className="h-5 w-5 mr-1" /> Edit
+                            <PencilIcon className="h-5 w-5 mr-1" /> {lang ==='ar'? "تعديل" : "Edit "}
                           </Button>
                           <Button 
                     onClick={() => handleShow(codes.id)} // Pass the codes ID to handleShow
                     className="text-white-600 bg-[#F5C16C] flex items-center transition duration-300 ease-in hover:shadow-lg hover:shadow-red-500"
                           >
-                            <TrashIcon className="h-5 w-5 mr-1" /> Delete
+                            <TrashIcon className="h-5 w-5 mr-1" />  {lang ==='ar'? "حذف" : "Delete "}
                           </Button>
                         </div>
                       </td>

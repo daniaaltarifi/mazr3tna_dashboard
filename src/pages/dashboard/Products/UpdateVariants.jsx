@@ -3,10 +3,12 @@ import { useParams, useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import { Button, Input, Typography } from '@material-tailwind/react';
 import { API_URL } from '@/App';
-
+import Cookies from 'js-cookie';
 const UpdateVariant = () => {
   const { id } = useParams();
   const navigate = useNavigate();
+  const lang = Cookies.get('lang') || 'en';
+
   const [formData, setFormData] = useState({
     size: '',
     available: 'No',
@@ -99,11 +101,12 @@ const UpdateVariant = () => {
 
   return (
     <div className="p-6">
-      <Typography variant="h4" className="mb-4">Update Bag Variant</Typography>
+      <Typography variant="h4" className="mb-4">  {lang ==='ar'? "تعديل مواصفات المنتج" : " Update  Variant  "}
+      </Typography>
       <form onSubmit={handleSubmit}>
         <div className="mb-4">
           <Input
-            label="size"
+            label=         {lang ==='ar'? "الحجم" : "size"  }
             name="size"
             value={formData.size}
             onChange={handleChange}
@@ -111,7 +114,8 @@ const UpdateVariant = () => {
           />
         </div>
         <div className="mb-4">
-          <label className="block mb-2">available</label>
+          <label className="block mb-2">     {lang ==='ar'? "متاح" : " available  "}
+          </label>
           <select
             name="available"
             value={formData.available}
@@ -120,14 +124,14 @@ const UpdateVariant = () => {
             aria-label="available"
             required
           >
-            <option value="Yes">Yes</option>
-            <option value="No">No</option>
+            <option value="Yes"> {lang ==='ar'? "نعم" : "Yes "}</option>
+            <option value="No">{lang ==='ar'? "لا" : "No "}</option>
           </select>
         </div>
         <div className="mb-4">
           <Input
             type="number"
-            label="Before Price"
+            label={lang ==='ar'? "السعر قبل" : "Before Price"}
             name="before_price"
             value={formData.before_price}
             onChange={handleChange}
@@ -137,7 +141,7 @@ const UpdateVariant = () => {
         <div className="mb-4">
           <Input
             type="number"
-            label="After Price"
+            label={lang ==='ar'? "السعر بعد" :"After Price"}
             name="after_price"
             value={formData.after_price}
             onChange={handleChange}
@@ -146,14 +150,14 @@ const UpdateVariant = () => {
         </div>
         <div className="mb-4">
           <Input
-            label="weight"
+            label={lang ==='ar'? "الوزن" :"weight"}
             name="weight" 
             value={formData.weight} 
             onChange={handleChange}
             
           />
         </div>
-        <Button type="submit" weight="black">Update Variant</Button>
+        <Button type="submit" weight="black">{lang ==='ar'? "تعديل مواصفات المنتج" : " Update  Variant  "}</Button>
       </form>
     </div>
   );

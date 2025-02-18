@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import { Link, NavLink } from "react-router-dom";
 import { XMarkIcon } from "@heroicons/react/24/outline";
-import Logo from "../../Images/modern-farm-logo-vector-24193212-removebg-preview.png"; 
+import Logo from "../../Images/mazr3tnalogo.jpg"; 
 import '../../Styles/Sidebar.css'
 import {
   Avatar,

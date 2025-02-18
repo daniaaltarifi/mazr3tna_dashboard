@@ -54,7 +54,7 @@ function UpdateCertificate() {
           icon: "success",
           confirmButtonText: "OK",
         });
-        navigate("/dashboard/brands");
+        navigate("/dashboard/certificate");
       } catch (error) {
         console.error(error);
         Swal.fire({
